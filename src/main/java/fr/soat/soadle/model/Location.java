@@ -1,11 +1,18 @@
 package fr.soat.soadle.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Location {
+public class Location implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 205367117318796213L;
+
 	@Id
 	private Long id;
 

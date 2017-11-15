@@ -1,4 +1,4 @@
-package fr.soat.soadle.web;
+package fr.soat.soadle.web.user.rest.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,7 +15,7 @@ import java.security.Principal;
  *
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/{version:v1}")
 public class UserController {
 
 	/**

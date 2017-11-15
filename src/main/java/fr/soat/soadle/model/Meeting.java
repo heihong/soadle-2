@@ -1,14 +1,25 @@
-package fr.soat.soadle.web.dto.v1;
+package fr.soat.soadle.model;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @author hakim
  *
  */
-public class SoadleMeeting {
+@Entity
+public class Meeting implements Serializable {
 	
+	private static final long serialVersionUID = -3009157732242241606L;
+
+	@Id
 	private String id;
 
 	private Date latestChange;
@@ -32,12 +43,15 @@ public class SoadleMeeting {
 	private String levels;
 
 	private String title;
-	
-	private SoadleLocation location;
 
-	private List<SoadleOption> options;
+	@ManyToOne
+	private Location location;
 
-	private List<SoadleParticipant> participants;
+	@OneToMany(orphanRemoval = true)
+	private Set<Option> options;
+
+	@ManyToMany
+	private Set<Participant> participants;
 
 	public String getId() {
 		return id;
@@ -126,13 +140,12 @@ public class SoadleMeeting {
 	public void setLevels(String levels) {
 		this.levels = levels;
 	}
-		
 
-	public SoadleLocation getLocation() {
+	public Location getLocation() {
 		return location;
 	}
 
-	public void setLocation(SoadleLocation location) {
+	public void setLocation(Location location) {
 		this.location = location;
 	}
 
@@ -144,20 +157,20 @@ public class SoadleMeeting {
 		this.title = title;
 	}
 
-	public List<SoadleOption> getOptions() {
+	public Set<Option> getOptions() {
 		return options;
 	}
 
-	public void setOptions(List<SoadleOption> soadleOptions) {
-		this.options = soadleOptions;
+	public void setOptions(Set<Option> options) {
+		this.options = options;
 	}
 
-	public List<SoadleParticipant> getParticipants() {
+	public Set<Participant> getParticipants() {
 		return participants;
 	}
 
-	public void setParticipants(List<SoadleParticipant> soadleParticipants) {
-		this.participants = soadleParticipants;
+	public void setParticipants(Set<Participant> participants) {
+		this.participants = participants;
 	}
 
 }

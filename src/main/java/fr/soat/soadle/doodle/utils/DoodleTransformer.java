@@ -11,42 +11,42 @@ import fr.soat.soadle.doodle.dto.DoodleParticipantDto;
 import fr.soat.soadle.model.Location;
 import fr.soat.soadle.model.Option;
 import fr.soat.soadle.model.Participant;
-import fr.soat.soadle.model.Soadle;
+import fr.soat.soadle.model.Meeting;
 
 /**
  * @author hakim
  *
  */
-public class DoodleTransformerUtils {
+public class DoodleTransformer {
 
 	/**
 	 * @param doodle
 	 * @return
 	 */
-	public static Soadle from(DoodleDto doodle) {
+	public static Meeting from(DoodleDto doodle) {
 		
 		if(doodle == null) return null;
 
-		Soadle soadle = new Soadle();
+		Meeting meeting = new Meeting();
 
-		soadle.setId(doodle.getId());
-		soadle.setLatestChange(doodle.getLatestChange());
-		soadle.setInitiated(doodle.getInitiated());
-		soadle.setParticipantsCount(doodle.getParticipantsCount());
-		soadle.setInviteesCount(doodle.getInviteesCount());
-		soadle.setType(doodle.getType());
-		soadle.setPreferencesType(doodle.getPreferencesType());
-		soadle.setState(doodle.getState());
-		soadle.setLocale(doodle.getLocale());
-		soadle.setDevice(doodle.getDevice());
-		soadle.setLevels(doodle.getLevels());
-		soadle.setTitle(doodle.getTitle());
-		soadle.setLocation(from(doodle.getLocation()));
+		meeting.setId(doodle.getId());
+		meeting.setLatestChange(doodle.getLatestChange());
+		meeting.setInitiated(doodle.getInitiated());
+		meeting.setParticipantsCount(doodle.getParticipantsCount());
+		meeting.setInviteesCount(doodle.getInviteesCount());
+		meeting.setType(doodle.getType());
+		meeting.setPreferencesType(doodle.getPreferencesType());
+		meeting.setState(doodle.getState());
+		meeting.setLocale(doodle.getLocale());
+		meeting.setDevice(doodle.getDevice());
+		meeting.setLevels(doodle.getLevels());
+		meeting.setTitle(doodle.getTitle());
+		meeting.setLocation(from(doodle.getLocation()));
 		
-		soadle.setParticipants(fromParticipants(doodle.getParticipants()));
-		soadle.setOptions(fromOptions(doodle.getOptions()));
+		meeting.setParticipants(fromParticipants(doodle.getParticipants()));
+		meeting.setOptions(fromOptions(doodle.getOptions()));
 
-		return soadle;
+		return meeting;
 
 	}
 

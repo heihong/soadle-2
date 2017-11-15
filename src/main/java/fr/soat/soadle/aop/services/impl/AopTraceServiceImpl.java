@@ -36,14 +36,14 @@ public class AopTraceServiceImpl implements AopTraceService {
 		
 		Method method = ((MethodSignature) proceedingJoinPoint.getSignature()).getMethod();
 		
-		LOGGER.info(" ** start " + method.getName() + " **");
+		LOGGER.info(" ** start " + proceedingJoinPoint.getThis().getClass().getSimpleName()+"."+method.getName() + " **");
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();		
 
 		Object result = proceedingJoinPoint.proceed();
 
 		stopWatch.stop();
-		LOGGER.info(" ** end " + proceedingJoinPoint.getThis().getClass().getName()+"."+method.getName() + " : " + stopWatch.getTotalTimeMillis() + " millis **");
+		LOGGER.info(" ** end " + proceedingJoinPoint.getThis().getClass().getSimpleName()+"."+method.getName() + " : " + stopWatch.getTotalTimeMillis() + " millis **");
 
 		return result;
 	}
@@ -51,7 +51,7 @@ public class AopTraceServiceImpl implements AopTraceService {
 	/**
 	 * 
 	 */
-	@Pointcut("execution(* fr.soat.soadle.services.*..*(..))||execution(* fr.soat.soadle.doodle.services.*..*(..))||execution(* fr.soat.soadle.web.rest.*..*(..))")
+	@Pointcut("execution(* fr.soat.soadle.services.*..*(..))||execution(* fr.soat.soadle.doodle.services.*..*(..))||execution(* fr.soat.soadle.web.api.rest.*..*(..))")
 	public void invocationPointcut() {
 
 	}

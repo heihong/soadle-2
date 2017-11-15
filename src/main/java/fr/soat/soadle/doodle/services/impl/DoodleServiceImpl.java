@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import fr.soat.soadle.doodle.services.ClientDoodleService;
 import fr.soat.soadle.doodle.services.DoodleService;
-import fr.soat.soadle.doodle.utils.DoodleTransformerUtils;
-import fr.soat.soadle.model.Soadle;
+import fr.soat.soadle.doodle.utils.DoodleTransformer;
+import fr.soat.soadle.model.Meeting;
 
 /**
  * @author hakim
@@ -27,10 +27,10 @@ public class DoodleServiceImpl implements DoodleService {
 	 * @see fr.soat.soadle.doodle.services.DoodleService#findDoodle(java.lang.String)
 	 */
 	@Override
-	public Soadle findDoodle(String id)
+	public Meeting findDoodle(String id)
 	{
 				 
-		 return DoodleTransformerUtils.from(clientDoodleService.findDoodle(id));
+		 return DoodleTransformer.from(clientDoodleService.findDoodle(id));
 		 
 	}
 

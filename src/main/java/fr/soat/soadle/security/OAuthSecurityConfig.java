@@ -75,7 +75,10 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Starts authorizing configurations.
                 .authorizeRequests()
                 // Ignore the "/" and "/index.html"
-                .antMatchers("/", "/**.html", "/**.js", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()                
+                .antMatchers("/", "/**.html", "/**.js").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
                 // Authenticate all remaining URLs.
                 .anyRequest().fullyAuthenticated()
                 .and()
@@ -87,8 +90,8 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // Setting the filter for the URL "/google/login".
                 .addFilterAt(filter(), BasicAuthenticationFilter.class)
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .csrf().disable()
+                .headers().frameOptions().disable();
     }
 
     /*This method for creating filter for OAuth authentication.*/

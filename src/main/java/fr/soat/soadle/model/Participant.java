@@ -1,5 +1,7 @@
 package fr.soat.soadle.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,7 +10,12 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Participant {
+public class Participant implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3308838324770542811L;
 
 	@Id
 	private String id;

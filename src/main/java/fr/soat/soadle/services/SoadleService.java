@@ -1,6 +1,8 @@
 package fr.soat.soadle.services;
 
-import fr.soat.soadle.model.Soadle;
+import java.util.List;
+
+import fr.soat.soadle.model.Meeting;
 
 /**
  * @author abenchabana
@@ -12,6 +14,9 @@ public interface SoadleService {
 	 * @param id
 	 * @return
 	 */
-	Soadle findSoadle(String id);
+	Meeting find(String id);
+	
+	
+	List<Meeting> findAll();
 
 }

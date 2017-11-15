@@ -1,4 +1,4 @@
-package fr.soat.soadle.web.utils;
+package fr.soat.soadle.web.api.utils;
 
 import java.util.List;
 import java.util.Set;
@@ -7,44 +7,55 @@ import java.util.stream.Collectors;
 import fr.soat.soadle.model.Location;
 import fr.soat.soadle.model.Option;
 import fr.soat.soadle.model.Participant;
-import fr.soat.soadle.model.Soadle;
-import fr.soat.soadle.web.dto.v1.SoadleOption;
-import fr.soat.soadle.web.dto.v1.SoadleParticipant;
-import fr.soat.soadle.web.dto.v1.SoadleLocation;
-import fr.soat.soadle.web.dto.v1.SoadleMeeting;
+import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.web.api.dto.v1.SoadleLocation;
+import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
+import fr.soat.soadle.web.api.dto.v1.SoadleOption;
+import fr.soat.soadle.web.api.dto.v1.SoadleParticipant;
 
 /**
  * @author hakim
  *
  */
-public class SoadleTransformerUtils {
+public class SoadleTransformer {
+	
+	
+
+	public static List<SoadleMeeting> to(List<Meeting> findAll) {
+		
+		if(findAll != null) return findAll.stream().map(m -> to(m)).collect(Collectors.toList());
+		
+		return null;
+	}
+		
+		
 
 	/**
 	 * @param doodle
 	 * @return
 	 */
-	public static SoadleMeeting to(Soadle soadle) {
+	public static SoadleMeeting to(Meeting meeting) {
 		
-		if(soadle == null) return null;
+		if(meeting == null) return null;
 
 		SoadleMeeting response = new SoadleMeeting();
 
-		response.setId(soadle.getId());
-		response.setLatestChange(soadle.getLatestChange());
-		response.setInitiated(soadle.getInitiated());
-		response.setParticipantsCount(soadle.getParticipantsCount());
-		response.setInviteesCount(soadle.getInviteesCount());
-		response.setType(soadle.getType());
-		response.setPreferencesType(soadle.getPreferencesType());
-		response.setState(soadle.getState());
-		response.setLocale(soadle.getLocale());
-		response.setDevice(soadle.getDevice());
-		response.setLevels(soadle.getLevels());
-		response.setTitle(soadle.getTitle());
-		response.setLocation(from(soadle.getLocation()));
+		response.setId(meeting.getId());
+		response.setLatestChange(meeting.getLatestChange());
+		response.setInitiated(meeting.getInitiated());
+		response.setParticipantsCount(meeting.getParticipantsCount());
+		response.setInviteesCount(meeting.getInviteesCount());
+		response.setType(meeting.getType());
+		response.setPreferencesType(meeting.getPreferencesType());
+		response.setState(meeting.getState());
+		response.setLocale(meeting.getLocale());
+		response.setDevice(meeting.getDevice());
+		response.setLevels(meeting.getLevels());
+		response.setTitle(meeting.getTitle());
+		response.setLocation(from(meeting.getLocation()));
 		
-		response.setParticipants(toParticipants(soadle.getParticipants()));
-		response.setOptions(toOptions(soadle.getOptions()));
+		response.setParticipants(toParticipants(meeting.getParticipants()));
+		response.setOptions(toOptions(meeting.getOptions()));
 
 		return response;
 
@@ -123,6 +134,7 @@ public class SoadleTransformerUtils {
 		
 		return response;
 	}
-		
-		
+
+
+
 }

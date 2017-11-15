@@ -1,5 +1,6 @@
 package fr.soat.soadle.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,7 +13,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="soaoption")
-public class Option {
+public class Option implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1675462543228573168L;
 
 	@Id
 	private String id;

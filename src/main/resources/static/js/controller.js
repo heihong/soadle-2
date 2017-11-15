@@ -5,7 +5,7 @@ app.controller('AppCtrl', function ($http, $scope) {
 
     // method for getting user details
     var getUser = function () {
-        $http.get('/user/user').success(function (user) {
+        $http.get('/user/v1/user').success(function (user) {
             $scope.user = user;
             console.log('Logged User : ', user);
         }).error(function (error) {
