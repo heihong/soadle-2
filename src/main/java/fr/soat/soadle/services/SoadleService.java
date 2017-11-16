@@ -22,4 +22,10 @@ public interface SoadleService {
 	 */
 	List<Meeting> findAll();
 
+	/**
+	 * @param meeting
+	 * @return
+	 */
+	Meeting save(Meeting meeting);
+
 }

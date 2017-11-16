@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.soat.soadle.model.Meeting;
 import fr.soat.soadle.repositories.MeetingRepository;
@@ -14,6 +15,7 @@ import fr.soat.soadle.services.SoadleService;
  *
  */
 @Service
+@Transactional
 public class SoadleServiceImpl implements SoadleService {
 	
 	
@@ -39,6 +41,15 @@ public class SoadleServiceImpl implements SoadleService {
 	@Override
 	public List<Meeting> findAll() {
 		return meetingRepository.findAll();
+	}
+
+
+	/**
+	 * @see fr.soat.soadle.services.SoadleService#save(fr.soat.soadle.model.Meeting)
+	 */
+	@Override
+	public Meeting save(Meeting meeting) {
+		return meetingRepository.save(meeting);
 	}
 	
 	

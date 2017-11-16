@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -44,10 +45,10 @@ public class Meeting implements Serializable {
 
 	private String title;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Location location;
 
-	@OneToMany(orphanRemoval = true)
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Set<Option> options;
 
 	@ManyToMany
