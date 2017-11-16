@@ -16,6 +16,9 @@ import fr.soat.soadle.doodle.services.ClientDoodleService;
 @Service
 public class ClientDoodleServiceImpl implements ClientDoodleService {
 
+	/**
+	 * doodle url web service
+	 */
 	@Value("${polls.doodle.url}")
 	private String pollsDoodleUrl;
 	

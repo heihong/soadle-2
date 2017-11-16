@@ -14,29 +14,34 @@ import fr.soat.soadle.web.api.dto.v1.SoadleOption;
 import fr.soat.soadle.web.api.dto.v1.SoadleParticipant;
 
 /**
+ * Transformer meeting to Soadle web service
+ * 
  * @author hakim
  *
  */
 public class SoadleTransformer {
-	
-	
-
-	public static List<SoadleMeeting> to(List<Meeting> findAll) {
-		
-		if(findAll != null) return findAll.stream().map(m -> to(m)).collect(Collectors.toList());
-		
-		return null;
-	}
-		
-		
 
 	/**
-	 * @param doodle
+	 * @param findAll
+	 *            : Soadle meetings
 	 * @return
 	 */
+	public static List<SoadleMeeting> to(List<Meeting> findAll) {
+
+		if (findAll != null)
+			return findAll.stream().map(m -> to(m)).collect(Collectors.toList());
+
+		return null;
+	}
+
+	/**
+	 * @param meeting
+	 * @return soadle meeting webservice
+	 */
 	public static SoadleMeeting to(Meeting meeting) {
-		
-		if(meeting == null) return null;
+
+		if (meeting == null)
+			return null;
 
 		SoadleMeeting response = new SoadleMeeting();
 
@@ -53,7 +58,7 @@ public class SoadleTransformer {
 		response.setLevels(meeting.getLevels());
 		response.setTitle(meeting.getTitle());
 		response.setLocation(from(meeting.getLocation()));
-		
+
 		response.setParticipants(toParticipants(meeting.getParticipants()));
 		response.setOptions(toOptions(meeting.getOptions()));
 
@@ -61,49 +66,47 @@ public class SoadleTransformer {
 
 	}
 
-	
-
 	/**
 	 * @param location
 	 * @return
 	 */
 	private static SoadleLocation from(Location location) {
-		if(location == null) return null;
-		
+		if (location == null)
+			return null;
+
 		SoadleLocation soadleLocation = new SoadleLocation();
-		
+
 		soadleLocation.setName(location.getName());
 		soadleLocation.setCategory(location.getCategory());
-		
+
 		return soadleLocation;
 	}
-	
-	
+
 	/**
 	 * @param options
 	 * @return
 	 */
 	private static List<SoadleOption> toOptions(Set<Option> options) {
-		
-		if(options!= null) return options.stream().map(o -> to(o)).collect(Collectors.toList());
-		
+
+		if (options != null)
+			return options.stream().map(o -> to(o)).collect(Collectors.toList());
+
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param option
 	 * @return
 	 */
 	private static SoadleOption to(Option option) {
-		
+
 		SoadleOption response = new SoadleOption();
-		
+
 		response.setAllday(option.getAllday());
 		response.setAvailable(option.getAvailable());
 		response.setDate(option.getDate());
 		response.setStart(option.getStart());
-		
+
 		return response;
 	}
 
@@ -112,29 +115,25 @@ public class SoadleTransformer {
 	 * @return
 	 */
 	private static List<SoadleParticipant> toParticipants(Set<Participant> participants) {
-		
-		if(participants!= null) return participants.stream().map(p -> to(p)).collect(Collectors.toList());
-		
-		
+
+		if (participants != null)
+			return participants.stream().map(p -> to(p)).collect(Collectors.toList());
+
 		return null;
 	}
 
-	
-	
 	/**
 	 * @param participant
 	 * @return
 	 */
 	private static SoadleParticipant to(Participant participant) {
-		
+
 		SoadleParticipant response = new SoadleParticipant();
-		
+
 		response.setId(participant.getId());
 		response.setName(participant.getName());
-		
+
 		return response;
 	}
-
-
 
 }

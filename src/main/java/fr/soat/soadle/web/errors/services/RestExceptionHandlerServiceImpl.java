@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 
 /**
+ * Provide centralized exception handling
+ * 
  * @author abenchabana
  *
  */
@@ -31,24 +33,40 @@ public class RestExceptionHandlerServiceImpl extends ResponseEntityExceptionHand
 
     // 400
 
+    /**
+     * @param ex : constrain violation exception
+     * @param request : request web
+     * @return response request
+     */
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<Object> handleBadRequest(final ConstraintViolationException ex, final WebRequest request) {
         final String bodyOfResponse = "Error ConstraintViolationException "+ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    /**
+     * @param ex : integrity violation exception
+     * @param request : request web
+     * @return response request
+     */
     @ExceptionHandler({ DataIntegrityViolationException.class })
     public ResponseEntity<Object> handleBadRequest(final DataIntegrityViolationException ex, final WebRequest request) {
         final String bodyOfResponse = "Error DataIntegrityViolationException "+ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    /**     
+     * @see org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler#handleHttpMessageNotReadable(org.springframework.http.converter.HttpMessageNotReadableException, org.springframework.http.HttpHeaders, org.springframework.http.HttpStatus, org.springframework.web.context.request.WebRequest)
+     */
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         final String bodyOfResponse = "technical error "+ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+    /**     
+     * @see org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler#handleMethodArgumentNotValid(org.springframework.web.bind.MethodArgumentNotValidException, org.springframework.http.HttpHeaders, org.springframework.http.HttpStatus, org.springframework.web.context.request.WebRequest)
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         final String bodyOfResponse = "technical error "+ex.getMessage();
@@ -58,6 +76,11 @@ public class RestExceptionHandlerServiceImpl extends ResponseEntityExceptionHand
 
     // 404
 
+    /**
+     * @param ex : entity not found exception
+     * @param request : request web
+     * @return response request
+     */
     @ExceptionHandler(value = { EntityNotFoundException.class })
     protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {
         final String bodyOfResponse = "not found  entity";
@@ -66,6 +89,11 @@ public class RestExceptionHandlerServiceImpl extends ResponseEntityExceptionHand
 
     // 409
 
+    /**
+     * @param ex : data access exception
+     * @param request
+     * @return response request
+     */
     @ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class })
     protected ResponseEntity<Object> handleConflict(final RuntimeException ex, final WebRequest request) {
         final String bodyOfResponse = "technical error "+ex.getMessage();
@@ -76,6 +104,11 @@ public class RestExceptionHandlerServiceImpl extends ResponseEntityExceptionHand
 
     // 500
 
+    /**
+     * @param ex : null pointer , illegalArgument, illegalState exception
+     * @param request : request web
+     * @return response request
+     */
     @ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class })
     /*500*/public ResponseEntity<Object> handleInternal(final RuntimeException ex, final WebRequest request) {
         logger.error("500 Status Code", ex);

@@ -16,11 +16,12 @@ import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticat
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /**
+ * Security Configuration  
+ * 
  * @author hakim
- *
+ * 
  */
 @Configuration
 @EnableGlobalAuthentication
@@ -28,56 +29,81 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * The OAuth 2 security context
+     */
     private OAuth2ClientContext oauth2ClientContext;
     
+    /**
+     *  Details for an OAuth2-protected resource.
+     */
     private AuthorizationCodeResourceDetails authorizationCodeResourceDetails;
     
+    /**
+     * Configuration properties for OAuth2 Resources.
+     */
     private ResourceServerProperties resourceServerProperties;
     
 
+    /**
+     * @param oauth2ClientContext
+     */
     @Autowired
     public void setOauth2ClientContext(OAuth2ClientContext oauth2ClientContext) {
         this.oauth2ClientContext = oauth2ClientContext;
     }
 
+    /**
+     * @param authorizationCodeResourceDetails
+     */
     @Autowired
     public void setAuthorizationCodeResourceDetails(AuthorizationCodeResourceDetails authorizationCodeResourceDetails) {
         this.authorizationCodeResourceDetails = authorizationCodeResourceDetails;
     }
 
+    /**
+     * @param resourceServerProperties
+     */
     @Autowired
     public void setResourceServerProperties(ResourceServerProperties resourceServerProperties) {
         this.resourceServerProperties = resourceServerProperties;
     }
 
-    /* This method is for overriding the default AuthenticationManagerBuilder.
-     We can specify how the user details are kept in the application. It may
-     be in a database, LDAP or in memory.*/
+    /**
+     *  This method is for overriding the default AuthenticationManagerBuilder.
+     *  We can specify how the user details are kept in the application. It may
+     *  be in a database, LDAP or in memory.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
     }
 
-    /* This method is for overriding some configuration of the WebSecurity
-     If you want to ignore some request or request patterns then you can
-     specify that inside this method.*/
+    /**
+     * This method is for overriding some configuration of the WebSecurity
+     * If you want to ignore some request or request patterns then you can
+     * specify that inside this method.
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
     }
 
-    /*This method is used for override HttpSecurity of the web Application.
-    We can specify our authorization criteria inside this method.*/
+    /**
+     * This method is used for override HttpSecurity of the web Application.
+     * We can specify our authorization criteria inside this method.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
                 // Starts authorizing configurations.
                 .authorizeRequests()
-                // Ignore the "/" and "/index.html"
+                // Ignore the "/", "/index.html and .js"
                 .antMatchers("/", "/**.html", "/**.js").permitAll()
                 .and()
                 .authorizeRequests()
+                // Ignore swagger 
                 .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
                 // Authenticate all remaining URLs.
                 .anyRequest().fullyAuthenticated()
@@ -90,11 +116,15 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // Setting the filter for the URL "/google/login".
                 .addFilterAt(filter(), BasicAuthenticationFilter.class)
+                // Disable CRSF for H2
                 .csrf().disable()
+                // Disable X-Frame-Options for H2
                 .headers().frameOptions().disable();
     }
 
-    /*This method for creating filter for OAuth authentication.*/
+    /**
+     * This method for creating filter for OAuth authentication.
+     */
     private OAuth2ClientAuthenticationProcessingFilter filter() {
         //Creating the filter for "/google/login" url
         OAuth2ClientAuthenticationProcessingFilter oAuth2Filter = new OAuth2ClientAuthenticationProcessingFilter(

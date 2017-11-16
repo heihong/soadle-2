@@ -13,6 +13,8 @@ import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
 
 /**
+ * Soadle controller 
+ * 
  * @author hakim
  *
  */
@@ -20,10 +22,17 @@ import fr.soat.soadle.web.api.utils.SoadleTransformer;
 @RequestMapping("/api/{version:v1}/soadle")
 public class SoadleController {
 
+	/**
+	 * Sodale service meeting 
+	 */
 	@Autowired
 	private SoadleService soadleService;
 
 
+	/**
+	 * @param id : id of soadle meeting 
+	 * @return  soadle meeting
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public SoadleMeeting soadle(@PathVariable("id") String id) {
 
@@ -31,6 +40,9 @@ public class SoadleController {
 	}
 	
 	
+	/**
+	 * @return all sodale meetings
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public List<SoadleMeeting> all() {
 

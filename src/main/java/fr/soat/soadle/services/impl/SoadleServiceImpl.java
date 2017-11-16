@@ -33,6 +33,9 @@ public class SoadleServiceImpl implements SoadleService {
 	}
 
 
+	/**
+	 * @see fr.soat.soadle.services.SoadleService#findAll()
+	 */
 	@Override
 	public List<Meeting> findAll() {
 		return meetingRepository.findAll();

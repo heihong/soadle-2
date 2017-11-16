@@ -12,6 +12,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
 @SpringBootApplication
 @EnableSwagger2
 public class SoadleApplication {
@@ -20,11 +21,19 @@ public class SoadleApplication {
 		SpringApplication.run(SoadleApplication.class, args);
 	}
 
+	/**
+	 * @return  restTemplate bean 
+	 */
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}	
 	  
+    /**
+     * deleting web services boot and cloud from swagger 
+     *  
+     * @return
+     */
     @Bean
     public Docket api() {
     	return new Docket(DocumentationType.SWAGGER_2).select() 

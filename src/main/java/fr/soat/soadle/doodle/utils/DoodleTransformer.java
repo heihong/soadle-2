@@ -14,6 +14,8 @@ import fr.soat.soadle.model.Participant;
 import fr.soat.soadle.model.Meeting;
 
 /**
+ * Transformer doodle meeting to model meeting 
+ * 
  * @author hakim
  *
  */

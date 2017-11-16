@@ -17,6 +17,8 @@ import fr.soat.soadle.aop.services.AopTraceService;
 
 
 /**
+ * Trace durations of services
+ * 
  * @author abenchabana
  *
  */

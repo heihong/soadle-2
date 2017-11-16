@@ -10,8 +10,8 @@ public interface DoodleService {
 	
 	
 	/**
-	 * @param id
-	 * @return
+	 * @param id : id of doodle meeting 
+	 * @return  doodle meeting
 	 */
 	Meeting findDoodle(String id);
 

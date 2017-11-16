@@ -11,6 +11,7 @@ import fr.soat.soadle.security.services.AuthenticationService;
 import java.security.Principal;
 
 /**
+ * user controller
  * @author abenchabana
  *
  */
@@ -26,7 +27,7 @@ public class UserController {
 
 	/**
 	 * @param user
-	 * @return
+	 * @return user authentication
 	 */
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public Principal user(Principal user) {
@@ -34,7 +35,7 @@ public class UserController {
 	}
 
 	/**
-	 * @return
+	 * @return customer authentication
 	 */
 	@RequestMapping(value = "/auth", method = RequestMethod.GET)
 	public Authentication auth() {
