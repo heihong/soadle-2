@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import com.google.common.base.Predicates;
 
@@ -41,5 +42,20 @@ public class SoadleApplication {
     	          .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.cloud"))) 
     	             .build();
     }
+    
+    
+    /**
+     * @return  logging filter request 
+     */
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter crlf = new CommonsRequestLoggingFilter();
+        crlf.setIncludeClientInfo(true);
+        crlf.setIncludeQueryString(true);
+        crlf.setIncludePayload(true);
+        return crlf;
+    }
+    
+ 
 
 }
