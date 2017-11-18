@@ -3,10 +3,7 @@ package fr.soat.soadle.web.api.rest.v1;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.soat.soadle.services.SoadleService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
@@ -48,6 +45,17 @@ public class SoadleController {
 
 		return SoadleTransformer.to(soadleService.findAll());
 	}
+
+	/**
+	 * @param doodleReference : reference to doodle meeting
+	 * @return  doodle meeting
+	 */
+	@RequestMapping(value = "/add-doodle-meeting", method = RequestMethod.POST)
+	public SoadleMeeting addDoodleMeeting(@RequestBody String doodleReference) {
+
+		return SoadleTransformer.to(soadleService.addDoodleMeeting(doodleReference));
+	}
+
 
 
 }

@@ -21,11 +21,15 @@ public interface SoadleService {
 	 * @return all sodale meetings 
 	 */
 	List<Meeting> findAll();
+    /**
+     * @param meeting
+     * @return
+     */
+    Meeting save(Meeting meeting);
 
 	/**
-	 * @param meeting
-	 * @return
+	 * @param doodleReference: id of doodle meeting
+	 * @return Soadle Meeting
 	 */
-	Meeting save(Meeting meeting);
-
+	Meeting addDoodleMeeting(String doodleReference);
 }

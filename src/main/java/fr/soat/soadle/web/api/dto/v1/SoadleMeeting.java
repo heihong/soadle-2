@@ -39,6 +39,11 @@ public class SoadleMeeting {
 
 	private List<SoadleParticipant> participants;
 
+	private String doodleReference;
+
+	private Date importationDate;
+
+
 	public String getId() {
 		return id;
 	}
@@ -160,7 +165,21 @@ public class SoadleMeeting {
 		this.participants = soadleParticipants;
 	}
 
+	public String getDoodleReference() {
+		return doodleReference;
+	}
 
+	public void setDoodleReference(String doodleReference) {
+		this.doodleReference = doodleReference;
+	}
+
+	public Date getImportationDate() {
+		return importationDate;
+	}
+
+	public void setImportationDate(Date importationDate) {
+		this.importationDate = importationDate;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
