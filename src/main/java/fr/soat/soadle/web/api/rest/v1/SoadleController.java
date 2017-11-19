@@ -24,7 +24,7 @@ public class SoadleController {
 	 */
 	@Autowired
 	private SoadleService soadleService;
-
+	
 
 	/**
 	 * @param id : id of soadle meeting 
@@ -45,17 +45,6 @@ public class SoadleController {
 
 		return SoadleTransformer.to(soadleService.findAll());
 	}
-
-	/**
-	 * @param doodleReference : reference to doodle meeting
-	 * @return  doodle meeting
-	 */
-	@RequestMapping(value = "/add-doodle-meeting", method = RequestMethod.POST)
-	public SoadleMeeting addDoodleMeeting(@RequestBody String doodleReference) {
-
-		return SoadleTransformer.to(soadleService.addDoodleMeeting(doodleReference));
-	}
-
 
 
 }

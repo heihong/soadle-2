@@ -27,9 +27,4 @@ public interface SoadleService {
      */
     Meeting save(Meeting meeting);
 
-	/**
-	 * @param doodleReference: id of doodle meeting
-	 * @return Soadle Meeting
-	 */
-	Meeting addDoodleMeeting(String doodleReference);
 }
