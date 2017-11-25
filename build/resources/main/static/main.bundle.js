@@ -67,8 +67,9 @@ var AppComponent = (function () {
         this.result = '';
     }
     AppComponent.prototype.sayHello = function () {
+        var _this = this;
         this.result = 'loading...';
-        //   this.http.get(`api/hello-world`).subscribe(response => this.result = response.text());
+        this.http.get("api/hello-world").subscribe(function (response) { return _this.result = response.text(); });
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
