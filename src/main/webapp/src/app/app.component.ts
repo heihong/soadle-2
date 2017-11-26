@@ -24,8 +24,8 @@ export class AppComponent implements OnInit{
   constructor(private http: Http){
   }
 
-  private getEvent(): void {
-    this.http.get(`/api/v1/doodle/s3uqv8qkvx3gvkz7`)
+  private getDoodle(id): void {
+    this.http.get(`/api/v1/doodle/${id}`)
     .subscribe(response => this.result = response.json());
   }
 
