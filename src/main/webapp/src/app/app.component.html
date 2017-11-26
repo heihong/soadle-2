@@ -38,9 +38,9 @@
 
 <div class="container" style="margin-top: 50px;">
   <div class="panel panel-hello" *ngIf="resulUser">
-	<button class="btn btn-default" (click)="sayHello()">hello</button>
+	<button class="btn btn-default" (click)="getEvent()">click pour afficher l'evenement</button>
 	<div>Titre de l'evenenement :  {{result.title}}</div>
-	<div>Lieu : {{result.location.name}} {{result.location.address}}</div>
+	<div>Lieu : {{result.location.name}}</div>
 	<div>Nombre de participant : {{result.participantsCount}}</div>
 	<div>Liste des participants:</div>
 
@@ -49,14 +49,12 @@
 	    <tr>
 	      <th class="col">#</th>
 	      <th class="col">Prenom</th>
-	      <th class="col">Participe</th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <tr *ngFor="let participant of result.participants; let idx = index">
 	      <th class="col">{{idx}}</th>
 	      <td class="col">{{participant.name}}</td>
-	      <td class="col">{{participant.preferences[0]}}</td>
 	    </tr>
 	  </tbody>
 	</table>
