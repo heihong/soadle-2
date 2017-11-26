@@ -7,13 +7,13 @@ import 'rxjs/add/operator/map'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css', './bootstrap.min.css']
 })
 export class AppComponent implements OnInit{
   title = 'app works!';
   result = {};
   user ={};
-  resulUser = {};
+  resulUser = null;
   
   ngOnInit() {
       this.getUser()
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit{
 
      private logout(): void {
       this.http.get(`/logout`)
-      .subscribe(response => this.result = null);
+      .subscribe(response => this.resulUser = null);
     }
 
 }

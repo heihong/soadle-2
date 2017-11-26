@@ -100,7 +100,7 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Starts authorizing configurations.
                 .authorizeRequests()
                 // Ignore the "/", "/index.html and .js"
-                .antMatchers("/", "/**.html", "/**.js").permitAll()
+                .antMatchers("/", "/**.html", "/**.js", "/**.css").permitAll()
                 .and()
                 .authorizeRequests()
                 // Ignore swagger 
