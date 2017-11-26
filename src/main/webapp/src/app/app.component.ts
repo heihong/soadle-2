@@ -9,14 +9,13 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'app works!';
-  result = '';
+  result = {};
 
   constructor(private http: Http){
   }
 
   private sayHello(): void {
-    this.result = 'loading...';
-    this.http.get(`/api/hello-world`).subscribe(response => this.result = response.text());
+    this.http.get(`/api/v1/doodle/2bawsrkfwanfrhqp`).subscribe(response => this.result = response);
   }
 
 }
