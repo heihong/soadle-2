@@ -63,7 +63,22 @@ public class SoadleParticipant implements Comparable<SoadleParticipant> {
 	public int compareTo(SoadleParticipant arg0) {
 		if(arg0 == null) return -1;
 		
-		return this.name.compareTo(arg0.getName());
+		int compare = this.name.compareTo(arg0.getName());
+		
+		if(compare != 0)  return compare;
+		
+		if(this.id == null && arg0.getId() != null)
+		{
+			return 1;
+		} else if(this.id != null && arg0.getId() == null)
+		{
+			return -1;
+		} else if(this.id == null && arg0.getId() == null)
+		{
+			return 0;
+		} 
+		
+		return this.id.compareTo(arg0.getId());		
 	}
 	
 	
