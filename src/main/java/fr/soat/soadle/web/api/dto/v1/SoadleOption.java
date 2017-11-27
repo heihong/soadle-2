@@ -2,6 +2,8 @@ package fr.soat.soadle.web.api.dto.v1;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 /**
  * @author hakim
@@ -36,6 +38,7 @@ public class SoadleOption {
 		this.start = start;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
 	public Date getDate() {
 		return date;
 	}
