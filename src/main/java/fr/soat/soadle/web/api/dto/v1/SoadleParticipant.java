@@ -4,7 +4,7 @@ package fr.soat.soadle.web.api.dto.v1;
  * @author hakim
  *
  */
-public class SoadleParticipant {
+public class SoadleParticipant implements Comparable<SoadleParticipant> {
 	
 	private String id;
 
@@ -57,6 +57,13 @@ public class SoadleParticipant {
 
 	public void setPreference(Boolean preference) {
 		this.preference = preference;
+	}
+
+	@Override
+	public int compareTo(SoadleParticipant arg0) {
+		if(arg0 == null) return -1;
+		
+		return this.name.compareTo(arg0.getName());
 	}
 	
 	

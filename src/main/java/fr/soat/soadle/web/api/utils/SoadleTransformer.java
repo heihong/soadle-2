@@ -117,7 +117,7 @@ public class SoadleTransformer {
 	private static List<SoadleParticipant> toParticipants(Set<Participant> participants) {
 
 		if (participants != null)
-			return participants.stream().map(p -> to(p)).collect(Collectors.toList());
+			return participants.stream().map(p -> to(p)).sorted().collect(Collectors.toList());
 
 		return null;
 	}
