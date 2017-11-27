@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import fr.soat.soadle.doodle.dto.DoodleDto;
 import fr.soat.soadle.doodle.dto.DoodleLocationDto;
 import fr.soat.soadle.doodle.dto.DoodleOptionDto;
@@ -117,7 +119,8 @@ public class DoodleTransformer {
 		Participant participant = new Participant();
 		
 		participant.setId(doodleParticipantDto.getId());
-		participant.setName(doodleParticipantDto.getName());
+		participant.setName(doodleParticipantDto.getName());		
+		participant.setPreference(CollectionUtils.isNotEmpty(doodleParticipantDto.getPreferences()) && doodleParticipantDto.getPreferences().get(0) ==1 );
 		
 		return participant;
 	}

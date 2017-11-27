@@ -132,6 +132,7 @@ public class SoadleTransformer {
 
 		response.setId(participant.getId());
 		response.setName(participant.getName());
+		response.setPreference(participant.getPreference());
 
 		return response;
 	}

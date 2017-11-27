@@ -15,7 +15,7 @@ public class Meeting implements Serializable {
     private static final long serialVersionUID = -3009157732242241606L;
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     private Date latestChange;
@@ -50,7 +50,7 @@ public class Meeting implements Serializable {
 	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Set<Option> options;
 
-    @ManyToMany
+	@OneToMany
     private Set<Participant> participants;
 
     public String getId() {

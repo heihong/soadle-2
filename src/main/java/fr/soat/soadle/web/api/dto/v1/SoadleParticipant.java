@@ -9,6 +9,8 @@ public class SoadleParticipant {
 	private String id;
 
 	private String name;
+	
+	private Boolean preference;
 
 	public String getId() {
 		return id;
@@ -47,6 +49,14 @@ public class SoadleParticipant {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public Boolean getPreference() {
+		return preference;
+	}
+
+	public void setPreference(Boolean preference) {
+		this.preference = preference;
 	}
 	
 	
