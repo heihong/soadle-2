@@ -11,13 +11,13 @@ import 'rxjs/add/operator/map'
 })
 export class AppComponent implements OnInit{
   title = 'app works!';
-  result = {};
+  result = null;
   user ={};
   resulUser = null;
   
   ngOnInit() {
       this.getUser()
-      .subscribe(response => this.resulUser = response);
+      .subscribe(response => this.resulUser = response);      
   }
 
 
@@ -26,12 +26,12 @@ export class AppComponent implements OnInit{
 
   private getDoodle(id): void {
     this.http.get(`/api/v1/doodle/${id}`)
-    .subscribe(response => this.result = response.json());
+    .subscribe(response => this.result = response.json() , e => this.result = null);
   }
 
   private getUser() {
     return   this.http.get(`/user/v1/user`)
-      .map((response : Response) => this.result = response.json())
+      .map((response : Response) => this.resulUser = response.json())
       .catch(this.handleError);
 
     }
