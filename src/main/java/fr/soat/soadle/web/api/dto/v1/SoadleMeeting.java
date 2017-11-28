@@ -33,7 +33,9 @@ public class SoadleMeeting {
 
 	private String title;
 	
-	private SoadleLocation location;
+	private String description;
+	
+	private SoadleLocation location;	
 
 	private List<SoadleOption> options;
 
@@ -147,6 +149,16 @@ public class SoadleMeeting {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public List<SoadleOption> getOptions() {

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Location implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -21,9 +21,10 @@ public class Location implements Serializable {
 
 	private String name;
 
+	private String address;
+
 	private String category;
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -38,6 +39,14 @@ public class Location implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getCategory() {

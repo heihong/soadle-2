@@ -8,7 +8,7 @@ import java.util.List;
  *
  */
 public class DoodleDto {
-	
+
 	private String id;
 
 	private Date latestChange;
@@ -32,9 +32,11 @@ public class DoodleDto {
 	private String levels;
 
 	private String title;
-	
+
 	private DoodleLocationDto location;
-	
+
+	private String description;
+
 	private DoodleInitiatorDto initiator;
 
 	private List<DoodleOptionDto> options;
@@ -113,6 +115,14 @@ public class DoodleDto {
 		this.locale = locale;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getDevice() {
 		return device;
 	}
@@ -136,7 +146,6 @@ public class DoodleDto {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 
 	public DoodleLocationDto getLocation() {
 		return location;

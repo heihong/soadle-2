@@ -24,7 +24,13 @@ public class Participant implements Serializable {
 	private String id;
 
 	private String name;
-	
+
+	private String userId;
+
+	private String smallAvatarUrl;
+
+	private String largeAvatarUrl;
+
 	private Boolean preference;
 
 	public String getId() {
@@ -43,6 +49,30 @@ public class Participant implements Serializable {
 		this.name = name;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getSmallAvatarUrl() {
+		return smallAvatarUrl;
+	}
+
+	public void setSmallAvatarUrl(String smallAvatarUrl) {
+		this.smallAvatarUrl = smallAvatarUrl;
+	}
+
+	public String getLargeAvatarUrl() {
+		return largeAvatarUrl;
+	}
+
+	public void setLargeAvatarUrl(String largeAvatarUrl) {
+		this.largeAvatarUrl = largeAvatarUrl;
+	}
+
 	public Boolean getPreference() {
 		return preference;
 	}
@@ -50,7 +80,5 @@ public class Participant implements Serializable {
 	public void setPreference(Boolean preference) {
 		this.preference = preference;
 	}
-	
-	
 
 }

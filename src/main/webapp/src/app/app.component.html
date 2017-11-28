@@ -36,44 +36,57 @@
 </div>
 
 
-<div class="container" style="margin: 0 auto; margin-top: 10px;width: 95%;">
+<div class="container" style="margin: 0 auto; margin-top: 1px;">
   <div class="panel panel-hello" *ngIf="resulUser">
   <div>  
 	<button class="btn btn-default" (click)="getDoodle(id.value)">Afficher l'evenement</button>&nbsp;
-	<input #id placeholder="id" required  value="s3uqv8qkvx3gvkz7"  style="background-color: #adff2f; height: 30px; width: 100px;">
+	<input #id placeholder="id" required  value="s3uqv8qkvx3gvkz7"  style="background-color: #b8dc6f; height: 30px; width: 100px;">
    </div>
-   <div> 
-   <BR>
-   </div>
-   
-   <div style="padding:3px; border:2px solid #9acd32;" *ngIf="result"> 
+  
+   <div style="padding:3px; margin-top: 3px; border:2px solid #b8dc6f;" *ngIf="result"> 
    <table>
-   <tr>
-		<td style="width: 50%;"><b>Titre de l'evenement :</b></td><td style="width: 50%;">{{result.title}}</td>
+     <tr>
+        <th width="50%"></th>
+        <th width="50%"></th>
 	</tr>
-	<tr>
-		<td style="width: 50%;"><b>Date de l'evenement :</b></td><td style="width: 50%;">{{result.options[0].date}}</td>		
-	</tr>	
-	<tr>
-		<td style="width: 50%;"><b>Lieu de l'evenement :</b></td><td style="width: 50%;">{{result.location.name}}</td>
-	</tr>
-	<tr>
-		<td style="width: 50%;"><b>Nombre de participant :</b></td><td style="width: 50%;">{{result.participantsCount}}</td>
-	</tr>
+   <tbody>
+	   <tr>
+			<td><b>Titre de l'evenement :</b></td><td><a href="https://doodle.com/poll/{{result.id}}" target=_blank>{{result.title}}</a></td>			
+		</tr>
+		<tr>
+		<td><b>Description de l'evenement :</b></td><td>{{result.description}}</td>
+		</tr>
+		<tr>
+			<td><b>Date de l'evenement :</b></td><td>{{result.options[0].date}}</td>		
+		</tr>	
+		<tr>
+			<td><b>Lieu de l'evenement :</b></td>
+			<td>
+				<a href="https://www.google.fr/maps/place/{{result.location.name}} {{result.location.address}}" target=_blank>
+				{{result.location.name}} {{result.location.address}}
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td><b>Nombre de participant :</b></td><td>{{result.participantsCount}}</td>
+		</tr>
+	</tbody>
 	</table>
    </div>
-	<div style="width:  100%;  height: 370px; overflow-y: auto;  overflow-x:hidden;" *ngIf="result">
+	<div style=" height: 370px; overflow-y: auto;  overflow-x:hidden;" *ngIf="result">
 		<table class="table">
 		  <thead>
 		    <tr>
-		      <th _ngcontent-c0="" class="col" style="width: 10%;" >#</th>
-		      <th _ngcontent-c0="" class="col" style="width: 70%;">Participant </th>
-		      <th _ngcontent-c0="" class="col" style="width: 20%;">Preference</th>
+		      <th _ngcontent-c0="" class="col" style="width: 5%;" >#</th>
+		      <th _ngcontent-c0="" class="col" style="width: 5%;" ></th>
+		      <th _ngcontent-c0="" class="col" style="width: 75%;" >Participant </th>
+		      <th _ngcontent-c0="" class="col" style="width: 15%;" >Preference</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr *ngFor="let participant of result.participants; let idx = index" [ngStyle]="{'backgroundColor': participant.preference == true ? '#adff2f' : '#ffc0cb' }">
-		      <th class="col">{{idx}}</th>
+		    <tr *ngFor="let participant of result.participants; let idx = index" [ngStyle]="{'backgroundColor': participant.preference == true ? '#b8dc6f' : '#ffc0cb' }">
+		      <td class="col">{{idx}}</td>
+		      <td class="col"  align="right" ><img  class="p-img-tab"  alt="" src="{{participant.smallAvatarUrl}}"></td>
 		      <td class="col">{{participant.name}}</td>
 		      <td class="col"><INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" disabled ></td>
 		    </tr>

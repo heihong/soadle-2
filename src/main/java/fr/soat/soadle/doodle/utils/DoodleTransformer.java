@@ -45,6 +45,7 @@ public class DoodleTransformer {
 		meeting.setDevice(doodle.getDevice());
 		meeting.setLevels(doodle.getLevels());
 		meeting.setTitle(doodle.getTitle());
+		meeting.setDescription(doodle.getDescription());
 		meeting.setLocation(from(doodle.getLocation()));
 		
 		meeting.setParticipants(fromParticipants(doodle.getParticipants()));
@@ -64,6 +65,7 @@ public class DoodleTransformer {
 		Location location = new Location();
 		
 		location.setName(doodleLocation.getName());
+		location.setAddress(doodleLocation.getAddress());
 		location.setCategory(doodleLocation.getCategory());
 		
 		return location;
@@ -120,6 +122,9 @@ public class DoodleTransformer {
 		
 		participant.setId(doodleParticipantDto.getId());
 		participant.setName(doodleParticipantDto.getName());		
+		participant.setSmallAvatarUrl(doodleParticipantDto.getSmallAvatarUrl());
+		participant.setLargeAvatarUrl(doodleParticipantDto.getLargeAvatarUrl());
+		participant.setUserId(doodleParticipantDto.getUserId());
 		participant.setPreference(CollectionUtils.isNotEmpty(doodleParticipantDto.getPreferences()) && doodleParticipantDto.getPreferences().get(0) ==1 );
 		
 		return participant;

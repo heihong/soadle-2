@@ -5,11 +5,17 @@ package fr.soat.soadle.web.api.dto.v1;
  *
  */
 public class SoadleParticipant implements Comparable<SoadleParticipant> {
-	
+
 	private String id;
 
 	private String name;
-	
+
+	private String userId;
+
+	private String smallAvatarUrl;
+
+	private String largeAvatarUrl;
+
 	private Boolean preference;
 
 	public String getId() {
@@ -28,6 +34,29 @@ public class SoadleParticipant implements Comparable<SoadleParticipant> {
 		this.name = name;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getSmallAvatarUrl() {
+		return smallAvatarUrl;
+	}
+
+	public void setSmallAvatarUrl(String smallAvatarUrl) {
+		this.smallAvatarUrl = smallAvatarUrl;
+	}
+
+	public String getLargeAvatarUrl() {
+		return largeAvatarUrl;
+	}
+
+	public void setLargeAvatarUrl(String largeAvatarUrl) {
+		this.largeAvatarUrl = largeAvatarUrl;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -61,26 +90,23 @@ public class SoadleParticipant implements Comparable<SoadleParticipant> {
 
 	@Override
 	public int compareTo(SoadleParticipant arg0) {
-		if(arg0 == null) return -1;
-		
-		int compare = this.name.compareTo(arg0.getName());
-		
-		if(compare != 0)  return compare;
-		
-		if(this.id == null && arg0.getId() != null)
-		{
-			return 1;
-		} else if(this.id != null && arg0.getId() == null)
-		{
+		if (arg0 == null)
 			return -1;
-		} else if(this.id == null && arg0.getId() == null)
-		{
+
+		int compare = this.name.compareTo(arg0.getName());
+
+		if (compare != 0)
+			return compare;
+
+		if (this.id == null && arg0.getId() != null) {
+			return 1;
+		} else if (this.id != null && arg0.getId() == null) {
+			return -1;
+		} else if (this.id == null && arg0.getId() == null) {
 			return 0;
-		} 
-		
-		return this.id.compareTo(arg0.getId());		
+		}
+
+		return this.id.compareTo(arg0.getId());
 	}
-	
-	
 
 }

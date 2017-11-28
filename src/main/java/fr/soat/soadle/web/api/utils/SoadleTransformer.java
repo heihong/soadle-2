@@ -57,6 +57,7 @@ public class SoadleTransformer {
 		response.setDevice(meeting.getDevice());
 		response.setLevels(meeting.getLevels());
 		response.setTitle(meeting.getTitle());
+		response.setDescription(meeting.getDescription());
 		response.setLocation(from(meeting.getLocation()));
 
 		response.setParticipants(toParticipants(meeting.getParticipants()));
@@ -77,6 +78,7 @@ public class SoadleTransformer {
 		SoadleLocation soadleLocation = new SoadleLocation();
 
 		soadleLocation.setName(location.getName());
+		soadleLocation.setAddress(location.getAddress());
 		soadleLocation.setCategory(location.getCategory());
 
 		return soadleLocation;
@@ -132,6 +134,9 @@ public class SoadleTransformer {
 
 		response.setId(participant.getId());
 		response.setName(participant.getName());
+		response.setUserId(participant.getUserId());
+		response.setSmallAvatarUrl(participant.getSmallAvatarUrl());
+		response.setLargeAvatarUrl(participant.getLargeAvatarUrl());
 		response.setPreference(participant.getPreference());
 
 		return response;

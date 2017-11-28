@@ -43,6 +43,8 @@ public class Meeting implements Serializable {
     private String doodleReference;
 
     private Date importationDate;
+    
+    private String description;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Location location;
@@ -188,4 +190,13 @@ public class Meeting implements Serializable {
     public void setImportationDate(Date importationDate) {
         this.importationDate = importationDate;
     }
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+        
 }

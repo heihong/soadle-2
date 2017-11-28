@@ -1,9 +1,10 @@
 package fr.soat.soadle.web.api.dto.v1;
 
-
 public class SoadleLocation {
 
 	private String name;
+
+	private String address;
 
 	private String category;
 
@@ -15,6 +16,14 @@ public class SoadleLocation {
 		this.name = name;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getCategory() {
 		return category;
 	}
@@ -22,7 +31,6 @@ public class SoadleLocation {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -45,7 +53,5 @@ public class SoadleLocation {
 			return false;
 		return true;
 	}
-	
-	
 
 }
