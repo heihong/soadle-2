@@ -6,7 +6,7 @@ package fr.soat.soadle.web.api.dto.v1;
  */
 public class SoadleParticipant implements Comparable<SoadleParticipant> {
 
-	private String id;
+	private Long id;
 
 	private String name;
 
@@ -17,12 +17,14 @@ public class SoadleParticipant implements Comparable<SoadleParticipant> {
 	private String largeAvatarUrl;
 
 	private Boolean preference;
+	
+	private String doodleId;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -56,6 +58,15 @@ public class SoadleParticipant implements Comparable<SoadleParticipant> {
 
 	public void setLargeAvatarUrl(String largeAvatarUrl) {
 		this.largeAvatarUrl = largeAvatarUrl;
+	}
+		
+
+	public String getDoodleId() {
+		return doodleId;
+	}
+
+	public void setDoodleId(String doodleId) {
+		this.doodleId = doodleId;
 	}
 
 	@Override

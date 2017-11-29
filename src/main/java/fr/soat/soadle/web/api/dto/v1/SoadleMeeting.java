@@ -44,6 +44,8 @@ public class SoadleMeeting {
 	private String doodleReference;
 
 	private Date importationDate;
+	
+	private String optionsHash;
 
 
 	public String getId() {
@@ -191,6 +193,15 @@ public class SoadleMeeting {
 
 	public void setImportationDate(Date importationDate) {
 		this.importationDate = importationDate;
+	}
+		
+
+	public String getOptionsHash() {
+		return optionsHash;
+	}
+
+	public void setOptionsHash(String optionsHash) {
+		this.optionsHash = optionsHash;
 	}
 
 	@Override

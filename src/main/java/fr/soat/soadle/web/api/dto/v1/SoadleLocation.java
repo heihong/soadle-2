@@ -1,12 +1,23 @@
 package fr.soat.soadle.web.api.dto.v1;
 
 public class SoadleLocation {
+	
+	private Long id;
 
 	private String name;
 
 	private String address;
 
 	private String category;
+		
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

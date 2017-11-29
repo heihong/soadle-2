@@ -20,8 +20,8 @@ public class Participant implements Serializable {
 	private static final long serialVersionUID = -3308838324770542811L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 
 	private String name;
 
@@ -32,12 +32,14 @@ public class Participant implements Serializable {
 	private String largeAvatarUrl;
 
 	private Boolean preference;
+	
+	private String doodleId;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -80,5 +82,15 @@ public class Participant implements Serializable {
 	public void setPreference(Boolean preference) {
 		this.preference = preference;
 	}
+
+	public String getDoodleId() {
+		return doodleId;
+	}
+
+	public void setDoodleId(String doodleId) {
+		this.doodleId = doodleId;
+	}
+	
+	
 
 }

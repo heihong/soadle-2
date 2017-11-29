@@ -19,6 +19,7 @@ public class DoodleParticipantDto {
 	private String largeAvatarUrl;
 
 	private List<Integer> preferences;
+	
 
 	public String getId() {
 		return id;
@@ -67,5 +68,5 @@ public class DoodleParticipantDto {
 	public void setPreferences(List<Integer> preferences) {
 		this.preferences = preferences;
 	}
-
+	
 }

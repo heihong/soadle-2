@@ -47,10 +47,10 @@ public class DoodleController {
 	 * @param doodleReference : reference to doodle meeting
 	 * @return  doodle meeting
 	 */
-	@RequestMapping(value = "/add-doodle-meeting", method = RequestMethod.POST)
-	public SoadleMeeting addDoodleMeeting(@RequestBody String doodleReference) {
+	@RequestMapping(value = "/import/{id}", method = RequestMethod.GET)
+	public SoadleMeeting addDoodleMeeting(@PathVariable("id") String id) {
 
-		return SoadleTransformer.to(doodleImportService.addDoodleMeeting(doodleReference));
+		return SoadleTransformer.to(doodleImportService.addDoodleMeeting(id));
 	}
 
 

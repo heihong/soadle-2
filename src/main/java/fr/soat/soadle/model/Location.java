@@ -16,7 +16,7 @@ public class Location implements Serializable {
 	private static final long serialVersionUID = 205367117318796213L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	private String name;

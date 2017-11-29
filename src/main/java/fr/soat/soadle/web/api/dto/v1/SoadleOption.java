@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class SoadleOption {
 
-	private String id;
+	private Long id;
 
 	private Date start;
 
@@ -22,11 +22,11 @@ public class SoadleOption {
 	private Boolean available;
 	
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

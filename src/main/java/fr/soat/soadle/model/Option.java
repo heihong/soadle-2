@@ -23,8 +23,8 @@ public class Option implements Serializable {
 	private static final long serialVersionUID = 1675462543228573168L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 
 	private Date start;
 
@@ -35,11 +35,11 @@ public class Option implements Serializable {
 	private Boolean available;
 	
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

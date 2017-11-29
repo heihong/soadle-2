@@ -42,6 +42,8 @@ public class DoodleDto {
 	private List<DoodleOptionDto> options;
 
 	private List<DoodleParticipantDto> participants;
+	
+	private String optionsHash;
 
 	public String getId() {
 		return id;
@@ -178,5 +180,14 @@ public class DoodleDto {
 	public void setParticipants(List<DoodleParticipantDto> participants) {
 		this.participants = participants;
 	}
+
+	public String getOptionsHash() {
+		return optionsHash;
+	}
+
+	public void setOptionsHash(String optionsHash) {
+		this.optionsHash = optionsHash;
+	}
+	
 
 }
