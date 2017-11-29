@@ -1,0 +1,134 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Soadle</title>
+</head>
+
+<div class="container" style="margin: 0 auto; margin-top: 10px;width: 350px;">
+    <!-- Login panel -->
+    <div class=" col-md-4 col-md-offset-4">
+        <div class="panel panel-default" *ngIf="!resulUser">
+            <div class="panel-heading">Bienvenue à Soadle</div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <a class="btn btn-default" href="/google/login">Google Login</a>
+                </div>
+            </div>
+        </div>
+        <!-- End Login panel -->
+
+        <!-- Home panel.It will visible after successfull login -->
+        <div class="panel panel-default" *ngIf="resulUser">
+            <div class="panel-heading">
+                <img class="p-img" alt="" src="{{resulUser.userAuthentication.details.picture}}"> Name: {{resulUser.name}}
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">Email: {{resulUser.userAuthentication.details.email}}</div>
+                <div class="col-md-12">
+                    <a href="#" class="btn btn-default margin-top-5"
+                       (click)="logout()"> Logout </a>
+                </div>
+            </div>
+        </div>
+        <!-- End Home Panel -->
+
+    </div>
+</div>
+
+
+<div class="container" style="margin: 0 auto; margin-top: 1px;">
+  <div class="panel panel-hello" *ngIf="resulUser">
+  <div style="border:1px solid #b8dc6f;">  
+  <table>
+     <tr>
+        <th width="100%" ></th>
+	</tr>
+  <tbody>
+  <tr>    
+     <TD align="left">
+	   <button class="btn btn-default" (click)="getDoodle(id.value)">Go</button>&nbsp;
+	   <input #id placeholder="id" required  value="s3uqv8qkvx3gvkz7"  style="background-color: #b8dc6f; height: 30px; width: 100px;">&nbsp;
+	   <button class="btn btn-default" (click)="importDoodle(id.value)">Importer</button>&nbsp;
+	   <button class="btn btn-default" (click)="getList()">Liste</button>
+	</TD>	
+   </tr>
+  </tbody>
+  </table>
+   </div>
+  
+   <div style="padding:3px; margin-top: 3px; border:2px solid #b8dc6f;" *ngIf="result"> 
+   <table>
+     <tr>
+        <th width="50%"></th>
+        <th width="50%"></th>
+	</tr>
+   <tbody>
+	   <tr>
+			<td><b>Titre de l'evenement :</b></td><td><a href="https://doodle.com/poll/{{result.id}}" target=_blank>{{result.title}}</a></td>			
+		</tr>
+		<tr>
+		<td><b>Description de l'evenement :</b></td><td>{{result.description}}</td>
+		</tr>
+		<tr>
+			<td><b>Date de l'evenement :</b></td><td>{{result.options[0].date}}</td>		
+		</tr>	
+		<tr>
+			<td><b>Lieu de l'evenement :</b></td>
+			<td>
+				<a href="https://www.google.fr/maps/place/{{result.location.name}} {{result.location.address}}" target=_blank>
+				{{result.location.name}} {{result.location.address}}
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td><b>Nombre de participant :</b></td><td>{{result.participantsCount}}</td>
+		</tr>
+	</tbody>
+	</table>
+   </div>
+	<div style=" height: 370px; overflow-y: auto;  overflow-x:hidden;" *ngIf="result">
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th _ngcontent-c0="" class="col" style="width: 5%;" >#</th>
+		      <th _ngcontent-c0="" class="col" style="width: 5%;" ></th>
+		      <th _ngcontent-c0="" class="col" style="width: 75%;" >Participant </th>
+		      <th _ngcontent-c0="" class="col" style="width: 15%;" >Preference</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr *ngFor="let participant of result.participants; let idx = index" [ngStyle]="{'backgroundColor': participant.preference == true ? '#b8dc6f' : '#ffc0cb' }">
+		      <td class="col">{{idx}}</td>
+		      <td class="col"  align="right" ><img  class="p-img-tab"  alt="" src="{{participant.smallAvatarUrl}}"></td>
+		      <td class="col">{{participant.name}}</td>
+		      <td class="col"><INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" disabled ></td>
+		    </tr>
+		  </tbody>
+		</table>
+		</div>
+		
+		<div style=" height: 370px; overflow-y: auto;  overflow-x:hidden;" *ngIf="resultList">
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th _ngcontent-c0="" class="col" style="width: 25%;" >Titre</th>
+		      <th _ngcontent-c0="" class="col" style="width: 50%;" >Lieu</th>
+		      <th _ngcontent-c0="" class="col" style="width: 20%;" >Date</th>
+			  <th _ngcontent-c0="" class="col" style="width: 5%;"  ></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr *ngFor="let meeting of resultList; let idx = index" [ngStyle]="{'backgroundColor': idx % 2 == 0 ? '#b8dc6f' : '#cce698' }">
+		      <td class="col"><a href="https://doodle.com/poll/{{meeting.id}}" target=_blank>{{meeting.title}}</a></td>
+		      <td class="col"><a href="https://www.google.fr/maps/place/{{meeting.location.name}} {{meeting.location.address}}" target=_blank>{{meeting.location.name}}</a></td>
+		      <td class="col">{{meeting.options[0].date}}</td>
+			  <td class="col">
+			  <button class="btn btn-default" (click)="getDoodle(meeting.id); id.value=meeting.id;" >Go</button>
+			  </td>
+		    </tr>
+		  </tbody>
+		</table>
+		</div>
+		
+  </div>
+</div>
