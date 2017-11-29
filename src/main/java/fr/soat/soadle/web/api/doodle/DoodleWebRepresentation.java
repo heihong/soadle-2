@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * Dto class for transmitting {@link Doodle} information through a JSON web service end point.
  */
-class DoodleWebRepresentation implements Serializable {
+public class DoodleWebRepresentation implements Serializable {
 
     private final String url;
 
@@ -20,7 +20,7 @@ class DoodleWebRepresentation implements Serializable {
         return url;
     }
 
-    static Function<Doodle, DoodleWebRepresentation> mapper() {
+    public static Function<Doodle, DoodleWebRepresentation> mapper() {
         return d -> new DoodleWebRepresentation(d.getUrl());
     }
 }

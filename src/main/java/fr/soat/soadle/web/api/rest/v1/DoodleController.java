@@ -1,16 +1,19 @@
 package fr.soat.soadle.web.api.rest.v1;
 
+import fr.soat.soadle.services.DoodleQueryService;
+import fr.soat.soadle.web.api.doodle.DoodleWebRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.soat.soadle.doodle.services.DoodleService;
 import fr.soat.soadle.services.DoodleImportService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import static fr.soat.soadle.web.api.doodle.DoodleWebRepresentation.mapper;
 
 /**
  * Doodle controller 
@@ -54,6 +57,16 @@ public class DoodleController {
 	}
 
 
+	@Autowired
+	private DoodleQueryService doodleQueryService;
 
+	@RequestMapping(value = "/doodles", method = RequestMethod.GET)
+	public @ResponseBody
+	Collection<DoodleWebRepresentation> list() {
+		return doodleQueryService.getAllDoodles()
+				.stream()
+				.map(mapper())
+				.collect(Collectors.toSet());
+	}
 
 }

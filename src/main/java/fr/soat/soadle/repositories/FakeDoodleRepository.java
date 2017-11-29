@@ -1,12 +1,13 @@
 package fr.soat.soadle.repositories;
 
 import fr.soat.soadle.doodle.Doodle;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Component
 public class FakeDoodleRepository implements DoodleQueryRepository {
 
     private Set<Doodle> doodles = new HashSet<>();
