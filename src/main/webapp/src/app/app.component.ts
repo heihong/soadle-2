@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
   resultList = null;
   user ={};
   resulUser = null;
+  indCreate = null;
   
   ngOnInit() {
       this.getUser()
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit{
   private initIHM(): void {
       this.result = null;
       this.resultList = null;
+      this.indCreate = null;
   }
   
   private getDoodle(id): void {
@@ -55,6 +57,15 @@ export class AppComponent implements OnInit{
       .catch(this.handleError);
 
     }
+  
+  private create(indicateur) : void {
+      this.initIHM();
+      this.indCreate=indicateur;
+  }
+  
+  private crateEvent() : void {
+            
+  }
 
     handleError(error : Response){
       console.log(error);

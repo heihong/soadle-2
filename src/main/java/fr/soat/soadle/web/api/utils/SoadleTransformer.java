@@ -59,7 +59,8 @@ public class SoadleTransformer {
 		response.setTitle(meeting.getTitle());
 		response.setOptionsHash(meeting.getOptionsHash());
 		response.setDescription(meeting.getDescription());
-		response.setLocation(from(meeting.getLocation()));		
+		response.setLocation(from(meeting.getLocation()));
+		response.setDoodleReference(meeting.getDoodleReference());
 
 		response.setParticipants(toParticipants(meeting.getParticipants()));
 		response.setOptions(toOptions(meeting.getOptions()));
