@@ -46,6 +46,11 @@ dependencies {
 	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
 	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 	testCompile("org.springframework.boot:spring-boot-starter-test")
+
+	testCompile("org.junit.jupiter:junit-jupiter-api:5.0.2")
+	testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.2")
+	testCompile 'org.assertj:assertj-core:3.8.0'
+
 }
 
 
@@ -85,11 +90,7 @@ task installAngular(type:Exec) {
 	} else {
 		commandLine "npm", "install"
 	}
-	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.2")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.2")
-    testCompile 'org.assertj:assertj-core:3.8.0'
+
 }
 
 junitPlatform {
