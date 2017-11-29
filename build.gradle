@@ -13,6 +13,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
 	}
 }
 
@@ -20,6 +21,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.junit.platform.gradle.plugin'
 
 group = 'fr.soat'
 version = '0.0.1-SNAPSHOT'
@@ -41,8 +43,8 @@ dependencies {
 	compile("org.apache.commons:commons-lang3:${lang3Version}")
 	compile("org.apache.commons:commons-collections4:${collections4Version}")
 	compile("com.h2database:h2")
-	compile("io.springfox:springfox-swagger2:${swaggerVersion}")	
-	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")					
+	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
+	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -83,4 +85,21 @@ task installAngular(type:Exec) {
 	} else {
 		commandLine "npm", "install"
 	}
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.2")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.2")
+    testCompile 'org.assertj:assertj-core:3.8.0'
+}
+
+junitPlatform {
+	reportsDir file('build/test-results/junit-platform') // this is the default
+	// enableStandardTestTask true
+	// selectors (optional)
+	// filters (optional)
+    filters {
+        engines {
+            include 'junit-jupiter'
+        }
+    }
 }
