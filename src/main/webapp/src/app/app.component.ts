@@ -72,10 +72,19 @@ export class AppComponent implements OnInit{
       this.indCreate=indicateur;
   }
   
-  private crateEvent(indicateur) : void {
-              
+  private crateEventDoodle(title,description, date, name, address) : void {
+            
+      this.http
+          .post(`/api/v1/doodle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address}})
+          .subscribe(response => {this.initIHM(); this.result = response.json();} , e => this.result = null);       
   }
  
+  
+  private crateEventSoadle(title,description, date, name, address) : void {
+      this.http
+          .post(`/api/v1/soadle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address}})
+          .subscribe(response => {this.initIHM(); this.result = response.json();} , e => this.handleError(e));       
+  }
   
     handleError(error : Response){
       console.log(error);

@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import fr.soat.soadle.model.EnumOrigine;
 import fr.soat.soadle.services.SoadleService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
@@ -55,6 +56,7 @@ public class SoadleController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public SoadleMeeting createSoadleMeeting(@RequestBody SoadleMeeting soadleMeeting) {		
 		soadleMeeting.setId(UUID.randomUUID().toString());
+		soadleMeeting.setOrigine(EnumOrigine.SOADLE.toString());
 		return SoadleTransformer.to(soadleService.save(SoadleTransformer.from(soadleMeeting)));
 	}
 
