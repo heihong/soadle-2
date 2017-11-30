@@ -3,6 +3,8 @@ package fr.soat.soadle.doodle.dto;
 public class DoodleInitiatorDto {
 
 	private String name;
+	
+	private String email;
 
 	private Boolean notify;
 
@@ -11,6 +13,8 @@ public class DoodleInitiatorDto {
 	private String avatarSmallUrl;
 
 	private String userId;
+	
+	private String timeZone;
 
 	public String getName() {
 		return name;
@@ -18,6 +22,15 @@ public class DoodleInitiatorDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+		
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Boolean getNotify() {
@@ -52,11 +65,20 @@ public class DoodleInitiatorDto {
 		this.userId = userId;
 	}
 
-	@Override
-	public String toString() {
-		return "DoodleInitiatorDto [name=" + name + ", notify=" + notify + ", avatarLargeUrl=" + avatarLargeUrl
-				+ ", avatarSmallUrl=" + avatarSmallUrl + ", userId=" + userId + "]";
+	public String getTimeZone() {
+		return timeZone;
 	}
 
+	public void setTimeZone(String timeZone) {
+		this.timeZone = timeZone;
+	}
+
+	@Override
+	public String toString() {
+		return "DoodleInitiatorDto [name=" + name + ", email=" + email
+				+ ", notify=" + notify + ", avatarLargeUrl=" + avatarLargeUrl
+				+ ", avatarSmallUrl=" + avatarSmallUrl + ", userId=" + userId
+				+ ", timeZone=" + timeZone + "]";
+	}
 	
 }

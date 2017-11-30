@@ -38,7 +38,7 @@ public class SoadleOption {
 		this.start = start;
 	}
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm")
 	public Date getDate() {
 		return date;
 	}

@@ -84,7 +84,7 @@
 					</tr>
 					<tr>
 						<td><b>Date de l'evenement :</b></td>
-						<td><input #idDate placeholder="idDate" required value=" " style="background-color: #b8dc6f; height: 30px; width: 100px;"></td>
+						<td><input #idDate placeholder="idDate" type="date" required value=" " style="background-color: #b8dc6f; height: 30px; width: 120px;"> Heure : <input #idHeure placeholder="idHeure" required value=" " style="background-color: #b8dc6f; height: 30px; width: 25px;"> : <input #idMinut placeholder="idMinut" required value=" " style="background-color: #b8dc6f; height: 30px; width: 25px;"></td>
 					    <td></td>
 					</tr>
 					<tr>
@@ -99,8 +99,8 @@
 					</tr>					
 					<tr>
 					    <td></td>
-					    <td align="left"><div *ngIf="indCreate==1"><button class="btn btn-default"  (click)="crateEventSoadle(idTitle.value, idDescription.value, idDate.value, idName.value, idAdress.value)" >Enregistrer soadle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>
-						                 <div *ngIf="indCreate==2"><button class="btn btn-default"  (click)="crateEventDoodle(idTitle.value, idDescription.value, idDate.value, idName.value, idAdress.value)" >Enregistrer doodle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>						                 
+					    <td align="left"><div *ngIf="indCreate==1"><button class="btn btn-default"  (click)="crateEventSoadle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value + ':' + idMinut.value, idName.value, idAdress.value); id.value=' '" >Enregistrer soadle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>
+						                 <div *ngIf="indCreate==2"><button class="btn btn-default"  (click)="crateEventDoodle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value + ':' + idMinut.value, idName.value, idAdress.value); id.value=' '" >Enregistrer doodle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>						                 
 					    </td>
 					<td></td>
 					</tr>
@@ -130,7 +130,7 @@
 					</tr>
 					<tr>
 						<td><b>Date de l'evenement :</b></td>
-						<td>{{result.options[0].date}}</td>
+						<td>{{result.options[0].date  | date: 'dd/MM/yyyy hh:mm'}}</td>
 					</tr>
 					<tr *ngIf="result.initiator">
 						<td><b>Initiateur de l'evenement :</b></td>

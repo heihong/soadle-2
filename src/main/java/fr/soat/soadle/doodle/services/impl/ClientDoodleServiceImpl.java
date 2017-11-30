@@ -10,8 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+
+
+
+
 import fr.soat.soadle.doodle.dto.DoodleDto;
 import fr.soat.soadle.doodle.services.ClientDoodleService;
+import fr.soat.soadle.doodle.utils.DoodleTransformer;
+import fr.soat.soadle.model.Meeting;
+import static fr.soat.soadle.utils.ObjectToGeson.toGeson;
 
 /**
  * @author hakim
@@ -20,8 +27,9 @@ import fr.soat.soadle.doodle.services.ClientDoodleService;
 @Service
 public class ClientDoodleServiceImpl implements ClientDoodleService {
 	
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientDoodleService.class);
-
+	 
 	/**
 	 * doodle url web service
 	 */
@@ -34,34 +42,36 @@ public class ClientDoodleServiceImpl implements ClientDoodleService {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	
 	/**
-	 * 
-	 * @see
-	 * fr.soat.soadle.doodle.services.ClientDoodleService#findDoodle(java.lang.
-	 * String)
+	 * @see fr.soat.soadle.doodle.services.ClientDoodleService#findDoodle(java.lang.String)
 	 */
 	@Override
-	public DoodleDto findDoodle(String id) {
+	public Meeting findDoodle(String id) {
 
 		ResponseEntity<DoodleDto> response = restTemplate.getForEntity(pollsDoodleUrl + id, DoodleDto.class);
 
-		return response.getBody();
+		return DoodleTransformer.from(response.getBody());
 
 	}
 
+	
 	/**
-	 * @see fr.soat.soadle.doodle.services.ClientDoodleService#createDoodle(fr.soat.soadle.doodle.dto.DoodleDto)
+	 * @see fr.soat.soadle.doodle.services.ClientDoodleService#createDoodle(fr.soat.soadle.model.Meeting)
 	 */
 	@Override
-	public DoodleDto createDoodle(DoodleDto doodleDto) {
+	public Meeting createDoodle(Meeting meeting) {
 		
-	     HttpEntity<DoodleDto> request = new HttpEntity<>(doodleDto);
+		
+		DoodleDto doodleDto = DoodleTransformer.to(meeting);
+		
+	    LOGGER.debug(toGeson(doodleDto));
 	     
-	     LOGGER.debug(doodleDto.toString());
+	    HttpEntity<DoodleDto> request = new HttpEntity<>(doodleDto);
 		
 		ResponseEntity<DoodleDto> response = restTemplate.exchange(pollsDoodleUrl , HttpMethod.POST , request, DoodleDto.class);
 
-		return response.getBody();
+		return DoodleTransformer.from(response.getBody());
 	}
 
 }

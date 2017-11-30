@@ -1,6 +1,6 @@
 package fr.soat.soadle.doodle.services;
 
-import fr.soat.soadle.doodle.dto.DoodleDto;
+import fr.soat.soadle.model.Meeting;
 
 /**
  * Customer doodle web service
@@ -12,13 +12,13 @@ public interface ClientDoodleService {
 	
 	/**
 	 * @param id : id of doodle meeting 
-	 * @return  doodle meeting
+	 * @return   meeting
 	 */
-	DoodleDto findDoodle(String id); 
+	Meeting findDoodle(String id); 
 	
 	/**
-	 * @param doodleDto
+	 * @param Meeting
 	 * @return
 	 */
-	DoodleDto createDoodle(DoodleDto doodleDto);
+	Meeting createDoodle(Meeting meeting);
 }

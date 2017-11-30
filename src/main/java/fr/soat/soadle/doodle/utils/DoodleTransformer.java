@@ -124,7 +124,8 @@ public class DoodleTransformer {
 
 		Participant participant = new Participant();
 		
-		participant.setName(initiatorDto.getName());		
+		participant.setName(initiatorDto.getName());	
+		participant.setEmail(initiatorDto.getEmail());
 		participant.setSmallAvatarUrl(initiatorDto.getAvatarSmallUrl());
 		participant.setLargeAvatarUrl(initiatorDto.getAvatarLargeUrl());
 		participant.setUserId(initiatorDto.getUserId());
@@ -264,10 +265,12 @@ public class DoodleTransformer {
 
 		DoodleInitiatorDto doodleInitiatorDto = new DoodleInitiatorDto();
 		
-		doodleInitiatorDto.setName(initiator.getName());		
+		doodleInitiatorDto.setName(initiator.getName());	
+		doodleInitiatorDto.setEmail(initiator.getEmail());
 		doodleInitiatorDto.setAvatarSmallUrl(initiator.getSmallAvatarUrl());
 		doodleInitiatorDto.setAvatarLargeUrl(initiator.getLargeAvatarUrl());
 		doodleInitiatorDto.setUserId(initiator.getUserId());
+		doodleInitiatorDto.setNotify(true);
 		
 		return doodleInitiatorDto;
 	}

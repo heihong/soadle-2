@@ -149,6 +149,7 @@ public class SoadleTransformer {
 
 		response.setId(participant.getId());
 		response.setName(participant.getName());
+		response.setEmail(participant.getEmail());
 		response.setUserId(participant.getUserId());
 		response.setSmallAvatarUrl(participant.getSmallAvatarUrl());
 		response.setLargeAvatarUrl(participant.getLargeAvatarUrl());
@@ -286,6 +287,7 @@ public class SoadleTransformer {
 
 		participant.setId(soadleParticipant.getId());
 		participant.setName(soadleParticipant.getName());
+		participant.setEmail(soadleParticipant.getEmail());
 		participant.setUserId(soadleParticipant.getUserId());
 		participant.setSmallAvatarUrl(soadleParticipant.getSmallAvatarUrl());
 		participant.setLargeAvatarUrl(soadleParticipant.getLargeAvatarUrl());
