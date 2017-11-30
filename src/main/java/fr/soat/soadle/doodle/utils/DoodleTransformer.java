@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 
 import fr.soat.soadle.doodle.dto.DoodleDto;
+import fr.soat.soadle.doodle.dto.DoodleInitiatorDto;
 import fr.soat.soadle.doodle.dto.DoodleLocationDto;
 import fr.soat.soadle.doodle.dto.DoodleOptionDto;
 import fr.soat.soadle.doodle.dto.DoodleParticipantDto;
@@ -58,6 +59,7 @@ public class DoodleTransformer {
 		meeting.setOptionsHash(doodle.getOptionsHash());
 		meeting.setDescription(doodle.getDescription());
 		meeting.setLocation(from(doodle.getLocation()));
+		meeting.setInitiator(from(doodle.getInitiator()));
 		
 		meeting.setParticipants(fromParticipants(doodle.getParticipants()));
 		meeting.setOptions(fromOptions(doodle.getOptions()));
@@ -110,6 +112,27 @@ public class DoodleTransformer {
 		
 		return option;
 	}
+	
+
+	/**
+	 * @param initiatorDto
+	 * @return
+	 */
+	private static Participant from(DoodleInitiatorDto initiatorDto) {
+		
+		if(initiatorDto == null) return null;
+
+		Participant participant = new Participant();
+		
+		participant.setName(initiatorDto.getName());		
+		participant.setSmallAvatarUrl(initiatorDto.getAvatarSmallUrl());
+		participant.setLargeAvatarUrl(initiatorDto.getAvatarLargeUrl());
+		participant.setUserId(initiatorDto.getUserId());
+		
+		return participant;
+	}
+
+	
 
 	/**
 	 * @param participants
@@ -129,6 +152,8 @@ public class DoodleTransformer {
 	 * @return
 	 */
 	private static Participant from(DoodleParticipantDto doodleParticipantDto) {
+		
+		if(doodleParticipantDto == null) return null;
 		
 		Participant participant = new Participant();
 		
@@ -174,6 +199,7 @@ public class DoodleTransformer {
 		doodleDto.setOptionsHash(meeting.getOptionsHash());
 		doodleDto.setDescription(meeting.getDescription());
 		doodleDto.setLocation(to(meeting.getLocation()));
+		doodleDto.setInitiator(from(meeting.getInitiator()));
 		
 		doodleDto.setParticipants(toParticipants(meeting.getParticipants()));
 		doodleDto.setOptions(toOptions(meeting.getOptions()));
@@ -226,6 +252,27 @@ public class DoodleTransformer {
 		return doodleOptionDto;
 	}
 
+	
+
+	/**
+	 * @param initiator
+	 * @return
+	 */
+	private static DoodleInitiatorDto from(Participant initiator) {
+		
+		if(initiator == null) return null;
+
+		DoodleInitiatorDto doodleInitiatorDto = new DoodleInitiatorDto();
+		
+		doodleInitiatorDto.setName(initiator.getName());		
+		doodleInitiatorDto.setAvatarSmallUrl(initiator.getSmallAvatarUrl());
+		doodleInitiatorDto.setAvatarLargeUrl(initiator.getLargeAvatarUrl());
+		doodleInitiatorDto.setUserId(initiator.getUserId());
+		
+		return doodleInitiatorDto;
+	}
+	
+	
 	/**
 	 * @param participants
 	 * @return

@@ -1,5 +1,7 @@
 package fr.soat.soadle.doodle.services.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -17,6 +19,8 @@ import fr.soat.soadle.doodle.services.ClientDoodleService;
  */
 @Service
 public class ClientDoodleServiceImpl implements ClientDoodleService {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClientDoodleService.class);
 
 	/**
 	 * doodle url web service
@@ -52,6 +56,8 @@ public class ClientDoodleServiceImpl implements ClientDoodleService {
 	public DoodleDto createDoodle(DoodleDto doodleDto) {
 		
 	     HttpEntity<DoodleDto> request = new HttpEntity<>(doodleDto);
+	     
+	     LOGGER.debug(doodleDto.toString());
 		
 		ResponseEntity<DoodleDto> response = restTemplate.exchange(pollsDoodleUrl , HttpMethod.POST , request, DoodleDto.class);
 

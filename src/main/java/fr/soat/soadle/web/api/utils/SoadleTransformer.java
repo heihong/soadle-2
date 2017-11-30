@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import fr.soat.soadle.model.EnumOrigine;
 import fr.soat.soadle.model.Location;
 import fr.soat.soadle.model.Option;
 import fr.soat.soadle.model.Participant;
@@ -70,6 +69,7 @@ public class SoadleTransformer {
 		response.setLocation(to(meeting.getLocation()));
 		response.setDoodleReference(meeting.getDoodleReference());
 		response.setOrigine(meeting.getOrigine());
+		response.setInitiator(to(meeting.getInitiator()));
 
 		response.setParticipants(toParticipants(meeting.getParticipants()));
 		response.setOptions(toOptions(meeting.getOptions()));
@@ -124,6 +124,7 @@ public class SoadleTransformer {
 
 		return response;
 	}
+		
 
 	/**
 	 * @param participants
@@ -142,6 +143,7 @@ public class SoadleTransformer {
 	 * @return
 	 */
 	private static SoadleParticipant to(Participant participant) {
+		if(participant == null) return null;
 
 		SoadleParticipant response = new SoadleParticipant();
 
@@ -204,6 +206,7 @@ public class SoadleTransformer {
 		meeting.setLocation(from(soadleMeeting.getLocation()));
 		meeting.setDoodleReference(soadleMeeting.getDoodleReference());
 		meeting.setOrigine(soadleMeeting.getOrigine());
+		meeting.setInitiator(from(soadleMeeting.getInitiator()));
 
 		meeting.setParticipants(fromParticipants(soadleMeeting.getParticipants()));
 		meeting.setOptions(fromOptions(soadleMeeting.getOptions()));
@@ -276,6 +279,8 @@ public class SoadleTransformer {
 	 * @return
 	 */
 	private static Participant from(SoadleParticipant soadleParticipant) {
+		
+		if(soadleParticipant == null) return null;
 
 		Participant participant = new Participant();
 

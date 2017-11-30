@@ -49,6 +49,9 @@ public class Meeting implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Location location;
+    
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Participant initiator;
 
 	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Set<Option> options;
@@ -161,8 +164,17 @@ public class Meeting implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+        
 
-    public Set<Option> getOptions() {
+    public Participant getInitiator() {
+		return initiator;
+	}
+
+	public void setInitiator(Participant initiator) {
+		this.initiator = initiator;
+	}
+
+	public Set<Option> getOptions() {
         return options;
     }
 

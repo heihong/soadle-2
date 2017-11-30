@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import fr.soat.soadle.model.EnumOrigine;
+import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.security.services.AuthenticationService;
 import fr.soat.soadle.services.SoadleService;
+import fr.soat.soadle.utils.InitiatorfromAuthentication;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
 
@@ -26,6 +29,12 @@ public class SoadleController {
 	 */
 	@Autowired
 	private SoadleService soadleService;
+	
+	/**
+	 * 
+	 */
+	@Autowired
+	private AuthenticationService authenticationService;
 	
 
 	/**
@@ -54,10 +63,15 @@ public class SoadleController {
 	 * @return soadleMeeting
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public SoadleMeeting createSoadleMeeting(@RequestBody SoadleMeeting soadleMeeting) {		
-		soadleMeeting.setId(UUID.randomUUID().toString());
-		soadleMeeting.setOrigine(EnumOrigine.SOADLE.toString());
-		return SoadleTransformer.to(soadleService.save(SoadleTransformer.from(soadleMeeting)));
+	public SoadleMeeting createSoadleMeeting(@RequestBody SoadleMeeting soadleMeeting) {	
+		
+		Meeting meeting = SoadleTransformer.from(soadleMeeting);
+		
+		meeting.setInitiator(InitiatorfromAuthentication.from(authenticationService.getAuthentication()));
+		meeting.setId(UUID.randomUUID().toString());
+		meeting.setOrigine(EnumOrigine.SOADLE.toString());
+		
+		return SoadleTransformer.to(soadleService.save(meeting));
 	}
 
 

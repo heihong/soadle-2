@@ -3,6 +3,7 @@ package fr.soat.soadle.web.api.dto.v1;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * @author hakim
  *
@@ -39,6 +40,8 @@ public class SoadleMeeting {
 	
 	private SoadleLocation location;	
 
+	private SoadleParticipant initiator;
+	
 	private List<SoadleOption> options;
 
 	private List<SoadleParticipant> participants;
@@ -171,6 +174,15 @@ public class SoadleMeeting {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+		
+
+	public SoadleParticipant getInitiator() {
+		return initiator;
+	}
+
+	public void setInitiator(SoadleParticipant initiator) {
+		this.initiator = initiator;
 	}
 
 	public List<SoadleOption> getOptions() {

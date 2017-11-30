@@ -32,4 +32,10 @@ public class DoodleLocationDto {
 		this.category = category;
 	}
 
+	@Override
+	public String toString() {
+		return "DoodleLocationDto [name=" + name + ", address=" + address + ", category=" + category + "]";
+	}
+
+	
 }

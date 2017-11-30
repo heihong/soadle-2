@@ -1,6 +1,7 @@
 package fr.soat.soadle.web.api.rest.v1;
 
 import fr.soat.soadle.services.DoodleQueryService;
+import fr.soat.soadle.utils.InitiatorfromAuthentication;
 import fr.soat.soadle.web.api.doodle.DoodleWebRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import fr.soat.soadle.doodle.services.DoodleService;
 import fr.soat.soadle.model.EnumOrigine;
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.security.services.AuthenticationService;
 import fr.soat.soadle.services.DoodleImportService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
@@ -36,6 +38,9 @@ public class DoodleController {
 	
 	@Autowired
 	private DoodleImportService doodleImportService;
+	
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	
 	/**
@@ -67,9 +72,13 @@ public class DoodleController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public SoadleMeeting createDoodleMeeting(@RequestBody SoadleMeeting soadleMeeting) {
 
-		soadleMeeting.setOrigine(EnumOrigine.DOODLE.toString());
+
+		Meeting meeting = SoadleTransformer.from(soadleMeeting);
+		meeting.setOrigine(EnumOrigine.DOODLE.toString());
 		
-		Meeting meeting = doodleService.createDoodle(SoadleTransformer.from(soadleMeeting));
+		meeting.setInitiator(InitiatorfromAuthentication.from(authenticationService.getAuthentication()));
+		
+		meeting = doodleService.createDoodle(meeting);
 				
 		return SoadleTransformer.to(doodleImportService.addDoodleMeeting(meeting.getId()));
 	}

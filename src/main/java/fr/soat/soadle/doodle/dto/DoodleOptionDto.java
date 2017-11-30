@@ -48,9 +48,12 @@ public class DoodleOptionDto {
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "DoodleOptionDto [start=" + start + ", date=" + date + ", allday=" + allday + ", available=" + available
+				+ "]";
+	}
 	
 
 }

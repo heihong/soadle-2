@@ -37,7 +37,7 @@ public class DoodleServiceImpl implements DoodleService {
 
 
 	@Override
-	public Meeting createDoodle(Meeting pMeeting) {
+	public Meeting createDoodle(Meeting pMeeting) {		
 		return DoodleTransformer.from(clientDoodleService.createDoodle(DoodleTransformer.to(pMeeting)));
 	}
 

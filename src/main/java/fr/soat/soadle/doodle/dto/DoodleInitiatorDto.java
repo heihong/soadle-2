@@ -52,4 +52,11 @@ public class DoodleInitiatorDto {
 		this.userId = userId;
 	}
 
+	@Override
+	public String toString() {
+		return "DoodleInitiatorDto [name=" + name + ", notify=" + notify + ", avatarLargeUrl=" + avatarLargeUrl
+				+ ", avatarSmallUrl=" + avatarSmallUrl + ", userId=" + userId + "]";
+	}
+
+	
 }

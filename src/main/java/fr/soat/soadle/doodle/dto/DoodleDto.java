@@ -188,6 +188,18 @@ public class DoodleDto {
 	public void setOptionsHash(String optionsHash) {
 		this.optionsHash = optionsHash;
 	}
+
+	@Override
+	public String toString() {
+		return "DoodleDto [id=" + id + ", latestChange=" + latestChange + ", initiated=" + initiated
+				+ ", participantsCount=" + participantsCount + ", inviteesCount=" + inviteesCount + ", type=" + type
+				+ ", preferencesType=" + preferencesType + ", state=" + state + ", locale=" + locale + ", device="
+				+ device + ", levels=" + levels + ", title=" + title + ", location=" + location + ", description="
+				+ description + ", initiator=" + initiator + ", options=" + options + ", participants=" + participants
+				+ ", optionsHash=" + optionsHash + "]";
+	}
+	
+	
 	
 
 }

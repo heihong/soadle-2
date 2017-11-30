@@ -68,5 +68,11 @@ public class DoodleParticipantDto {
 	public void setPreferences(List<Integer> preferences) {
 		this.preferences = preferences;
 	}
+
+	@Override
+	public String toString() {
+		return "DoodleParticipantDto [id=" + id + ", name=" + name + ", userId=" + userId + ", smallAvatarUrl="
+				+ smallAvatarUrl + ", largeAvatarUrl=" + largeAvatarUrl + ", preferences=" + preferences + "]";
+	}
 	
 }
