@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import fr.soat.soadle.doodle.services.DoodleService;
+import fr.soat.soadle.model.Meeting;
 import fr.soat.soadle.services.DoodleImportService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
@@ -54,6 +55,20 @@ public class DoodleController {
 	public SoadleMeeting addDoodleMeeting(@PathVariable("id") String id) {
 
 		return SoadleTransformer.to(doodleImportService.addDoodleMeeting(id));
+	}
+	
+	
+	
+	/**
+	 * @param soadleMeeting : doodle a créer 
+	 * @return soadleMeeting
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public SoadleMeeting createDoodleMeeting(@RequestBody SoadleMeeting soadleMeeting) {
+
+		Meeting meeting = doodleService.createDoodle(SoadleTransformer.from(soadleMeeting));
+				
+		return SoadleTransformer.to(doodleImportService.addDoodleMeeting(meeting.getId()));
 	}
 
 

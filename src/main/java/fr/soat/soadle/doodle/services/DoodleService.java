@@ -14,5 +14,11 @@ public interface DoodleService {
 	 * @return  doodle meeting
 	 */
 	Meeting findDoodle(String id);
+	
+	/**
+	 * @param meeting
+	 * @return
+	 */
+	Meeting createDoodle(Meeting meeting);
 
 }

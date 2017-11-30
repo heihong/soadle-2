@@ -2,6 +2,8 @@ package fr.soat.soadle.doodle.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -41,6 +43,19 @@ public class ClientDoodleServiceImpl implements ClientDoodleService {
 
 		return response.getBody();
 
+	}
+
+	/**
+	 * @see fr.soat.soadle.doodle.services.ClientDoodleService#createDoodle(fr.soat.soadle.doodle.dto.DoodleDto)
+	 */
+	@Override
+	public DoodleDto createDoodle(DoodleDto doodleDto) {
+		
+	     HttpEntity<DoodleDto> request = new HttpEntity<>(doodleDto);
+		
+		ResponseEntity<DoodleDto> response = restTemplate.exchange(pollsDoodleUrl , HttpMethod.POST , request, DoodleDto.class);
+
+		return response.getBody();
 	}
 
 }

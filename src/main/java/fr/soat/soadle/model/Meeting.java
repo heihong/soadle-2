@@ -40,6 +40,8 @@ public class Meeting implements Serializable {
     private String title;
 
     private String doodleReference;
+    
+    private String origine; 
 
     private Date importationDate;
     
@@ -183,8 +185,17 @@ public class Meeting implements Serializable {
     public void setDoodleReference(String doodleReference) {
         this.doodleReference = doodleReference;
     }
+    
+    
+    public String getOrigine() {
+		return origine;
+	}
 
-    public Date getImportationDate() {
+	public void setOrigine(String origine) {
+		this.origine = origine;
+	}
+
+	public Date getImportationDate() {
         return importationDate;
     }
 

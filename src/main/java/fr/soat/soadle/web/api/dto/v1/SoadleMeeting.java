@@ -20,6 +20,8 @@ public class SoadleMeeting {
 	private Integer inviteesCount;
 
 	private String type;
+	
+	private String origine;
 
 	private String preferencesType;
 
@@ -94,6 +96,14 @@ public class SoadleMeeting {
 
 	public void setType(String type) {
 		this.type = type;
+	}		
+
+	public String getOrigine() {
+		return origine;
+	}
+
+	public void setOrigine(String origine) {
+		this.origine = origine;
 	}
 
 	public String getPreferencesType() {

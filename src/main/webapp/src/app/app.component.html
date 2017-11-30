@@ -27,10 +27,8 @@
 							<img class="p-img" alt="" src="{{resulUser.userAuthentication.details.picture}}"> Name: {{resulUser.name}}
 						</div>
 						<div class="panel-body">
-							<div class="col-md-12">Email: {{resulUser.userAuthentication.details.email}}</div>
-							<div class="col-md-12">
-								<a href="#" class="btn btn-default margin-top-5" (click)="logout()"> Logout </a>
-							</div>
+							<div class="col-md-12">Email: {{resulUser.userAuthentication.details.email}}</div>							
+							<div class="col-md-12" align="right"><a href="#" class="btn_logout btn-default margin-top-5" (click)="logout()"> Logout</a></div>
 						</div>
 					</div>
 					<!-- End Home Panel -->
@@ -45,17 +43,20 @@
 <div class="container" style="margin: 0 auto; margin-top: 1px;">
 	<div class="panel panel-hello" *ngIf="resulUser">
 		<div style="border: 1px solid #b8dc6f;">
-			<table>
+			<table width="100%">
 				<tr>
-					<th width="100%"></th>
+					<th width="50%"></th>
+					<th width="50%"></th>
 				</tr>
 				<tbody>
 					<tr>
 						<TD align="left">
-							<button class="btn btn-default" (click)="getDoodle(id.value)">Détail d'un dodle</button>&nbsp; <input #id placeholder="id" required value="s3uqv8qkvx3gvkz7" style="background-color: #b8dc6f; height: 30px; width: 100px;">&nbsp;
-							<button class="btn btn-default" (click)="importDoodle(id.value)">Importer un doodle</button>&nbsp;
-							<button class="btn btn-default" (click)="getList()">Liste des evènements</button>
-							<button class="btn btn-default" (click)="create(1)" *ngIf="!indCreate" >Créer un soadle</button>
+						    <button class="btn btn-default" (click)="getList()">Liste des evènements</button>&nbsp;&nbsp;
+							<button class="btn btn-default" (click)="getDoodle(id.value)">Afficher un doodle</button>&nbsp; <input #id placeholder="id" required value="s3uqv8qkvx3gvkz7" style="background-color: #b8dc6f; height: 30px; width: 100px;">&nbsp;		
+							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D'">Importer le doodle</button>				
+						</TD>
+						<TD align="right">
+							<button class="btn btn-default" (click)="create(1)" *ngIf="!indCreate" >Créer un soadle</button>&nbsp;	
 							<button class="btn btn-default" (click)="create(2)" *ngIf="!indCreate" >Créer un doodle</button>
 						</TD>
 					</tr>
@@ -113,7 +114,12 @@
 				<tbody>
 					<tr>
 						<td><b>Titre de l'evenement :</b></td>
-						<td><a href="https://doodle.com/poll/{{result.id}}" target=_blank>{{result.title}}</a></td>
+						<td *ngIf="result.origine == 'D'">
+						    <a href="https://doodle.com/poll/{{result.id}}" target=_blank>{{result.title}}</a>						    
+						</td>
+						<td *ngIf="result.origine != 'D'">
+						    {{result.title}}					    
+						</td>
 					</tr>
 					<tr>
 						<td><b>Description de l'evenement :</b></td>
@@ -169,20 +175,26 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let meeting of resultList; let idx = index" [ngStyle]="{'backgroundColor': idx % 2 == 0 ? '#b8dc6f' : '#cce698' }">
-						<td class="col"><a href="https://doodle.com/poll/{{meeting.id}}" target=_blank>{{meeting.title}}</a></td>
+						<td class="col" *ngIf="meeting.origine == 'D'">
+						    <a href="https://doodle.com/poll/{{meeting.id}}" target=_blank>{{meeting.title}}</a>
+						</td>
+						<td class="col" *ngIf="meeting.origine != 'D'">
+						    {{meeting.title}}
+						</td>
 						<td class="col"><a href="https://www.google.fr/maps/place/{{meeting.location.name}} {{meeting.location.address}}" target=_blank>{{meeting.location.name}}</a></td>
 						<td class="col">{{meeting.options[0].date}}</td>
 						<td class="col">{{meeting.participantsCount}}</td>
 						<td class="col">
-							<div *ngIf="meeting.doodleReference">
+							<div *ngIf="meeting.origine == 'D'">
 								<b>Doodle</b>
 							</div>
-							<div *ngIf="!meeting.doodleReference">
+							<div *ngIf="meeting.origine == 'S'">
 								<b>Soadle</b>
 							</div>
 						</td>
 						<td class="col">
-							<button class="btn btn-default" (click)="getDoodle(meeting.id); id.value=meeting.id;">Détail</button>
+							<button class="btn btn-default" (click)="getDoodle(meeting.id); id.value=meeting.id;" *ngIf="meeting.origine == 'D'">Détail</button>
+							<button class="btn btn-default" (click)="getSoadle(meeting.id); id.value=' ';" *ngIf="meeting.origine != 'D'">Détail</button>
 						</td>
 					</tr>
 				</tbody>

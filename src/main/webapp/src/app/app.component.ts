@@ -33,6 +33,15 @@ export class AppComponent implements OnInit{
       this.indCreate = null;
   }
   
+
+  private getSoadle(id): void {
+    this.initIHM();
+    this.http.get(`/api/v1/soadle/${id}`)
+    .subscribe(response => this.result = response.json() , e => this.result = null);
+  }
+  
+  
+  
   private getDoodle(id): void {
     this.initIHM();
     this.http.get(`/api/v1/doodle/${id}`)
@@ -63,10 +72,11 @@ export class AppComponent implements OnInit{
       this.indCreate=indicateur;
   }
   
-  private crateEvent() : void {
-            
+  private crateEvent(indicateur) : void {
+              
   }
-
+ 
+  
     handleError(error : Response){
       console.log(error);
       return Observable.throw(error);

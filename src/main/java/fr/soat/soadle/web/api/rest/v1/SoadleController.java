@@ -1,6 +1,7 @@
 package fr.soat.soadle.web.api.rest.v1;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,18 @@ public class SoadleController {
 
 		return SoadleTransformer.to(soadleService.findAll());
 	}
+	
+
+	/**
+	 * @param soadleMeeting : soalde a créer 
+	 * @return soadleMeeting
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public SoadleMeeting createSoadleMeeting(@RequestBody SoadleMeeting soadleMeeting) {		
+		soadleMeeting.setId(UUID.randomUUID().toString());
+		return SoadleTransformer.to(soadleService.save(SoadleTransformer.from(soadleMeeting)));
+	}
+
 
 
 }

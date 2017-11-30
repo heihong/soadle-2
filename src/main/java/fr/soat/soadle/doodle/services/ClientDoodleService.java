@@ -15,4 +15,10 @@ public interface ClientDoodleService {
 	 * @return  doodle meeting
 	 */
 	DoodleDto findDoodle(String id); 
+	
+	/**
+	 * @param doodleDto
+	 * @return
+	 */
+	DoodleDto createDoodle(DoodleDto doodleDto);
 }
