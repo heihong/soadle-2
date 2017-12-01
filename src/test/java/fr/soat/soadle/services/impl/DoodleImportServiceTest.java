@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import fr.soat.soadle.SoadleApplication;
 import fr.soat.soadle.doodle.services.DoodleService;
 import fr.soat.soadle.model.Meeting;
-import fr.soat.soadle.services.DoodleImportService;
+import fr.soat.soadle.services.DoodleRepositorieService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SoadleApplication.class)
@@ -21,7 +21,7 @@ import fr.soat.soadle.services.DoodleImportService;
 public class DoodleImportServiceTest {
 
 		@Autowired
-		DoodleImportService doodleImportService;
+		DoodleRepositorieService doodleRepositorieService;
 
 		@MockBean
 		DoodleService doodleService;
@@ -29,7 +29,7 @@ public class DoodleImportServiceTest {
 		@Test
 		public void shouldSaveDoodlePoll() {
 			mockDoodleService();
-			Meeting savedMeeting = doodleImportService.addDoodleMeeting("doodleReferenceForTest");
+			Meeting savedMeeting = doodleRepositorieService.addDoodleMeeting("doodleReferenceForTest");
 			Assert.assertNotNull(savedMeeting.getId());
 			Assert.assertNotNull(savedMeeting.getImportationDate());
 		}

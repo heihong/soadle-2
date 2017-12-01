@@ -65,5 +65,14 @@ public class SoadleServiceImpl implements SoadleService {
 		meeting.setOrigine(EnumOrigine.SOADLE.toString());
         return meetingRepository.save(meeting);
     }
+    
+    /**
+     * @see fr.soat.soadle.services.SoadleService#delete(java.lang.String)
+     */
+    @Override
+    public void delete(String id) {
+        meetingRepository.deleteById(id);
+    }
+
 
 }

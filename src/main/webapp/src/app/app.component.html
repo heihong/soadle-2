@@ -28,7 +28,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="col-md-12">Email: {{resulUser.userAuthentication.details.email}}</div>							
-							<div class="col-md-12" align="right"><a href="#" class="btn_logout btn-default margin-top-5" (click)="logout()"> Logout</a></div>
+							<div class="col-md-12"><a href="#" class="btn_logout btn-default margin-top-5" (click)="logout()"> Logout</a></div>
 						</div>
 					</div>
 					<!-- End Home Panel -->
@@ -45,14 +45,14 @@
 		<div style="border: 1px solid #b8dc6f;">
 			<table width="100%">
 				<tr>
-					<th width="50%"></th>
-					<th width="50%"></th>
+					<th width="65%"></th>
+					<th width="35%"></th>
 				</tr>
 				<tbody>
 					<tr>
 						<TD align="left">
 						    <button class="btn btn-default" (click)="getList()">Liste des evènements</button>&nbsp;&nbsp;
-							<button class="btn btn-default" (click)="getDoodle(id.value)">Afficher un doodle</button>&nbsp; <input #id placeholder="id" required value="s3uqv8qkvx3gvkz7" style="background-color: #b8dc6f; height: 30px; width: 100px;">&nbsp;		
+							<button class="btn btn-default" (click)="getMeeting(id.value)">Afficher un meeting</button>&nbsp;<input #id placeholder="id" required value="{{result.id || ' '}}" style="background-color: #b8dc6f; height: 30px; width: 200px;">&nbsp;		
 							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D'">Importer le doodle</button>				
 						</TD>
 						<TD align="right">
@@ -172,13 +172,13 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th class="col" style="width: 20%;">Titre</th>
+						<th class="col" style="width: 18%;">Titre</th>
 						<th class="col" style="width: 30%;">Lieu</th>
-						<th class="col" style="width: 15%;">Date</th>
-						<th class="col" style="width: 20%;">Initiateur</th>
+						<th class="col" style="width: 10%;">Date</th>
+						<th class="col" style="width: 17%;">Initiateur</th>
 						<th class="col" style="width: 5%;">Nb par.</th>
 						<th class="col" style="width: 5%;">Doodle/Soadle</th>
-						<th class="col" style="width: 5%;"></th>
+						<th class="col" style="width: 15%;"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -190,7 +190,7 @@
 						    {{meeting.title}}
 						</td>
 						<td class="col"><a href="https://www.google.fr/maps/place/{{meeting.location.name}} {{meeting.location.address}}" target=_blank>{{meeting.location.name}}</a></td>
-						<td class="col">{{meeting.options[0].date}}</td>
+						<td class="col">{{meeting.options[0].date | date: 'dd/MM/yyyy hh:mm'}}</td>
 						<td class="col"><div *ngIf="meeting.initiator">{{meeting.initiator.name}}</div></td>
 						<td class="col">{{meeting.participantsCount}}</td>
 						<td class="col">
@@ -202,8 +202,9 @@
 							</div>
 						</td>
 						<td class="col">
-							<button class="btn btn-default" (click)="getDoodle(meeting.id); id.value=meeting.id;" *ngIf="meeting.origine == 'D'">Détail</button>
-							<button class="btn btn-default" (click)="getSoadle(meeting.id); id.value=' ';" *ngIf="meeting.origine != 'D'">Détail</button>
+							<button class="btn btn-default" (click)="getDoodle(meeting.id)" *ngIf="meeting.origine == 'D'">Détail</button>
+							<button class="btn btn-default" (click)="getSoadle(meeting.id)" *ngIf="meeting.origine != 'D'">Détail</button>
+							&nbsp;<button class="btn btn-default" (click)="delete(meeting.id, meeting.origine)"  style="color: #FF0000;">Supprimer</button>
 						</td>
 					</tr>
 				</tbody>

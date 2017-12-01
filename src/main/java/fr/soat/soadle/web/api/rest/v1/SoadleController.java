@@ -59,5 +59,15 @@ public class SoadleController {
 
 		return SoadleTransformer.to(soadleService.save(meeting));
 	}
+	
+	
+	/**
+	 * @param id
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("id") String id) {
+		soadleService.delete(id);
+	}
+
 
 }

@@ -27,6 +27,15 @@ export class AppComponent implements OnInit{
   constructor(private http: Http){
   }
 
+  
+
+  private getUser() {
+    return   this.http.get(`/user/v1/user`)
+      .map((response : Response) => this.resulUser = response.json())
+      .catch(this.handleError);
+
+    }
+  
   private initIHM(): void {
       this.result = null;
       this.resultList = null;
@@ -48,24 +57,33 @@ export class AppComponent implements OnInit{
     .subscribe(response => this.result = response.json() , e => this.result = null);
   }
   
+  private getMeeting(id): void {
+      this.initIHM();
+      this.http.get(`/api/v1/soadle/${id}`)      
+      .subscribe(response => this.result = response.json() , 
+                  e  => this.getDoodle(id),
+                  () => {     
+                              if(this.result == null || this.result.origine == 'D')
+                              {
+                                    this.getDoodle(id);
+                              }
+                        }
+                )
+    }
+  
+
+  private getList() : void {
+      this.initIHM();
+      this.http.get(`/api/v1/soadle/`)
+      .subscribe(response => this.resultList = response.json() , e => this.resultList = null);
+    }
+  
   private importDoodle(id): void {
       this.initIHM();
       this.http.get(`/api/v1/doodle/import/${id}`)
       .subscribe(response => this.result = response.json() , e => this.result = null);
     }
   
-  private getList() : void {
-      this.initIHM();
-      this.http.get(`/api/v1/soadle/`)
-      .subscribe(response => this.resultList = response.json() , e => this.resultList = null);
-    }
-
-  private getUser() {
-    return   this.http.get(`/user/v1/user`)
-      .map((response : Response) => this.resulUser = response.json())
-      .catch(this.handleError);
-
-    }
   
   private create(indicateur) : void {
       this.initIHM();
@@ -85,6 +103,22 @@ export class AppComponent implements OnInit{
           .post(`/api/v1/soadle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address}})
           .subscribe(response => {this.initIHM(); this.result = response.json();} , e => this.handleError(e));       
   }
+  
+  
+  private delete(id, origine): void {
+      if(confirm("Êtes-vous sûr de vouloir supprimer le meeting : "+id)) {
+          if(origine == 'D')
+          {
+              this.http.delete(`/api/v1/doodle/${id}`)
+              .subscribe(response => this.getList() , e => this.result = null);
+          } else
+          {
+              this.http.delete(`/api/v1/soadle/${id}`)
+              .subscribe(response => this.getList() , e => this.result = null);
+          }
+      }
+    }
+    
   
     handleError(error : Response){
       console.log(error);

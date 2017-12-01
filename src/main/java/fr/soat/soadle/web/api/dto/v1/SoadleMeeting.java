@@ -3,12 +3,14 @@ package fr.soat.soadle.web.api.dto.v1;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 
 /**
  * @author hakim
  *
  */
-public class SoadleMeeting {
+public class SoadleMeeting  implements Comparable<SoadleMeeting> { 
 	
 	private String id;
 
@@ -312,7 +314,58 @@ public class SoadleMeeting {
 			return false;
 		return true;
 	}
-	
-	
 
+	@Override
+	public int compareTo(SoadleMeeting other) {
+		
+		if(id != null && id.equals(other.id)) return 0;
+		
+		Date date = null;
+		Date dateOther = null;
+		
+		if(CollectionUtils.isNotEmpty(options))
+		{
+			date = options.get(0).getDate();
+		} 
+		
+		if(date == null )
+		{
+			date = latestChange;
+		}
+		
+		if(date == null )
+		{
+			date = importationDate;
+		}
+		
+		
+		if(CollectionUtils.isNotEmpty(other.getOptions()))
+		{
+			dateOther = other.getOptions().get(0).getDate();
+		} 
+		
+		if(dateOther == null )
+		{
+			dateOther = other.getLatestChange();
+		}		
+		
+		if(dateOther == null )
+		{
+			dateOther = other.getImportationDate();
+		}
+		
+		if(date == null)
+		{
+			if(dateOther == null)
+			{
+				return -1;
+			} else
+			{
+				return 1;
+			}
+		} 
+		
+		return (-1 * date.compareTo(dateOther));
+	}
+	
 }

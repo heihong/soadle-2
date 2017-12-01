@@ -36,7 +36,7 @@ public class SoadleTransformer {
 	public static List<SoadleMeeting> to(List<Meeting> meetings) {
 
 		if (meetings != null)
-			return meetings.stream().map(m -> to(m)).collect(Collectors.toList());
+			return meetings.stream().map(m -> to(m)).sorted().collect(Collectors.toList());
 
 		return null;
 	}

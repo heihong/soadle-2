@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import fr.soat.soadle.doodle.services.DoodleService;
 import fr.soat.soadle.model.Meeting;
-import fr.soat.soadle.services.DoodleImportService;
+import fr.soat.soadle.services.DoodleRepositorieService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
 
@@ -35,7 +35,14 @@ public class DoodleController {
 	
 	
 	@Autowired
-	private DoodleImportService doodleImportService;
+	private DoodleRepositorieService doodleRepositorieService;
+	
+	
+	/**
+	 * 
+	 */
+	@Autowired
+	private DoodleQueryService doodleQueryService;
 	
 	/**
 	 * @param id : id of doodle meeting 
@@ -54,7 +61,7 @@ public class DoodleController {
 	@RequestMapping(value = "/import/{id}", method = RequestMethod.GET)
 	public SoadleMeeting addDoodleMeeting(@PathVariable("id") String id) {
 
-		return SoadleTransformer.to(doodleImportService.addDoodleMeeting(id));
+		return SoadleTransformer.to(doodleRepositorieService.addDoodleMeeting(id));
 	}
 	
 	
@@ -70,13 +77,22 @@ public class DoodleController {
 		
 		meeting = doodleService.createDoodle(meeting);
 				
-		return SoadleTransformer.to(doodleImportService.addDoodleMeeting(meeting.getId()));
+		return SoadleTransformer.to(doodleRepositorieService.addDoodleMeeting(meeting.getId()));
+	}
+	
+	/**
+	 * @param id
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("id") String id) {
+		doodleRepositorieService.delete(id);
 	}
 
 
-	@Autowired
-	private DoodleQueryService doodleQueryService;
 
+	/**
+	 * @return
+	 */
 	@RequestMapping(value = "/doodles", method = RequestMethod.GET)
 	public @ResponseBody
 	Collection<DoodleWebRepresentation> list() {

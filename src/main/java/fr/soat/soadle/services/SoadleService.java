@@ -26,5 +26,12 @@ public interface SoadleService {
      * @return
      */
     Meeting save(Meeting meeting);
+    
+    
+   
+    /**
+     * @param id
+     */
+    void delete(String id);
 
 }
