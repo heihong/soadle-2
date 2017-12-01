@@ -20,6 +20,8 @@ public class DoodleParticipantDto {
 
 	private List<Integer> preferences;
 	
+	private String optionsHash;
+	
 
 	public String getId() {
 		return id;
@@ -68,11 +70,23 @@ public class DoodleParticipantDto {
 	public void setPreferences(List<Integer> preferences) {
 		this.preferences = preferences;
 	}
+		
+
+	public String getOptionsHash() {
+		return optionsHash;
+	}
+
+	public void setOptionsHash(String optionsHash) {
+		this.optionsHash = optionsHash;
+	}
 
 	@Override
 	public String toString() {
-		return "DoodleParticipantDto [id=" + id + ", name=" + name + ", userId=" + userId + ", smallAvatarUrl="
-				+ smallAvatarUrl + ", largeAvatarUrl=" + largeAvatarUrl + ", preferences=" + preferences + "]";
+		return "DoodleParticipantDto [id=" + id + ", name=" + name
+				+ ", userId=" + userId + ", smallAvatarUrl=" + smallAvatarUrl
+				+ ", largeAvatarUrl=" + largeAvatarUrl + ", preferences="
+				+ preferences + ", optionsHash=" + optionsHash + "]";
 	}
+
 	
 }

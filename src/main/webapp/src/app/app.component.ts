@@ -144,6 +144,47 @@ export class AppComponent implements OnInit{
     }
     
   
+  private participe(preference , id, origine, name, email) : void {
+      
+      if(origine == 'S')
+      {
+          this.http
+          .post(`/api/v1/soadle/participe/`+id,{name:name,email:email,preference:preference})
+          .subscribe(response => this.getSoadle(id) , e => this.handleError(e));  
+      }
+      
+      if(origine == 'D')
+      {
+          this.http
+          .post(`/api/v1/doodle/participe/`+id,{name:name,email:email,preference:preference})
+          .subscribe(response => this.getSoadle(id) , e => this.handleError(e));  
+      }
+            
+  }
+  
+  
+  existMailNam(meeting , name, email) {
+      var indicateur = 0;
+      
+      if(meeting.participants)
+      {
+          for (let participant of meeting.participants) {
+              if(email == participant.email)
+              {
+                  if(participant.preference == true)
+                  {
+                      indicateur = 1;
+                  } else
+                  {
+                      indicateur = -1;
+                  }
+              }
+          }
+      }
+      return indicateur;
+      
+  }
+  
     handleError(error : Response){
       console.log(error);
       return Observable.throw(error);

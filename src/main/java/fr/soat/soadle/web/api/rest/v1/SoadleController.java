@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import fr.soat.soadle.model.Meeting;
 import fr.soat.soadle.services.SoadleService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
+import fr.soat.soadle.web.api.dto.v1.SoadleParticipant;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
 
 /**
@@ -74,6 +75,13 @@ public class SoadleController {
 		Meeting meeting = SoadleTransformer.from(soadleMeeting);
 
 		return SoadleTransformer.to(soadleService.save(meeting));
+	}
+	
+	
+	@RequestMapping(value = "/participe/{id}", method = RequestMethod.POST)
+	public void participe(@PathVariable("id") String id, @RequestBody SoadleParticipant soadleParticipant) {
+
+		soadleService.participe(id,SoadleTransformer.from(soadleParticipant));
 	}
 	
 	

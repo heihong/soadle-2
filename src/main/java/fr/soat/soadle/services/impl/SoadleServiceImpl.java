@@ -3,6 +3,7 @@ package fr.soat.soadle.services.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.soat.soadle.model.EnumOrigine;
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.model.Participant;
 import fr.soat.soadle.repositories.MeetingRepository;
+import fr.soat.soadle.repositories.ParticipantRepository;
 import fr.soat.soadle.security.services.AuthenticationService;
 import fr.soat.soadle.services.SoadleService;
 import fr.soat.soadle.utils.InitiatorfromAuthentication;
@@ -28,6 +31,12 @@ public class SoadleServiceImpl implements SoadleService {
      */
     @Autowired
     private MeetingRepository meetingRepository;
+    
+    /**
+    *
+    */
+   @Autowired
+   private ParticipantRepository participantRepository;
     
     
 	/**
@@ -92,6 +101,37 @@ public class SoadleServiceImpl implements SoadleService {
     public void delete(String id) {
         meetingRepository.deleteById(id);
     }
+
+
+	/**
+	 * @see fr.soat.soadle.services.SoadleService#participe(java.lang.String, fr.soat.soadle.model.Participant)
+	 */
+	@Override
+	public Participant participe(String mettnigId, Participant pParticipant) {
+		
+		List<Participant> participants = participantRepository.findByEmail(mettnigId, pParticipant.getEmail());
+		
+		Participant participant = null;
+		
+		if(CollectionUtils.isNotEmpty(participants))
+		{
+			participant = participants.get(0);
+		}  else
+		{
+			participant = new Participant();
+			participant.setMettnigId(mettnigId);
+		}
+		
+		participant.setName(pParticipant.getName());
+		participant.setEmail(pParticipant.getEmail());
+		participant.setPreference(pParticipant.getPreference());
+		
+		participantRepository.save(participant);
+	
+		
+		return participant;
+		
+	}
 
 
 

@@ -74,6 +74,11 @@ public class SoadleTransformer {
 
 		response.setParticipants(toParticipants(meeting.getParticipants()));
 		response.setOptions(toOptions(meeting.getOptions()));
+		
+		if(meeting.getParticipants() != null)
+		{
+			response.setParticipantsCount(meeting.getParticipants().size());
+		}
 
 		return response;
 
@@ -281,7 +286,7 @@ public class SoadleTransformer {
 	 * @param participant
 	 * @return
 	 */
-	private static Participant from(SoadleParticipant soadleParticipant) {
+	public static Participant from(SoadleParticipant soadleParticipant) {
 		
 		if(soadleParticipant == null) return null;
 

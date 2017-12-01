@@ -2,6 +2,7 @@ package fr.soat.soadle.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +37,9 @@ public class Participant implements Serializable {
 	private Boolean preference;
 	
 	private String doodleId;
+	
+	@Column(name="MEETING_ID")
+	private String mettnigId;
 
 	public Long getId() {
 		return id;
@@ -101,7 +105,14 @@ public class Participant implements Serializable {
 	public void setDoodleId(String doodleId) {
 		this.doodleId = doodleId;
 	}
-	
-	
+
+	public String getMettnigId() {
+		return mettnigId;
+	}
+
+	public void setMettnigId(String mettnigId) {
+		this.mettnigId = mettnigId;
+	}
+		
 
 }

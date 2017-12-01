@@ -3,6 +3,7 @@ package fr.soat.soadle.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +34,9 @@ public class Option implements Serializable {
 	private Boolean allday;
 
 	private Boolean available;
+	
+	@Column(name="MEETING_ID")
+	private String mettnigId;
 	
 
 	public Long getId() {
@@ -74,6 +78,13 @@ public class Option implements Serializable {
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
-	
 
+	public String getMettnigId() {
+		return mettnigId;
+	}
+
+	public void setMettnigId(String mettnigId) {
+		this.mettnigId = mettnigId;
+	}
+	
 }

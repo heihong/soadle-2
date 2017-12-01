@@ -3,6 +3,7 @@ package fr.soat.soadle.services;
 import java.util.List;
 
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.model.Participant;
 
 /**
  * @author abenchabana
@@ -45,4 +46,12 @@ public interface SoadleService {
      */
     void delete(String id);
 
+
+	
+    /**
+     * @param mettnigId
+     * @param participant
+     * @return
+     */
+    Participant participe(String mettnigId, Participant participant); 
 }
