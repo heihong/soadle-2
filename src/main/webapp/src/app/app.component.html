@@ -28,7 +28,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="col-md-12">Email: {{resulUser.userAuthentication.details.email}}</div>							
-							<div class="col-md-12"><a href="#" class="btn_logout btn-default margin-top-5" (click)="logout()"> Logout</a></div>
+							<div class="col-md-12"><a href="#" class="btn_small btn-default margin-top-5" (click)="logout()"> Logout</a></div>
 						</div>
 					</div>
 					<!-- End Home Panel -->
@@ -45,15 +45,17 @@
 		<div style="border: 1px solid #b8dc6f;">
 			<table width="100%">
 				<tr>
-					<th width="65%"></th>
-					<th width="35%"></th>
+				    <th width="80%"></th>
+					<th width="20%"></th>
 				</tr>
 				<tbody>
 					<tr>
 						<TD align="left">
-						    <button class="btn btn-default" (click)="getList()">Liste des evènements</button>&nbsp;&nbsp;
+						    <button class="btn btn-default" (click)="getList(idListTags.value.trim())">Liste des evènements</button>&nbsp;
+						     Titre/Tags : <input #idListTags placeholder="idListTags" required value=" " style="background-color: #b8dc6f; height: 30px; width: 200px;">&nbsp;&nbsp;
 							<button class="btn btn-default" (click)="getMeeting(id.value)">Afficher un meeting</button>&nbsp;<input #id placeholder="id" required value="{{result.id || ' '}}" style="background-color: #b8dc6f; height: 30px; width: 200px;">&nbsp;		
-							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D'">Importer le doodle</button>				
+							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D' && result.doodleReference == null">Importer le doodle</button>
+							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D' && result.doodleReference != null">Re-Importer le doodle</button>					
 						</TD>
 						<TD align="right">
 							<button class="btn btn-default" (click)="create(1)" *ngIf="!indCreate" >Créer un soadle</button>&nbsp;	
@@ -68,14 +70,15 @@
 			<table>
 				<tr>
 					<th width="30%"></th>
-					<th width="50%"></th>
-					<th width="20%"></th>
+					<th width="40%"></th>
+					<th width="30%"></th>
 				</tr>
 				<tbody>
 					<tr>
 						<td><b>Titre de l'evenement :</b></td>
 						<td><input #idTitle placeholder="idTitle" required value=" " style="background-color: #b8dc6f; height: 30px; width: 300px;"></td>
-						<td></td>
+						<td align="right">						
+						</td>
 					</tr>
 					<tr>
 						<td><b>Description de l'evenement :</b></td>
@@ -96,11 +99,15 @@
 						<td><b>Adresse de lieu de l'evenement :</b></td>
 						<td><input #idAdress placeholder="idAdress" required value=" " style="background-color: #b8dc6f; height: 30px; width: 400px;"></td>
 					    <td></td>
-					</tr>					
+					</tr>			
+					<tr>
+						<td><b>Tags :</b></td>
+						<td><input #idTags placeholder="idTags" required value=" " style="background-color: #b8dc6f; height: 30px; width: 400px;"></td>
+					</tr>		
 					<tr>
 					    <td></td>
-					    <td align="left"><div *ngIf="indCreate==1"><button class="btn btn-default"  (click)="crateEventSoadle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value + ':' + idMinut.value, idName.value, idAdress.value); id.value=' '" >Enregistrer soadle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>
-						                 <div *ngIf="indCreate==2"><button class="btn btn-default"  (click)="crateEventDoodle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value + ':' + idMinut.value, idName.value, idAdress.value); id.value=' '" >Enregistrer doodle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>						                 
+					    <td align="left"><div *ngIf="indCreate==1"><button class="btn btn-default"  (click)="crateEventSoadle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value + ':' + idMinut.value, idName.value, idAdress.value, idTags.value); id.value=' '" >Enregistrer soadle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>
+						                 <div *ngIf="indCreate==2"><button class="btn btn-default"  (click)="crateEventDoodle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value + ':' + idMinut.value, idName.value, idAdress.value, idTags.value); id.value=' '" >Enregistrer doodle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>						                 
 					    </td>
 					<td></td>
 					</tr>
@@ -109,10 +116,11 @@
 		</div>
 
 		<div style="padding: 3px; margin-top: 3px; border: 2px solid #b8dc6f;" *ngIf="result">
-			<table>
+			<table with="100%">
 				<tr>
-					<th width="50%"></th>
-					<th width="50%"></th>
+					<th width="20%"></th>
+					<th width="80%"></th>
+					<th width="40%"></th>
 				</tr>
 				<tbody>
 					<tr>
@@ -144,6 +152,21 @@
 						<td><b>Nombre de participant :</b></td>
 						<td>{{result.participantsCount}}</td>
 					</tr>
+					<tr>
+						<td><b>Tags :</b></td>
+						<td *ngIf="!indModif && (result.origine == 'S' ||  result.doodleReference != null )" >
+						   {{result.tags}} &nbsp;	
+						   <button class="btn btn-default"  (click)="modificationMeeting(result.id, result.origine)" >Modification tags</button>					 
+						</td>
+						<td *ngIf="!indModif && (result.origine == 'D' &&  result.doodleReference == null )" >
+						   {{result.tags}} 				 
+						</td>
+						<td *ngIf="indModif" >						
+						     <input #idTags1 placeholder="idTags1" required value="{{result.tags}}" style="background-color: #b8dc6f; height: 30px; width: 400px;">
+						     <button class="btn btn-default"  (click)="saveMeeting(result.id, idTags1.value)" >Enregistrer les tags</button>&nbsp;
+						     <button class="btn btn-default"  (click)="annulModif()" >Annuler</button>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -172,13 +195,14 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th class="col" style="width: 18%;">Titre</th>
-						<th class="col" style="width: 30%;">Lieu</th>
+						<th class="col" style="width: 13%;">Titre</th>
+						<th class="col" style="width: 25%;">Lieu</th>
 						<th class="col" style="width: 10%;">Date</th>
-						<th class="col" style="width: 17%;">Initiateur</th>
+						<th class="col" style="width: 13%;">Initiateur</th>
 						<th class="col" style="width: 5%;">Nb par.</th>
-						<th class="col" style="width: 5%;">Doodle/Soadle</th>
-						<th class="col" style="width: 15%;"></th>
+						<th class="col" style="width: 5%;">Origine</th>
+						<th class="col" style="width: 15%;">Tags</th>
+						<th class="col" style="width: 14%;"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -201,10 +225,11 @@
 								<b>Soadle</b>
 							</div>
 						</td>
+						<td class="col">{{meeting.tags}}</td>
 						<td class="col">
-							<button class="btn btn-default" (click)="getDoodle(meeting.id)" *ngIf="meeting.origine == 'D'">Détail</button>
-							<button class="btn btn-default" (click)="getSoadle(meeting.id)" *ngIf="meeting.origine != 'D'">Détail</button>
-							&nbsp;<button class="btn btn-default" (click)="delete(meeting.id, meeting.origine)"  style="color: #FF0000;">Supprimer</button>
+							<button class="btn_small btn-default" (click)="getDoodle(meeting.id)" *ngIf="meeting.origine == 'D'">Détail</button>
+							<button class="btn_small btn-default" (click)="getSoadle(meeting.id)" *ngIf="meeting.origine != 'D'">Détail</button>
+							&nbsp;<button class="btn_small btn-default" (click)="delete(meeting.id, meeting.origine)"  style="color: #FF0000;">Supprimer</button>
 						</td>
 					</tr>
 				</tbody>

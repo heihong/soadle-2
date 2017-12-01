@@ -16,11 +16,12 @@ export class AppComponent implements OnInit{
   user ={};
   resulUser = null;
   indCreate = null;
+  indModif = null;
   
   ngOnInit() {
       this.getUser()
       .subscribe(response => this.resulUser = response);      
-      this.getList();
+      this.getList('');
   }
 
 
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit{
       this.result = null;
       this.resultList = null;
       this.indCreate = null;
+      this.indModif = null;
   }
   
 
@@ -72,11 +74,18 @@ export class AppComponent implements OnInit{
     }
   
 
-  private getList() : void {
+  private getList(tags) : void {
       this.initIHM();
-      this.http.get(`/api/v1/soadle/`)
-      .subscribe(response => this.resultList = response.json() , e => this.resultList = null);
-    }
+      if(tags)
+      {
+          this.http.get(`/api/v1/soadle/tags/`+tags)
+          .subscribe(response => this.resultList = response.json() , e => this.resultList = null);
+      } else
+      {
+          this.http.get(`/api/v1/soadle/`)
+          .subscribe(response => this.resultList = response.json() , e => this.resultList = null);
+      }
+   }
   
   private importDoodle(id): void {
       this.initIHM();
@@ -90,18 +99,33 @@ export class AppComponent implements OnInit{
       this.indCreate=indicateur;
   }
   
-  private crateEventDoodle(title,description, date, name, address) : void {
+  private modificationMeeting(id,indicateur) : void {
+    this.indModif=indicateur;
+  }
+  
+  private annulModif() : void {
+      this.indModif=null;
+  }
+  
+  
+  private crateEventDoodle(title,description, date, name, address, tags) : void {
             
       this.http
-          .post(`/api/v1/doodle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address}})
+          .post(`/api/v1/doodle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address},tags:tags})
           .subscribe(response => {this.initIHM(); this.result = response.json();} , e => this.result = null);       
   }
- 
+   
   
-  private crateEventSoadle(title,description, date, name, address) : void {
+  private crateEventSoadle(title,description, date, name, address, tags) : void {
       this.http
-          .post(`/api/v1/soadle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address}})
+          .post(`/api/v1/soadle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address},tags:tags})
           .subscribe(response => {this.initIHM(); this.result = response.json();} , e => this.handleError(e));       
+  }
+  
+  private saveMeeting(id, tags) : void
+  {
+      this.http.get(`/api/v1/soadle/tags/`+id+`/`+tags)
+      .subscribe(response => response, e => this.handleError(e), () => this.getMeeting(id));      
   }
   
   
@@ -110,11 +134,11 @@ export class AppComponent implements OnInit{
           if(origine == 'D')
           {
               this.http.delete(`/api/v1/doodle/${id}`)
-              .subscribe(response => this.getList() , e => this.result = null);
+              .subscribe(response => this.getList('') , e => this.result = null);
           } else
           {
               this.http.delete(`/api/v1/soadle/${id}`)
-              .subscribe(response => this.getList() , e => this.result = null);
+              .subscribe(response => this.getList('') , e => this.result = null);
           }
       }
     }

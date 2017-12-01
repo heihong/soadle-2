@@ -13,6 +13,7 @@ import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static fr.soat.soadle.web.api.doodle.DoodleWebRepresentation.mapper;
@@ -51,7 +52,19 @@ public class DoodleController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public SoadleMeeting doodle(@PathVariable("id") String id) {
 
-		return SoadleTransformer.to(doodleService.findDoodle(id));
+		Meeting meeting = doodleService.findDoodle(id);
+		
+		Optional<Meeting> optional = doodleRepositorieService.findDoodle(id);
+		
+		if(optional.isPresent() && meeting !=null)
+		{
+			meeting.setTags(optional.get().getTags());
+			meeting.setDoodleReference(optional.get().getDoodleReference());
+			meeting.setImportationDate(optional.get().getImportationDate());
+		}
+		
+		
+		return SoadleTransformer.to(meeting);
 	}
 	
 	/**

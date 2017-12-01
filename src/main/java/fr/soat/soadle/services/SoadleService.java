@@ -21,11 +21,22 @@ public interface SoadleService {
 	 * @return all sodale meetings 
 	 */
 	List<Meeting> findAll();
+	
+	
+	List<Meeting> findByTag(String tag);
+	
+	
     /**
      * @param meeting
      * @return
      */
     Meeting save(Meeting meeting);
+    
+    /**
+     * @param id
+     * @param tags
+     */
+    void saveTags(String id, String tags);
     
     
    

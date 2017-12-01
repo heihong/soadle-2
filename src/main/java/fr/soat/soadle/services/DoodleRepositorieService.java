@@ -1,5 +1,7 @@
 package fr.soat.soadle.services;
 
+import java.util.Optional;
+
 import fr.soat.soadle.model.Meeting;
 
 /**
@@ -20,5 +22,11 @@ public interface DoodleRepositorieService {
 	 * @param id
 	 */
 	void delete(String id);
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	Optional<Meeting> findDoodle(String id);
 
 }

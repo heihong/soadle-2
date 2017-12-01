@@ -37,7 +37,7 @@ public class DoodleServiceImpl implements DoodleService {
 	@Override
 	public Meeting findDoodle(String id) {
 
-		return clientDoodleService.findDoodle(id);
+		return clientDoodleService.findDoodle(id);		
 
 	}
 

@@ -40,6 +40,8 @@ public class SoadleMeeting  implements Comparable<SoadleMeeting> {
 	
 	private String description;
 	
+	private String tags;
+	
 	private SoadleLocation location;	
 
 	private SoadleParticipant initiator;
@@ -178,6 +180,15 @@ public class SoadleMeeting  implements Comparable<SoadleMeeting> {
 		this.description = description;
 	}
 		
+		
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
 	public SoadleParticipant getInitiator() {
 		return initiator;

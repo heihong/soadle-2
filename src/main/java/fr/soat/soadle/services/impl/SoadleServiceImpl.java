@@ -54,6 +54,14 @@ public class SoadleServiceImpl implements SoadleService {
         return meetingRepository.findAll();
     }
 
+    
+    /**
+     * @see fr.soat.soadle.services.SoadleService#findByTag(java.lang.String)
+     */
+    @Override
+    public List<Meeting> findByTag(String tag) {
+        return meetingRepository.findByTag(tag);
+    }
 
     /**
      * @see fr.soat.soadle.services.SoadleService#save(fr.soat.soadle.model.Meeting)
@@ -66,6 +74,17 @@ public class SoadleServiceImpl implements SoadleService {
         return meetingRepository.save(meeting);
     }
     
+
+	/**
+	 * @see fr.soat.soadle.services.SoadleService#saveTags(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void saveTags(String id, String tags) {
+		meetingRepository.saveTags(id,tags);
+	}
+    
+    
+    
     /**
      * @see fr.soat.soadle.services.SoadleService#delete(java.lang.String)
      */
@@ -73,6 +92,8 @@ public class SoadleServiceImpl implements SoadleService {
     public void delete(String id) {
         meetingRepository.deleteById(id);
     }
+
+
 
 
 }

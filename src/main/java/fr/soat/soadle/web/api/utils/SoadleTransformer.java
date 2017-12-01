@@ -70,6 +70,7 @@ public class SoadleTransformer {
 		response.setDoodleReference(meeting.getDoodleReference());
 		response.setOrigine(meeting.getOrigine());
 		response.setInitiator(to(meeting.getInitiator()));
+		response.setTags(meeting.getTags());
 
 		response.setParticipants(toParticipants(meeting.getParticipants()));
 		response.setOptions(toOptions(meeting.getOptions()));
@@ -208,6 +209,7 @@ public class SoadleTransformer {
 		meeting.setDoodleReference(soadleMeeting.getDoodleReference());
 		meeting.setOrigine(soadleMeeting.getOrigine());
 		meeting.setInitiator(from(soadleMeeting.getInitiator()));
+		meeting.setTags(soadleMeeting.getTags());
 
 		meeting.setParticipants(fromParticipants(soadleMeeting.getParticipants()));
 		meeting.setOptions(fromOptions(soadleMeeting.getOptions()));

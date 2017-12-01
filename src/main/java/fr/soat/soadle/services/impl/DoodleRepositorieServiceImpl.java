@@ -1,6 +1,7 @@
 package fr.soat.soadle.services.impl;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,15 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 	@Override
 	public Meeting addDoodleMeeting(String id) {
         Meeting meetingImportedFromDoodle = doodleService.findDoodle(id);
+        Optional<Meeting>  Optionalmeeting = meetingRepository.findById(id);
+        
         meetingImportedFromDoodle.setDoodleReference(id);
         meetingImportedFromDoodle.setImportationDate(new Date());
+        
+        if(Optionalmeeting.isPresent())
+        {
+        	meetingImportedFromDoodle.setTags(Optionalmeeting.get().getTags());
+        }
 
         return meetingRepository.save(meetingImportedFromDoodle);
 	}
@@ -48,6 +56,12 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
     public void delete(String id) {
         meetingRepository.deleteById(id);
     }
+
+
+	@Override
+	public Optional<Meeting> findDoodle(String id) {
+		return meetingRepository.findById(id);
+	}
 
 
 }
