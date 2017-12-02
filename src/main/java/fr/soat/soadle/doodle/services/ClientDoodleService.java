@@ -1,6 +1,7 @@
 package fr.soat.soadle.doodle.services;
 
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.model.Participant;
 
 /**
  * Customer doodle web service
@@ -21,4 +22,11 @@ public interface ClientDoodleService {
 	 * @return
 	 */
 	Meeting createDoodle(Meeting meeting);
+	
+	/**
+	 * @param mettnigId
+	 * @param pParticipant
+	 * @return
+	 */
+	Participant participe(String mettnigId, Participant pParticipant);
 }

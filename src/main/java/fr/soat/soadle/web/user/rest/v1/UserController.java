@@ -1,11 +1,11 @@
 package fr.soat.soadle.web.user.rest.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.soat.soadle.security.model.SoadleAuthentication;
 import fr.soat.soadle.security.services.AuthenticationService;
 
 import java.security.Principal;
@@ -38,7 +38,7 @@ public class UserController {
 	 * @return customer authentication
 	 */
 	@RequestMapping(value = "/auth", method = RequestMethod.GET)
-	public Authentication auth() {
+	public SoadleAuthentication auth() {
 		return authenticationService.getAuthentication();
 	}
 	

@@ -1,6 +1,6 @@
 package fr.soat.soadle.security.services;
 
-import org.springframework.security.core.Authentication;
+import fr.soat.soadle.security.model.SoadleAuthentication;
 
 /**
  * @author hakim
@@ -11,6 +11,6 @@ public interface AuthenticationService {
 	/**
 	 * @return
 	 */
-	Authentication getAuthentication();
+	SoadleAuthentication getAuthentication();
 
 }

@@ -38,6 +38,9 @@ public class Participant implements Serializable {
 	
 	private String doodleId;
 	
+	private String optionsHash;
+	
+	
 	@Column(name="MEETING_ID")
 	private String mettnigId;
 
@@ -113,6 +116,13 @@ public class Participant implements Serializable {
 	public void setMettnigId(String mettnigId) {
 		this.mettnigId = mettnigId;
 	}
-		
+
+	public String getOptionsHash() {
+		return optionsHash;
+	}
+
+	public void setOptionsHash(String optionsHash) {
+		this.optionsHash = optionsHash;
+	}	
 
 }

@@ -108,6 +108,7 @@ public class SoadleParticipant implements Comparable<SoadleParticipant> {
 	public void setPreference(Boolean preference) {
 		this.preference = preference;
 	}
+		
 
 	@Override
 	public int compareTo(SoadleParticipant arg0) {

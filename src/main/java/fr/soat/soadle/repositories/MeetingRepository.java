@@ -33,4 +33,9 @@ public interface MeetingRepository extends JpaRepository<Meeting, String> {
 	@Query("update Meeting m set m.tags = :tags where m.id = :id")
 	void saveTags(@Param("id") String id, @Param("tags") String tags);
 	
+	
+	@Modifying(clearAutomatically = true)
+	@Query("update Meeting m set m.participantsCount = (select count(id) from Participant where MEETING_ID = :id ) where MEETING_ID = :id ")
+	void updateParticipantsCount(@Param("id") String id);
+	
 }

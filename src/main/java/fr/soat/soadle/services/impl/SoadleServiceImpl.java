@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +14,9 @@ import fr.soat.soadle.model.Meeting;
 import fr.soat.soadle.model.Participant;
 import fr.soat.soadle.repositories.MeetingRepository;
 import fr.soat.soadle.repositories.ParticipantRepository;
+import fr.soat.soadle.security.model.SoadleAuthentication;
 import fr.soat.soadle.security.services.AuthenticationService;
 import fr.soat.soadle.services.SoadleService;
-import fr.soat.soadle.utils.InitiatorfromAuthentication;
 
 /**
  * @author hakim
@@ -76,8 +76,15 @@ public class SoadleServiceImpl implements SoadleService {
      * @see fr.soat.soadle.services.SoadleService#save(fr.soat.soadle.model.Meeting)
      */
     @Override
-    public Meeting save(Meeting meeting) {		
-		meeting.setInitiator(InitiatorfromAuthentication.from((OAuth2Authentication) authenticationService.getAuthentication()));
+    public Meeting save(Meeting meeting) {	
+    	
+	    SoadleAuthentication authentication = authenticationService.getAuthentication();
+		
+		Participant initiator = new Participant();		
+		initiator.setName(authentication.getName());
+		initiator.setEmail(authentication.getMail());
+		
+		meeting.setInitiator(initiator);		
 		meeting.setId(UUID.randomUUID().toString());
 		meeting.setOrigine(EnumOrigine.SOADLE.toString());
         return meetingRepository.save(meeting);
@@ -124,9 +131,17 @@ public class SoadleServiceImpl implements SoadleService {
 		
 		participant.setName(pParticipant.getName());
 		participant.setEmail(pParticipant.getEmail());
+		
+		if(StringUtils.isNoneBlank(pParticipant.getSmallAvatarUrl()))
+		{
+		  participant.setSmallAvatarUrl(pParticipant.getSmallAvatarUrl());
+		}
+		
 		participant.setPreference(pParticipant.getPreference());
 		
 		participantRepository.save(participant);
+		
+		meetingRepository.updateParticipantsCount(mettnigId);
 	
 		
 		return participant;

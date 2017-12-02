@@ -1,9 +1,10 @@
 package fr.soat.soadle.security.services.impl;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 
+import fr.soat.soadle.security.model.SoadleAuthentication;
 import fr.soat.soadle.security.services.AuthenticationService;
 
 /**
@@ -19,7 +20,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * @see fr.soat.soadle.security.services.AuthenticationService#getAuthentication()
      */
     @Override
-    public Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
+    public SoadleAuthentication getAuthentication() {
+        return new SoadleAuthentication((OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication());
     }
 }

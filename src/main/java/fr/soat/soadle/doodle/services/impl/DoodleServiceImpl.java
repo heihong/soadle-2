@@ -1,15 +1,15 @@
 package fr.soat.soadle.doodle.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
 import fr.soat.soadle.doodle.services.ClientDoodleService;
 import fr.soat.soadle.doodle.services.DoodleService;
 import fr.soat.soadle.model.EnumOrigine;
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.model.Participant;
+import fr.soat.soadle.security.model.SoadleAuthentication;
 import fr.soat.soadle.security.services.AuthenticationService;
-import fr.soat.soadle.utils.InitiatorfromAuthentication;
 
 /**
  * @author hakim
@@ -44,9 +44,13 @@ public class DoodleServiceImpl implements DoodleService {
 	@Override
 	public Meeting createDoodle(Meeting meeting) {
 		meeting.setOrigine(EnumOrigine.DOODLE.toString());
-
-		meeting.setInitiator(InitiatorfromAuthentication
-				.from((OAuth2Authentication) authenticationService.getAuthentication()));
+		
+		SoadleAuthentication authentication = authenticationService.getAuthentication();
+		
+		Participant initiator = new Participant();		
+		initiator.setName(authentication.getName());
+		initiator.setEmail(authentication.getMail());
+		meeting.setInitiator(initiator);
 
 		meeting.setLocale("fr_FR");
 		meeting.setType("DATE");
@@ -54,4 +58,15 @@ public class DoodleServiceImpl implements DoodleService {
 		return clientDoodleService.createDoodle(meeting);
 	}
 
+	
+	/**
+	 * @see fr.soat.soadle.doodle.services.DoodleService#participe(java.lang.String, fr.soat.soadle.model.Participant)
+	 */
+	@Override
+	public Participant participe(String mettnigId, Participant pParticipant) {
+		
+		return clientDoodleService.participe(mettnigId, pParticipant);
+		
+	}
+	
 }

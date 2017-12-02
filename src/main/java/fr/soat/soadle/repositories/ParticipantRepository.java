@@ -14,4 +14,6 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 	@Query("select p from Participant p where MEETING_ID = :idMeeting and p.email = :email ")	
 	List<Participant>  findByEmail(@Param("idMeeting") String idMeeting, @Param("email") String email);
 
+	@Query("select p from Participant p where MEETING_ID = :idMeeting and p.doodleId = :doodleId ")	
+	List<Participant>  findByDoodleId(@Param("idMeeting") String idMeeting, @Param("doodleId") String doodleId);
 }

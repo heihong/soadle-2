@@ -152,7 +152,7 @@ public class DoodleTransformer {
 	 * @param doodleParticipantDto
 	 * @return
 	 */
-	private static Participant from(DoodleParticipantDto doodleParticipantDto) {
+	public static Participant from(DoodleParticipantDto doodleParticipantDto) {
 		
 		if(doodleParticipantDto == null) return null;
 		
@@ -163,6 +163,7 @@ public class DoodleTransformer {
 		participant.setSmallAvatarUrl(doodleParticipantDto.getSmallAvatarUrl());
 		participant.setLargeAvatarUrl(doodleParticipantDto.getLargeAvatarUrl());
 		participant.setUserId(doodleParticipantDto.getUserId());
+		participant.setOptionsHash(doodleParticipantDto.getOptionsHash());
 		participant.setPreference(CollectionUtils.isNotEmpty(doodleParticipantDto.getPreferences()) && doodleParticipantDto.getPreferences().get(0) ==1 );
 		
 		return participant;
@@ -293,7 +294,7 @@ public class DoodleTransformer {
 	 * @param participant
 	 * @return
 	 */
-	private static DoodleParticipantDto to(Participant participant) {
+	public static DoodleParticipantDto to(Participant participant) {
 		
 		DoodleParticipantDto doodleParticipantDto = new DoodleParticipantDto();
 		
@@ -302,6 +303,7 @@ public class DoodleTransformer {
 		doodleParticipantDto.setSmallAvatarUrl(participant.getSmallAvatarUrl());
 		doodleParticipantDto.setLargeAvatarUrl(participant.getLargeAvatarUrl());
 		doodleParticipantDto.setUserId(participant.getUserId());
+		doodleParticipantDto.setOptionsHash(participant.getOptionsHash());
 		doodleParticipantDto.setPreferences(Arrays.asList(participant.getPreference() ? 1 : 0));
 		
 		return doodleParticipantDto;

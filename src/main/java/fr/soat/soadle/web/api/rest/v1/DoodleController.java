@@ -1,21 +1,24 @@
 package fr.soat.soadle.web.api.rest.v1;
 
+import fr.soat.soadle.security.services.AuthenticationService;
 import fr.soat.soadle.services.DoodleQueryService;
 import fr.soat.soadle.web.api.doodle.DoodleWebRepresentation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import fr.soat.soadle.doodle.services.DoodleService;
 import fr.soat.soadle.model.Meeting;
 import fr.soat.soadle.services.DoodleRepositorieService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
+import fr.soat.soadle.web.api.dto.v1.SoadleParticipant;
 import fr.soat.soadle.web.api.utils.SoadleTransformer;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static fr.soat.soadle.utils.ObjectToGeson.toGeson;
 import static fr.soat.soadle.web.api.doodle.DoodleWebRepresentation.mapper;
 
 /**
@@ -28,17 +31,18 @@ import static fr.soat.soadle.web.api.doodle.DoodleWebRepresentation.mapper;
 @RequestMapping("/api/{version:v1}/doodle")
 public class DoodleController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DoodleController.class);
+	
 	/**
-	 * service doodle meeting
+	 * 
 	 */
 	@Autowired
-	private DoodleService doodleService;
-	
+	private AuthenticationService authenticationService;
+		
 	
 	@Autowired
 	private DoodleRepositorieService doodleRepositorieService;
-	
-	
+		
 	/**
 	 * 
 	 */
@@ -51,20 +55,8 @@ public class DoodleController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public SoadleMeeting doodle(@PathVariable("id") String id) {
-
-		Meeting meeting = doodleService.findDoodle(id);
-		
-		Optional<Meeting> optional = doodleRepositorieService.findDoodle(id);
-		
-		if(optional.isPresent() && meeting !=null)
-		{
-			meeting.setTags(optional.get().getTags());
-			meeting.setDoodleReference(optional.get().getDoodleReference());
-			meeting.setImportationDate(optional.get().getImportationDate());
-		}
-		
-		
-		return SoadleTransformer.to(meeting);
+	
+		return SoadleTransformer.to(doodleRepositorieService.findDoodle(id), authenticationService.getAuthentication(), true);
 	}
 	
 	/**
@@ -74,7 +66,7 @@ public class DoodleController {
 	@RequestMapping(value = "/import/{id}", method = RequestMethod.GET)
 	public SoadleMeeting addDoodleMeeting(@PathVariable("id") String id) {
 
-		return SoadleTransformer.to(doodleRepositorieService.addDoodleMeeting(id));
+		return SoadleTransformer.to(doodleRepositorieService.addDoodleMeeting(id), authenticationService.getAuthentication(), true);
 	}
 	
 	
@@ -85,12 +77,10 @@ public class DoodleController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public SoadleMeeting createDoodleMeeting(@RequestBody SoadleMeeting soadleMeeting) {
-
-		Meeting meeting = SoadleTransformer.from(soadleMeeting);		
-		
-		meeting = doodleService.createDoodle(meeting);
+			
+		Meeting meeting = doodleRepositorieService.createDoodle(SoadleTransformer.from(soadleMeeting));
 				
-		return SoadleTransformer.to(doodleRepositorieService.addDoodleMeeting(meeting.getId()));
+		return SoadleTransformer.to(meeting, authenticationService.getAuthentication(), true);
 	}
 	
 	/**
@@ -101,6 +91,15 @@ public class DoodleController {
 		doodleRepositorieService.delete(id);
 	}
 
+	@RequestMapping(value = "/participe/{id}", method = RequestMethod.POST)
+	public void participe(@PathVariable("id") String id, @RequestBody SoadleParticipant soadleParticipant) {
+
+		LOGGER.debug(toGeson(soadleParticipant));
+		
+		doodleRepositorieService.participe(id,SoadleTransformer.from(soadleParticipant));
+	}
+	
+	
 
 
 	/**

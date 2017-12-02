@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import fr.soat.soadle.model.EnumOrigine;
 import fr.soat.soadle.model.Location;
 import fr.soat.soadle.model.Option;
 import fr.soat.soadle.model.Participant;
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.security.model.SoadleAuthentication;
 import fr.soat.soadle.web.api.dto.v1.SoadleLocation;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.dto.v1.SoadleOption;
@@ -28,24 +30,37 @@ public class SoadleTransformer {
 	 **********************************
 	 */
 
+	
 	/**
-	 * @param findAll
-	 *           
-	 * @return List SoadleMeetings
+	 * @param meetings
+	 * @return
 	 */
 	public static List<SoadleMeeting> to(List<Meeting> meetings) {
+      return to(meetings, null,false);
+	}
+	
+	/**
+	 * @param meetings
+	 * @param authentication
+	 * @param detail
+	 * @return
+	 */
+	public static List<SoadleMeeting> to(List<Meeting> meetings,SoadleAuthentication authentication, boolean detail) {
 
 		if (meetings != null)
-			return meetings.stream().map(m -> to(m)).sorted().collect(Collectors.toList());
+			return meetings.stream().map(m -> to(m, authentication, detail)).sorted().collect(Collectors.toList());
 
 		return null;
 	}
 
+	
 	/**
 	 * @param meeting
-	 * @return soadle meeting webservice
+	 * @param authentication
+	 * @param detail
+	 * @return
 	 */
-	public static SoadleMeeting to(Meeting meeting) {
+	public static SoadleMeeting to(Meeting meeting,SoadleAuthentication authentication, boolean detail) {
 
 		if (meeting == null)
 			return null;
@@ -72,12 +87,55 @@ public class SoadleTransformer {
 		response.setInitiator(to(meeting.getInitiator()));
 		response.setTags(meeting.getTags());
 
-		response.setParticipants(toParticipants(meeting.getParticipants()));
 		response.setOptions(toOptions(meeting.getOptions()));
 		
-		if(meeting.getParticipants() != null)
+		if(detail || EnumOrigine.DOODLE.toString().equals(meeting.getOrigine()))
 		{
-			response.setParticipantsCount(meeting.getParticipants().size());
+			if(meeting.getParticipants() != null)
+			{
+				response.setParticipantsCount(meeting.getParticipants().size());	
+			} else
+			{
+				response.setParticipantsCount(0);
+			}
+		}
+		
+		if(detail)
+		{							
+			response.setParticipants(toParticipants(meeting.getParticipants()));	
+			
+		    SoadleParticipant participation = null;	
+			if(response.getParticipants() != null)
+			{									
+				String email = authentication.getMail() ;
+				String name = authentication.getName();
+				
+				if(email != null)
+				{
+					for(SoadleParticipant p :  response.getParticipants())
+					{
+						if(email.equalsIgnoreCase(p.getEmail()))
+						{
+							participation = p;
+						    break;
+						}
+					}
+				} 
+				
+				if (participation == null && name != null)
+				{
+					for(SoadleParticipant p :  response.getParticipants())
+					{
+						if(name.equalsIgnoreCase(p.getName()))
+						{
+							participation =  p;
+						    break;
+						}
+					}
+				}			    
+			}
+			
+			response.setParticipation(participation);
 		}
 
 		return response;
@@ -157,6 +215,7 @@ public class SoadleTransformer {
 		response.setName(participant.getName());
 		response.setEmail(participant.getEmail());
 		response.setUserId(participant.getUserId());
+		response.setDoodleId(participant.getDoodleId());
 		response.setSmallAvatarUrl(participant.getSmallAvatarUrl());
 		response.setLargeAvatarUrl(participant.getLargeAvatarUrl());
 		response.setPreference(participant.getPreference());
@@ -296,6 +355,7 @@ public class SoadleTransformer {
 		participant.setName(soadleParticipant.getName());
 		participant.setEmail(soadleParticipant.getEmail());
 		participant.setUserId(soadleParticipant.getUserId());
+		participant.setDoodleId(soadleParticipant.getDoodleId());
 		participant.setSmallAvatarUrl(soadleParticipant.getSmallAvatarUrl());
 		participant.setLargeAvatarUrl(soadleParticipant.getLargeAvatarUrl());
 		participant.setPreference(soadleParticipant.getPreference());

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.security.services.AuthenticationService;
 import fr.soat.soadle.services.SoadleService;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.dto.v1.SoadleParticipant;
@@ -22,6 +23,12 @@ import fr.soat.soadle.web.api.utils.SoadleTransformer;
 public class SoadleController {
 
 	/**
+	 * 
+	 */
+	@Autowired
+	private AuthenticationService authenticationService;
+	
+	/**
 	 * Sodale service meeting
 	 */
 	@Autowired
@@ -35,7 +42,7 @@ public class SoadleController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public SoadleMeeting soadle(@PathVariable("id") String id) {
 
-		return SoadleTransformer.to(soadleService.find(id));
+		return SoadleTransformer.to(soadleService.find(id), authenticationService.getAuthentication(), true);
 	}
 
 	/**
@@ -74,7 +81,7 @@ public class SoadleController {
 
 		Meeting meeting = SoadleTransformer.from(soadleMeeting);
 
-		return SoadleTransformer.to(soadleService.save(meeting));
+		return SoadleTransformer.to(soadleService.save(meeting), authenticationService.getAuthentication(), true);
 	}
 	
 	

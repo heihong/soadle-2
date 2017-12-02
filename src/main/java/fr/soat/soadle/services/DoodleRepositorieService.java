@@ -1,8 +1,8 @@
 package fr.soat.soadle.services;
 
-import java.util.Optional;
 
 import fr.soat.soadle.model.Meeting;
+import fr.soat.soadle.model.Participant;
 
 /**
  * @author hakim
@@ -10,8 +10,22 @@ import fr.soat.soadle.model.Meeting;
  */
 public interface DoodleRepositorieService {
 	
-	
 
+	/**
+	 * @param id : id of doodle meeting 
+	 * @return  doodle meeting
+	 */
+	Meeting findDoodle(String id);
+	
+	/**
+	 * @param meeting
+	 * @return
+	 */
+	Meeting createDoodle(Meeting meeting);
+		
+		
+		
+	
 	/**
 	 * @param doodleReference: id of doodle meeting
 	 * @return Soadle Meeting
@@ -22,11 +36,12 @@ public interface DoodleRepositorieService {
 	 * @param id
 	 */
 	void delete(String id);
-	
+
 	/**
-	 * @param id
+	 * @param mettnigId
+	 * @param pParticipant
 	 * @return
 	 */
-	Optional<Meeting> findDoodle(String id);
+	public Participant participe(String mettnigId, Participant pParticipant);
 
 }
