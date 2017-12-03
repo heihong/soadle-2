@@ -18,20 +18,37 @@ export class AppComponent implements OnInit{
   indCreate = null;
   indModif = null;
   
-  ngOnInit() {
-      this.getUser()
-      .subscribe(response => this.resulUser = response);      
-      this.getList('');
-  }
-
+  googleMapUrl     = "https://www.google.fr/maps/place/";
+  pollsDoodleUrl   = "https://doodle.com/poll/";
+    
+  private baseUrl            = "";  
+  
+  private logoutUrl          = this.baseUrl + "/logout";
+  private loginUrl           = this.baseUrl + "/google/login";
+  
+  private userUrl            = this.baseUrl + "/user/v1/user";
+  private soadleUrl          = this.baseUrl + "/api/v1/soadle/";
+  private doodleUrl          = this.baseUrl + "/api/v1/doodle/";
+  private tagUrl             = this.baseUrl + "/api/v1/soadle/tags/";
+  private importUrl          = this.baseUrl + "/api/v1/doodle/import/";
+  private participeSoadleUrl = this.baseUrl + "/api/v1/soadle/participe/";
+  private participeDoodleUrl = this.baseUrl + "/api/v1/doodle/participe/";
+  
 
   constructor(private http: Http){
   }
 
   
+  ngOnInit() {
+     this.initUser();
+  }
 
+  private initUser() : void {
+      this.getUser()
+      .subscribe(response => this.resulUser = response, e => e,() => this.getList(''));
+  }
   private getUser() {
-    return   this.http.get(`/user/v1/user`)
+    return   this.http.get(this.userUrl)
       .map((response : Response) => this.resulUser = response.json())
       .catch(this.handleError);
 
@@ -47,7 +64,7 @@ export class AppComponent implements OnInit{
 
   private getSoadle(id): void {
     this.initIHM();
-    this.http.get(`/api/v1/soadle/${id}`)
+    this.http.get(this.soadleUrl+id)
     .subscribe(response => this.result = response.json() , e => this.result = null);
   }
   
@@ -55,13 +72,13 @@ export class AppComponent implements OnInit{
   
   private getDoodle(id): void {
     this.initIHM();
-    this.http.get(`/api/v1/doodle/${id}`)
+    this.http.get(this.doodleUrl+id)
     .subscribe(response => this.result = response.json() , e => this.result = null);
   }
   
   private getMeeting(id): void {
       this.initIHM();
-      this.http.get(`/api/v1/soadle/${id}`)      
+      this.http.get(this.soadleUrl+id)      
       .subscribe(response => this.result = response.json() , 
                   e  => this.getDoodle(id),
                   () => {     
@@ -78,18 +95,18 @@ export class AppComponent implements OnInit{
       this.initIHM();
       if(tags)
       {
-          this.http.get(`/api/v1/soadle/tags/`+tags)
+          this.http.get(this.tagUrl+tags)
           .subscribe(response => this.resultList = response.json() , e => this.resultList = null);
       } else
       {
-          this.http.get(`/api/v1/soadle/`)
+          this.http.get(this.soadleUrl)
           .subscribe(response => this.resultList = response.json() , e => this.resultList = null);
       }
    }
   
   private importDoodle(id): void {
       this.initIHM();
-      this.http.get(`/api/v1/doodle/import/${id}`)
+      this.http.get(this.importUrl+id)
       .subscribe(response => this.result = response.json() , e => this.result = null);
     }
   
@@ -108,23 +125,35 @@ export class AppComponent implements OnInit{
   }
   
   
+  private crateEvent(title,description, date, name, address, tags) : void {
+      if(this.indCreate == 1)
+      {
+          this.crateEventSoadle(title,description, date, name, address, tags);
+      } else
+      {
+          this.crateEventDoodle(title,description, date, name, address, tags);
+      }
+             
+  }
+   
+  
   private crateEventDoodle(title,description, date, name, address, tags) : void {
             
       this.http
-          .post(`/api/v1/doodle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address},tags:tags})
+          .post(this.doodleUrl,{title:title,description:description,options:[{date:date}],location:{name:name,address:address},tags:tags})
           .subscribe(response => {this.initIHM(); this.result = response.json();} , e => this.result = null);       
   }
    
   
   private crateEventSoadle(title,description, date, name, address, tags) : void {
       this.http
-          .post(`/api/v1/soadle/`,{title:title,description:description,options:[{date:date}],location:{name:name,address:address},tags:tags})
+          .post(this.soadleUrl,{title:title,description:description,options:[{date:date}],location:{name:name,address:address},tags:tags})
           .subscribe(response => {this.initIHM(); this.result = response.json();} , e => this.handleError(e));       
   }
   
   private saveMeeting(id, tags) : void
   {
-      this.http.get(`/api/v1/soadle/tags/`+id+`/`+tags)
+      this.http.get(this.tagUrl+id+`/`+tags)
       .subscribe(response => response, e => this.handleError(e), () => this.getMeeting(id));      
   }
   
@@ -133,11 +162,11 @@ export class AppComponent implements OnInit{
       if(confirm("Êtes-vous sûr de vouloir supprimer le meeting : "+id)) {
           if(origine == 'D')
           {
-              this.http.delete(`/api/v1/doodle/${id}`)
+              this.http.delete(this.doodleUrl+id)
               .subscribe(response => this.getList('') , e => this.result = null);
           } else
           {
-              this.http.delete(`/api/v1/soadle/${id}`)
+              this.http.delete(this.soadleUrl+id)
               .subscribe(response => this.getList('') , e => this.result = null);
           }
       }
@@ -149,7 +178,7 @@ export class AppComponent implements OnInit{
       if(origine == 'S')
       {
           this.http
-          .post(`/api/v1/soadle/participe/`+id,{name:name,email:email,preference:preference,smallAvatarUrl:picture})
+          .post(this.participeSoadleUrl+id,{name:name,email:email,preference:preference,smallAvatarUrl:picture})
           .subscribe(response => this.getSoadle(id) , e => this.handleError(e));  
       }
       
@@ -166,7 +195,7 @@ export class AppComponent implements OnInit{
               participation.smallAvatarUrl=picture;
           }
           this.http
-          .post(`/api/v1/doodle/participe/`+id, participation)
+          .post(this.participeDoodleUrl+id, participation)
           .subscribe(response => this.getDoodle(id) , e => this.handleError(e));  
       }
             
@@ -178,9 +207,9 @@ export class AppComponent implements OnInit{
       console.log(error);
       return Observable.throw(error);
     }
-
+    
      private logout(): void {
-      this.http.get(`/logout`)
+      this.http.get(this.logoutUrl)
       .subscribe(response => this.resulUser = null);
     }
 

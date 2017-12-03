@@ -15,7 +15,7 @@
 						<div class="panel-heading">Bienvenue à Soadle</div>
 						<div class="panel-body">
 							<div class="col-md-12">
-								<a class="btn btn-default" href="/google/login">Google Login</a>
+								<a class="btn btn-default" href="{{loginUrl}}">Google Login</a>
 							</div>
 						</div>
 					</div>
@@ -51,11 +51,10 @@
 				<tbody>
 					<tr>
 						<TD align="left">
-						    <button class="btn btn-default" (click)="getList(idListTags.value.trim())">Liste des evènements</button>&nbsp;
+						    <button class="btn btn-default" (click)="getList(idListTags.value.trim())">Liste des évènements</button>&nbsp;
 						     Titre/Tags : <input #idListTags placeholder="" required value=" " style="background-color: #b8dc6f; height: 30px; width: 200px;">&nbsp;&nbsp;
-							<button class="btn btn-default" (click)="getMeeting(id.value)">Afficher un meeting</button>&nbsp;<input #id placeholder="" required value="{{result.id || ' '}}" style="background-color: #b8dc6f; height: 30px; width: 200px;">&nbsp;		
-							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D' && result.doodleReference == null">Importer le doodle</button>
-							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D' && result.doodleReference != null">Re-Importer le doodle</button>					
+							<button class="btn btn-default" (click)="getMeeting(id.value)">Afficher un évènement</button>&nbsp;<input #id placeholder="" required value="{{result? result.id : ' '}}" style="background-color: #b8dc6f; height: 30px; width: 200px;">&nbsp;		
+							<button class="btn btn-default" (click)="importDoodle(id.value)" *ngIf="result && result.origine == 'D'">{{result.doodleReference? 'Re-Importer le doodle' : 'Importer le doodle'}}</button>					
 						</TD>
 						<TD align="right">
 							<button class="btn btn-default" (click)="create(1)" *ngIf="!indCreate" >Créer un soadle</button>&nbsp;	
@@ -106,9 +105,7 @@
 					</tr>		
 					<tr>
 					    <td></td>
-					    <td align="left"><div *ngIf="indCreate==1"><button class="btn btn-default"  (click)="crateEventSoadle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value, idName.value, idAdress.value, idTags.value); id.value=' '" >Enregistrer soadle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>
-						                 <div *ngIf="indCreate==2"><button class="btn btn-default"  (click)="crateEventDoodle(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value, idName.value, idAdress.value, idTags.value); id.value=' '" >Enregistrer doodle</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div>						                 
-					    </td>
+					    <td align="left"><div *ngIf="indCreate==1 || indCreate==2"><button class="btn btn-default"  (click)="crateEvent(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value, idName.value, idAdress.value, idTags.value); id.value=' '" >{{indCreate==1 ? 'Enregistrer soadle' : 'Enregistrer doodle' }}</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div></td>
 					<td></td>
 					</tr>
 				</tbody>
@@ -126,7 +123,7 @@
 					<tr>
 						<td><b>Titre de l'evenement :</b></td>
 						<td *ngIf="result.origine == 'D'">
-						    <a href="https://doodle.com/poll/{{result.id}}" target=_blank>{{result.title}}</a>						    
+						    <a href="{{pollsDoodleUrl}}{{result.id}}" target=_blank>{{result.title}}</a>						    
 						</td>
 						<td *ngIf="result.origine != 'D'">
 						    {{result.title}}					    
@@ -137,12 +134,7 @@
 						<td><b>Description de l'evenement :</b></td>
 						<td>{{result.description}}</td>
 						<TD align="right" >
-						    <div *ngIf="result.origine == 'D'">
-								<b>Doodle</b>
-							</div>
-							<div *ngIf="result.origine == 'S'">
-								<b>Soadle</b>
-							</div>							
+						   <b>{{result.origine == 'D' ? 'Doodle' : 'Soadle'}}</b>						  					
 						</TD>
 					</tr>
 					<tr>
@@ -154,13 +146,13 @@
 						<td><b>Initiateur de l'evenement :</b></td>
 						<td>{{result.initiator.name}}</td>
 						<TD  align="right">
-						   <div *ngIf="result.participation != null && result.participation.preference == true" ><font color="#9acd32"><b>J'ai répondu présent à ce meeting</b></font></div>
-						   <div *ngIf="result.participation != null && result.participation.preference == false"><font color="#FF0000"><b>J'ai répondu non présent à ce meeting</b></font></div>					
+						   <div *ngIf="result.participation != null && result.participation.preference == true" ><font color="#9acd32"><b>J'ai répondu présent à cet évènement</b></font></div>
+						   <div *ngIf="result.participation != null && result.participation.preference == false"><font color="#FF0000"><b>J'ai répondu non présent à cet évènement</b></font></div>					
 						</TD>
 					</tr>
 					<tr>
 						<td><b>Lieu de l'evenement :</b></td>
-						<td><a href="https://www.google.fr/maps/place/{{result.location.address || result.location.name}}" target=_blank> {{result.location.name}} {{result.location.address}} </a></td>
+						<td><a href="{{googleMapUrl}}{{result.location.address || result.location.name}}" target=_blank> {{result.location.name}} {{result.location.address}} </a></td>
 						<TD></TD>
 					</tr>
 					<tr>
@@ -186,7 +178,7 @@
 						    <button *ngIf="result.participation == null" class="btn_small btn-default"  (click)="participe(result.participation, false , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je ne participe pas</button>
 						    <button *ngIf="result.participation != null && result.participation.userId == null && result.participation.preference == true" class="btn_small btn-default"  (click)="participe(result.participation, false , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je ne participe plus</button>					
 						    <div *ngIf="result.participation != null && result.participation.userId != null" >						      
-						      <a class="btn_small btn-default" href="https://doodle.com/poll/{{result.id}}" target=_blank>Modifier ma réponse sur doodle</a>
+						      <a class="btn_small btn-default" href="{{pollsDoodleUrl}}{{result.id}}" target=_blank>Modifier ma réponse sur doodle</a>
 						    </div>	
 						</TD>
 						<TD align="right" *ngIf="result.origine == 'D' && result.doodleReference == null">
@@ -241,17 +233,14 @@
 						    <a href="#" (click)="getDoodle(meeting.id)" *ngIf="meeting.origine == 'D'">{{meeting.title}}</a>
 						    <a href="#" (click)="getSoadle(meeting.id)" *ngIf="meeting.origine != 'D'">{{meeting.title}}</a>
 						</td>
-						<td class="col"><a href="https://www.google.fr/maps/place/{{meeting.location.address || meeting.location.name}}" target=_blank>{{meeting.location.name}} {{meeting.location.address}}</a></td>
+						<td class="col"><a href="{{googleMapUrl}}{{meeting.location.address || meeting.location.name}}" target=_blank>{{meeting.location.name}} {{meeting.location.address}}</a></td>
 						<td class="col">{{meeting.options[0].date | date: 'dd/MM/yyyy hh:mm'}}</td>
-						<td class="col"><div *ngIf="meeting.initiator">{{meeting.initiator.name}}</div></td>
+						<td class="col">{{meeting.initiator? meeting.initiator.name: ''}}</td>
 						<td class="col">{{meeting.participantsCount}}</td>
 						<td class="col">
-							<div *ngIf="meeting.origine == 'D'">
-								<a href="https://doodle.com/poll/{{meeting.id}}" target=_blank><b>Doodle</b></a>
-							</div>
-							<div *ngIf="meeting.origine == 'S'">
-								<b>Soadle</b>
-							</div>
+							<div *ngIf="meeting.origine == 'D'; then doodleUrl else soadleLabel"></div>
+						    <ng-template #doodleUrl><a href="{{pollsDoodleUrl}}{{meeting.id}}" target=_blank><b>Doodle</b></a></ng-template>
+						    <ng-template #soadleLabel><b>Soadle</b></ng-template>
 						</td>
 						<td class="col">{{meeting.tags}}</td>
 						<td class="col" align="right">
