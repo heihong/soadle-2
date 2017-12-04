@@ -72,8 +72,7 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
     @Override
 	public  Meeting createDoodle(Meeting pMeeting) {
     	Meeting meeting = doodleService.createDoodle(pMeeting);
-    	
-    	return addDoodleMeeting(meeting.getId());
+    	return addDoodleMeeting(meeting.getId(),pMeeting.getTags());
 	}		
 
 	/**
@@ -81,6 +80,15 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 	 */
 	@Override
 	public Meeting addDoodleMeeting(String id) {
+		return addDoodleMeeting(id,null);
+	}
+	
+	/**
+	 * @param id
+	 * @param tag
+	 * @return
+	 */
+	private Meeting addDoodleMeeting(String id, String tag) {
         Meeting meetingImportedFromDoodle = doodleService.findDoodle(id);
         Optional<Meeting>  Optionalmeeting = meetingRepository.findById(id);
         
@@ -90,6 +98,11 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
         if(Optionalmeeting.isPresent())
         {
         	meetingImportedFromDoodle.setTags(Optionalmeeting.get().getTags());
+        } 
+        
+        if(tag != null)
+        {
+            meetingImportedFromDoodle.setTags(tag);
         }
 
         return meetingRepository.save(meetingImportedFromDoodle);
