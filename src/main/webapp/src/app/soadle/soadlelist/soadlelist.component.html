@@ -1,0 +1,38 @@
+<head>
+<meta charset="utf-8">
+</head>
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="col" style="width: 13%;">Titre</th>
+						<th class="col" style="width: 25%;">Lieu</th>
+						<th class="col" style="width: 10%;">Date</th>
+						<th class="col" style="width: 13%;">Initiateur</th>
+						<th class="col" style="width: 5%;">Nb par.</th>
+						<th class="col" style="width: 5%;">Origine</th>
+						<th class="col" style="width: 20%;">Tags</th>
+						<th class="col" style="width: 9%;"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let meeting of resultList; let idx = index" [ngStyle]="{'backgroundColor': idx % 2 == 0 ? '#b8dc6f' : '#cce698' }">						
+						<td class="col" >
+						    <a href="#" (click)="getDoodle(meeting.id)" *ngIf="meeting.origine == 'D'">{{meeting.title}}</a>
+						    <a href="#" (click)="getSoadle(meeting.id)" *ngIf="meeting.origine != 'D'">{{meeting.title}}</a>
+						</td>
+						<td class="col"><a href="{{googleMapUrl}}{{meeting.location.address || meeting.location.name}}" target=_blank>{{meeting.location.name}} {{meeting.location.address}}</a></td>
+						<td class="col">{{meeting.options[0].date | date: 'dd/MM/yyyy hh:mm'}}</td>
+						<td class="col">{{meeting.initiator? meeting.initiator.name: ''}}</td>
+						<td class="col">{{meeting.participantsCount}}</td>
+						<td class="col">
+							<div *ngIf="meeting.origine == 'D'; then doodleUrl else soadleLabel"></div>
+						    <ng-template #doodleUrl><a href="{{pollsDoodleUrl}}{{meeting.id}}" target=_blank><b>Doodle</b></a></ng-template>
+						    <ng-template #soadleLabel><b>Soadle</b></ng-template>
+						</td>
+						<td class="col">{{meeting.tags}}</td>
+						<td class="col" align="right">
+							<button class="btn_small btn-default" (click)="delete(meeting.id, meeting.origine)"  style="color: #FF0000;">Supprimer</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>

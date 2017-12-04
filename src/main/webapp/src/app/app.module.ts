@@ -8,11 +8,17 @@ import {DoodleService} from './soadle/service/doodle.service';
 
 import { AppComponent } from './app.component';
 import {SoadleComponent} from './soadle/soadle.component';
+import {SoadleListComponent} from './soadle/soadlelist/soadlelist.component';
+import {SoadleDetailComponent} from './soadle/soadledetail/soadledetail.component';
+import {SoadleCreationComponent} from './soadle/soadlecreation/soadlecreation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SoadleComponent
+    SoadleComponent,
+    SoadleListComponent,
+    SoadleDetailComponent,
+    SoadleCreationComponent
   ],
   imports: [
     BrowserModule,
