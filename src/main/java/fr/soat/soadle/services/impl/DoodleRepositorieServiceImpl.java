@@ -16,7 +16,6 @@ import fr.soat.soadle.model.Participant;
 import fr.soat.soadle.repositories.MeetingRepository;
 import fr.soat.soadle.repositories.ParticipantRepository;
 import fr.soat.soadle.services.DoodleRepositorieService;
-import fr.soat.soadle.utils.MeetingUtils;
 
 /**
  * Class import a doodle into sodal 
