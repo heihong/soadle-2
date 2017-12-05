@@ -164,7 +164,7 @@ public class DoodleTransformer {
 		participant.setLargeAvatarUrl(doodleParticipantDto.getLargeAvatarUrl());
 		participant.setUserId(doodleParticipantDto.getUserId());
 		participant.setOptionsHash(doodleParticipantDto.getOptionsHash());
-		participant.setPreference(CollectionUtils.isNotEmpty(doodleParticipantDto.getPreferences()) && doodleParticipantDto.getPreferences().get(0) ==1 );
+		participant.setPreference(CollectionUtils.isNotEmpty(doodleParticipantDto.getPreferences()) && doodleParticipantDto.getPreferences().get(0) != null && doodleParticipantDto.getPreferences().get(0) ==1 );
 		
 		return participant;
 	}

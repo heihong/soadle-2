@@ -7,16 +7,16 @@ public class MeetingUtils {
 	
 
 	/**
-	 * @param meeting
-	 * @param lMeeting
+	 * @param meetingIn
+	 * @param meetingOut
 	 */
-	public static void mergeMeetingInMeetingDb(Meeting meeting, Meeting lMeeting) {
-		lMeeting.setTitle(meeting.getTitle());
-		lMeeting.setDescription(meeting.getDescription());
-		lMeeting.setTags(meeting.getTags());
-		lMeeting.getLocation().setName(meeting.getLocation().getName());
-		lMeeting.getLocation().setAddress(meeting.getLocation().getAddress());
-		lMeeting.getOptions().iterator().next().setDate(meeting.getOptions().iterator().next().getDate());
+	public static void mergeMeetingInMeetingDb(Meeting meetingIn, Meeting meetingOut) {
+		meetingOut.setTitle(meetingIn.getTitle());
+		meetingOut.setDescription(meetingIn.getDescription());
+		meetingOut.setTags(meetingIn.getTags());
+		meetingOut.getLocation().setName(meetingIn.getLocation().getName());
+		meetingOut.getLocation().setAddress(meetingIn.getLocation().getAddress());
+		meetingOut.getOptions().iterator().next().setDate(meetingIn.getOptions().iterator().next().getDate());
 	}
 
 }

@@ -106,5 +106,5 @@ public class ClientDoodleServiceImpl implements ClientDoodleService {
 				 
 		return DoodleTransformer.from(response.getBody());
 	}
-
+	
 }

@@ -100,6 +100,17 @@ export class SoadleDetailComponent {
         }
 
     }
+    
+
+    /*
+     * importation d'un doodle dans la base Soadle a partir de son Id
+     * @param id : identifiant doodle
+     */
+    private importDoodle( id ): void {
+        this.doodleService.importDoodle( id )
+            .subscribe( response => {this.result = response; alert("Doodle " + id  + " importé");}, e => this.result = null );
+    }
+
 
     /**
      * Traitement des erreurs : affichage dans le console et génération d'exception 

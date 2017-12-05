@@ -102,10 +102,10 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
         
         if(meeting != null)
         {
-            meetingImportedFromDoodle.setTags(meeting.getTags());
+        	meetingImportedFromDoodle.setTags(meeting.getTags());	
         }
 
-        return meetingRepository.save(meetingImportedFromDoodle);
+       return meetingRepository.save(meetingImportedFromDoodle);
 	}
 		
 

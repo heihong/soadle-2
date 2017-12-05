@@ -117,16 +117,6 @@ export class SoadleComponent implements OnInit {
             .subscribe( response => this.resultList = response, e => this.resultList = null );
     }
 
-    /*
-     * importation d'un doodle dans la base Soadle a partir de son Id
-     * @param id : identifiant doodle
-     */
-    private importDoodle( id ): void {
-        this.initIHM();
-        this.doodleService.importDoodle( id )
-            .subscribe( response => this.result = response, e => this.result = null );
-    }
-
     /**
      * Affichage de bloc de cretaion d'un évènement 
      * @param indicateur : type d'évènement : 1 = soadle , 2 = doodle
