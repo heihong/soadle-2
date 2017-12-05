@@ -55,6 +55,16 @@ public class SoadleController {
 	}
 	
 	/**
+	 * @param id
+	 * @param soadleMeeting
+	 */
+	@RequestMapping(value = "/{id}" , method = RequestMethod.PUT)
+	public void saveMeeting(@PathVariable("id") String id, @RequestBody SoadleMeeting soadleMeeting) {
+		soadleService.updateMeeting(SoadleTransformer.from(soadleMeeting));
+	}
+
+	
+	/**
 	 * @param tag
 	 * @return
 	 */
@@ -63,12 +73,7 @@ public class SoadleController {
 
 		return SoadleTransformer.to(soadleService.findByTag(tag));
 	}
-	
-	@RequestMapping(value = "/tags/{id}/{tags}", method = RequestMethod.GET)
-	public void saveTags(@PathVariable("id") String id, @PathVariable("tags") String tags) {
-		soadleService.saveTags(id,tags);
-	}
-
+		
 
 	/**
 	 * @param soadleMeeting

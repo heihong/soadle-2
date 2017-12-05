@@ -17,6 +17,7 @@ import fr.soat.soadle.repositories.ParticipantRepository;
 import fr.soat.soadle.security.model.SoadleAuthentication;
 import fr.soat.soadle.security.services.AuthenticationService;
 import fr.soat.soadle.services.SoadleService;
+import fr.soat.soadle.utils.MeetingUtils;
 
 /**
  * @author hakim
@@ -91,15 +92,17 @@ public class SoadleServiceImpl implements SoadleService {
     }
     
 
+	
 	/**
-	 * @see fr.soat.soadle.services.SoadleService#saveTags(java.lang.String, java.lang.String)
+	 * @see fr.soat.soadle.services.SoadleService#updateMeeting(fr.soat.soadle.model.Meeting)
 	 */
 	@Override
-	public void saveTags(String id, String tags) {
-		meetingRepository.saveTags(id,tags);
+	public void updateMeeting(Meeting meeting) {
+		Meeting lMeeting = meetingRepository.getOne(meeting.getId());		
+		MeetingUtils.mergeMeetingInMeetingDb(meeting, lMeeting);		
+		meetingRepository.save(lMeeting);
 	}
-    
-    
+
     
     /**
      * @see fr.soat.soadle.services.SoadleService#delete(java.lang.String)

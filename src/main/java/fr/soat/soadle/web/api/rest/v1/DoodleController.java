@@ -85,6 +85,16 @@ public class DoodleController {
 	
 	/**
 	 * @param id
+	 * @param soadleMeeting
+	 */
+	@RequestMapping(value = "/{id}" , method = RequestMethod.PUT)
+	public void saveMeeting(@PathVariable("id") String id, @RequestBody SoadleMeeting soadleMeeting) {
+		doodleRepositorieService.updateMeeting(SoadleTransformer.from(soadleMeeting));
+	}
+
+	
+	/**
+	 * @param id
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") String id) {

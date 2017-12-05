@@ -60,6 +60,21 @@ export class DoodleService {
             .post( this.doodleUrl, { title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags } )
             .map( response => response.json() );
     }
+    
+
+    /**
+     * Modification d'un évènement 
+     * @param title       : titre
+     *        description : description 
+     *        date        : date de l'évènement
+     *        name        : nom de l'évènement
+     *        address     : address de lieu d'évènement
+     *        tags        : tags de l'évènement 
+     * @return : Object SoadleMettenig d'origine doodle
+     */
+    public saveMeeting( id, title, description, date, name, address, tags ) {
+        return this.http.put( this.doodleUrl + id, {id:id, title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags } );
+    }
 
     /**
      * Suppression d'un évènement dans la base soadle

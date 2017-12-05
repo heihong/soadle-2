@@ -1,6 +1,7 @@
 package fr.soat.soadle.repositories;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,16 +25,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, String> {
 	@Query("select m from Meeting m where (m.title like '%' || :tag || '%') OR (m.tags is not null and m.tags like '%' || :tag || '%')")	
 	List<Meeting>  findByTag(@Param("tag") String tag);
 	
-	
-	/**
-	 * @param id
-	 * @param tags
-	 */
-	@Modifying(clearAutomatically = true)
-	@Query("update Meeting m set m.tags = :tags where m.id = :id")
-	void saveTags(@Param("id") String id, @Param("tags") String tags);
-	
-	
+			
 	@Modifying(clearAutomatically = true)
 	@Query("update Meeting m set m.participantsCount = (select count(id) from Participant where MEETING_ID = :id ) where MEETING_ID = :id ")
 	void updateParticipantsCount(@Param("id") String id);

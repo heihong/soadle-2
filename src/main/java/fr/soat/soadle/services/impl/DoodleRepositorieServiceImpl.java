@@ -16,6 +16,7 @@ import fr.soat.soadle.model.Participant;
 import fr.soat.soadle.repositories.MeetingRepository;
 import fr.soat.soadle.repositories.ParticipantRepository;
 import fr.soat.soadle.services.DoodleRepositorieService;
+import fr.soat.soadle.utils.MeetingUtils;
 
 /**
  * Class import a doodle into sodal 
@@ -72,7 +73,7 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
     @Override
 	public  Meeting createDoodle(Meeting pMeeting) {
     	Meeting meeting = doodleService.createDoodle(pMeeting);
-    	return addDoodleMeeting(meeting.getId(),pMeeting.getTags());
+    	return addDoodleMeeting(meeting.getId(),pMeeting);
 	}		
 
 	/**
@@ -88,7 +89,7 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 	 * @param tag
 	 * @return
 	 */
-	private Meeting addDoodleMeeting(String id, String tag) {
+	private Meeting addDoodleMeeting(String id, Meeting meeting) {
         Meeting meetingImportedFromDoodle = doodleService.findDoodle(id);
         Optional<Meeting>  Optionalmeeting = meetingRepository.findById(id);
         
@@ -100,14 +101,23 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
         	meetingImportedFromDoodle.setTags(Optionalmeeting.get().getTags());
         } 
         
-        if(tag != null)
+        if(meeting != null)
         {
-            meetingImportedFromDoodle.setTags(tag);
+            meetingImportedFromDoodle.setTags(meeting.getTags());
         }
 
         return meetingRepository.save(meetingImportedFromDoodle);
 	}
+		
+
 	
+	/**
+	 * @see fr.soat.soadle.services.DoodleRepositorieService#updateMeeting(fr.soat.soadle.model.Meeting)
+	 */
+	@Override
+	public void updateMeeting(Meeting meeting) {		
+		addDoodleMeeting(meeting.getId(),meeting);
+	}
 	
     /**
      * @see fr.soat.soadle.services.DoodleRepositorieService#delete(java.lang.String)

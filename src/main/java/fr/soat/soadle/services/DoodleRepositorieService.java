@@ -24,7 +24,10 @@ public interface DoodleRepositorieService {
 	Meeting createDoodle(Meeting meeting);
 		
 		
-		
+	/**
+     * @param meeting
+     */
+    void updateMeeting(Meeting meeting);	
 	
 	/**
 	 * @param doodleReference: id of doodle meeting

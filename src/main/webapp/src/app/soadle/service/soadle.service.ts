@@ -54,8 +54,8 @@ export class SoadleService {
      *        description : description 
      *        date        : date de l'évènement
      *        name        : nom de l'évènement
-     *        adress      : adress de lieu d'évènement
-     *        tags        : tags de l'éveènement 
+     *        address     : address de lieu d'évènement
+     *        tags        : tags de l'évènement 
      * @return : Object SoadleMettenig d'origine soadle
      */
     public crateEvent( title, description, date, name, address, tags ) {
@@ -65,13 +65,17 @@ export class SoadleService {
     }
 
     /**
-     * Modification des tags  d'un évènement 
-     * @param id          : identifiant soadle ou doodle
-     *        tags        : tags de l'éveènement 
+     * Modification d'un évènement 
+     * @param title       : titre
+     *        description : description 
+     *        date        : date de l'évènement
+     *        name        : nom de l'évènement
+     *        address     : address de lieu d'évènement
+     *        tags        : tags de l'évènement 
      * @return : Object SoadleMettenig d'origine doodle
      */
-    public saveMeeting( id, tags ) {
-        return this.http.get( this.tagUrl + id + `/` + tags );
+    public saveMeeting( id, title, description, date, name, address, tags ) {
+        return this.http.put( this.soadleUrl + id, {id:id, title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags } );
     }
 
     /**

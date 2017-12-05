@@ -64,15 +64,16 @@ export class SoadleDetailComponent {
      *        Origine     : origine de l'évènement : S = soadle , D = doodle
      * @return : Object SoadleMettenig d'origine doodle
      */
-    private saveMeeting( id, tags, origine ): void {
-        this.soadleService.saveMeeting( id, tags )
-            .subscribe( response => {
-                if ( origine == 'S' )
-                    this.eventgetSoadle.emit( id );
-                else
-                    this.eventgetDoodle.emit( id );
-            }
-            , e => this.handleError( e ) );
+    private saveMeeting( id, title, description, date, name, address, tags, origine ): void {
+        if ( origine == 'S' )
+         {
+            this.soadleService.saveMeeting( id, title, description, date, name, address, tags )
+                .subscribe( response => this.eventgetSoadle.emit( id ), e => this.handleError( e ) );
+         } else
+         {        
+             this.doodleService.saveMeeting( id, title, description, date, name, address, tags )
+               .subscribe( response => this.eventgetDoodle.emit( id ), e => this.handleError( e ) );
+         }            
     }
 
     /**

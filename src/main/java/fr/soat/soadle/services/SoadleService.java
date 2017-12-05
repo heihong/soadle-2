@@ -34,10 +34,9 @@ public interface SoadleService {
     Meeting save(Meeting meeting);
     
     /**
-     * @param id
-     * @param tags
+     * @param meeting
      */
-    void saveTags(String id, String tags);
+    void updateMeeting(Meeting meeting);
     
     
    
