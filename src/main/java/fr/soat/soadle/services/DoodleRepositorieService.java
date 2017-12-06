@@ -15,7 +15,7 @@ public interface DoodleRepositorieService {
 	 * @param id : id of doodle meeting 
 	 * @return  doodle meeting
 	 */
-	Meeting findDoodle(String id);
+	Meeting findDoodle(final String id);
 	
 	/**
 	 * @param meeting

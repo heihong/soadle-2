@@ -16,6 +16,8 @@ import fr.soat.soadle.model.Participant;
 import fr.soat.soadle.repositories.MeetingRepository;
 import fr.soat.soadle.repositories.ParticipantRepository;
 import fr.soat.soadle.services.DoodleRepositorieService;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Class import a doodle into sodal 
@@ -51,19 +53,23 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
      * @see fr.soat.soadle.services.DoodleRepositorieService#findDoodle(java.lang.String)
      */
     @Override
-	public Meeting findDoodle(String id) {
-		 Meeting meeting =  doodleService.findDoodle(id);
-		
-        Optional<Meeting> optional = meetingRepository.findById(id);
-		
-		if(optional.isPresent() && meeting !=null)
-		{
-			meeting.setTags(optional.get().getTags());
-			meeting.setDoodleReference(optional.get().getDoodleReference());
-			meeting.setImportationDate(optional.get().getImportationDate());
-		}
-		
-		return meeting;
+	public Meeting findDoodle(final String id) {    	
+    	return Observable.zip(
+    			       Observable.fromCallable(() ->  doodleService.findDoodle(id))
+    			                                      .subscribeOn(Schedulers.io()),
+    			       Observable.fromCallable(() ->  meetingRepository.findById(id))
+    			                                        .subscribeOn(Schedulers.io()),
+    			       (meeting , optional)       -> {
+    							
+							if(optional.isPresent() && meeting !=null)
+							{
+								meeting.setTags(optional.get().getTags());
+								meeting.setDoodleReference(optional.get().getDoodleReference());
+								meeting.setImportationDate(optional.get().getImportationDate());
+							};
+							return meeting;
+    			       }
+    			      ).blockingSingle();		
 	}
 	
     /**
@@ -89,27 +95,30 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 	 * @return
 	 */
 	private Meeting addDoodleMeeting(String id, Meeting meeting) {
-        Meeting meetingImportedFromDoodle = doodleService.findDoodle(id);
-        Optional<Meeting>  Optionalmeeting = meetingRepository.findById(id);
+		Meeting meetingImportedFromDoodle = 
+				Observable.zip(
+						       Observable.fromCallable(()       -> doodleService.findDoodle(id)),
+						       Observable.fromCallable(()       -> meetingRepository.findById(id)),
+						       (meetingDoodle,optionalmeeting)  -> {        
+								   if(optionalmeeting.isPresent())
+								   {
+									 meetingDoodle.setTags(optionalmeeting.get().getTags());
+								   };
+								   return meetingDoodle;
+						       }
+							 ).blockingSingle();
         
-        meetingImportedFromDoodle.setDoodleReference(id);
-        meetingImportedFromDoodle.setImportationDate(new Date());
-        
-        if(Optionalmeeting.isPresent())
-        {
-        	meetingImportedFromDoodle.setTags(Optionalmeeting.get().getTags());
-        } 
-        
-        if(meeting != null)
-        {
-        	meetingImportedFromDoodle.setTags(meeting.getTags());	
-        }
+		meetingImportedFromDoodle.setDoodleReference(id);
+		meetingImportedFromDoodle.setImportationDate(new Date());
+			
+		if(meeting != null)
+		{
+			meetingImportedFromDoodle.setTags(meeting.getTags());	
+		}
 
        return meetingRepository.save(meetingImportedFromDoodle);
 	}
-		
-
-	
+			
 	/**
 	 * @see fr.soat.soadle.services.DoodleRepositorieService#updateMeeting(fr.soat.soadle.model.Meeting)
 	 */

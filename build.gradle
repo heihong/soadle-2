@@ -6,6 +6,7 @@ buildscript {
 		lang3Version        = '3.6'
 		collections4Version = '4.1'
 		gsonVersion         = '2.8.2'
+		rxJavaversion       = '2.1.5'
 		junitVersion        = '5.0.2'
 		assertjVersion      = '3.8.0'
 	}
@@ -50,6 +51,7 @@ dependencies {
 	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
 	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 	compile("com.google.code.gson:gson:${gsonVersion}");
+	compile("io.reactivex.rxjava2:rxjava:${rxJavaversion}");	
 	
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testCompile("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
