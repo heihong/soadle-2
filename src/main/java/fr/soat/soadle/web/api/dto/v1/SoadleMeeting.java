@@ -57,6 +57,8 @@ public class SoadleMeeting  implements Comparable<SoadleMeeting> {
 	private Date importationDate;
 	
 	private String optionsHash;
+	
+	private List<SoadlePicture> pictures;
 
 
 	public String getId() {
@@ -247,6 +249,14 @@ public class SoadleMeeting  implements Comparable<SoadleMeeting> {
 
 	public void setOptionsHash(String optionsHash) {
 		this.optionsHash = optionsHash;
+	}		
+
+	public List<SoadlePicture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<SoadlePicture> pictures) {
+		this.pictures = pictures;
 	}
 
 	@Override

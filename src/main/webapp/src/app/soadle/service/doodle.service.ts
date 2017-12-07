@@ -54,10 +54,10 @@ export class DoodleService {
      *        tags        : tags de l'éveènement 
      * @return : Object SoadleMettenig d'origine doodle
      */
-    public crateEvent( title, description, date, name, address, tags ) {
+    public crateEvent( title, description, date, name, address, tags,url1,url2 ) {
 
         return this.http
-            .post( this.doodleUrl, { title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags } )
+            .post( this.doodleUrl, { title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags, pictures:[{url:url1}, {url:url2}] } )
             .map( response => response.json() );
     }
     
@@ -70,10 +70,12 @@ export class DoodleService {
      *        name        : nom de l'évènement
      *        address     : address de lieu d'évènement
      *        tags        : tags de l'évènement 
+     *        url1        : url image 1
+     *        url2        : url image 2  
      * @return : Object SoadleMettenig d'origine doodle
      */
-    public saveMeeting( id, title, description, date, name, address, tags ) {
-        return this.http.put( this.doodleUrl + id, {id:id, title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags } );
+    public saveMeeting( id, title, description, date, name, address, tags, url1, url2 ) {
+        return this.http.put( this.doodleUrl + id, {id:id, title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags, pictures:[{url:url1}, {url:url2}] } );
     }
 
     /**

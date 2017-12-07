@@ -2,6 +2,7 @@ package fr.soat.soadle.services.impl;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -56,21 +57,44 @@ public class SoadleServiceImpl implements SoadleService {
     }
 
 
-    /**
-     * @see fr.soat.soadle.services.SoadleService#findAll()
-     */
-    @Override
-    public List<Meeting> findAll() {
-        return meetingRepository.findAll();
-    }
-
     
     /**
-     * @see fr.soat.soadle.services.SoadleService#findByTag(java.lang.String)
+     * @see fr.soat.soadle.services.SoadleService#findAll(java.lang.String)
      */
     @Override
-    public List<Meeting> findByTag(String tag) {
-        return meetingRepository.findByTag(tag);
+    public List<Meeting> findAll(String tag) {
+    	if(StringUtils.isBlank(tag))
+    	{
+    		return meetingRepository.findAll();
+    	} 
+    	  
+    	String tags[] = tag.trim().split(" ");
+    	  
+    	List<Meeting> meetings = meetingRepository.findByTag(tags[0]);
+    	
+    	if(meetings !=null && tags.length > 1)
+    	{
+    		meetings = meetings.stream().filter(m  -> {
+    						  boolean ind = true;
+    						  for(String t : tags)
+    						  {
+    							  if( StringUtils.isNotBlank(t) &&
+    								  (m.getTitle().indexOf(t) == -1 && (m.getTags() == null || m.getTags().indexOf(t) == -1))	  
+    							    ) {
+    								  ind = false;
+    								  break;
+    							  }
+    								  
+    						  }
+    						  
+    						  return ind;    				       
+    		            }
+    				).collect(Collectors.toList());
+    		
+    	}
+    	
+    	return meetings;
+    	  
     }
 
     /**

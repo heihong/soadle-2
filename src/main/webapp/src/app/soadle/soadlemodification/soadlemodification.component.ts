@@ -30,6 +30,7 @@ export class SoadleModificationComponent {
     @Input( "indModif" )
     indModif = null;
 
+
     @Output() eventgetSoadle = new EventEmitter();
     @Output() eventgetDoodle = new EventEmitter();
     @Output() eventmodificationMeeting = new EventEmitter();
@@ -66,16 +67,18 @@ export class SoadleModificationComponent {
      * @param id          : identifiant soadle ou doodle
      *        tags        : tags de l'éveènement 
      *        Origine     : origine de l'évènement : S = soadle , D = doodle
+     *        url1        : url image 1
+     *        url2        : url image 2        
      * @return : Object SoadleMettenig d'origine doodle
      */
-    private saveMeeting( id, title, description, date, name, address, tags, origine ): void {
+    private saveMeeting( id, title, description, date, name, address, tags, origine, url1, url2): void {
         if ( origine == 'S' )
          {
-            this.soadleService.saveMeeting( id, title, description, date, name, address, tags )
+            this.soadleService.saveMeeting( id, title, description, date, name, address, tags, url1, url2)
                 .subscribe( response => this.eventgetSoadle.emit( id ), e => this.handleError( e ) );
          } else
          {        
-             this.doodleService.saveMeeting( id, title, description, date, name, address, tags )
+             this.doodleService.saveMeeting( id, title, description, date, name, address, tags, url1, url2)
                .subscribe( response => this.eventgetDoodle.emit( id ), e => this.handleError( e ) );
          }            
     }
@@ -104,6 +107,8 @@ export class SoadleModificationComponent {
         }
 
     }
+    
+
     
     /**
      * Traitement des erreurs : affichage dans le console et génération d'exception 

@@ -2,7 +2,7 @@ package fr.soat.soadle.services.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -66,6 +66,7 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 								meeting.setTags(optional.get().getTags());
 								meeting.setDoodleReference(optional.get().getDoodleReference());
 								meeting.setImportationDate(optional.get().getImportationDate());
+								//meeting.setPictures(optional.get().getPictures().stream().collect(Collectors.toSet()));
 							};
 							return meeting;
     			       }
@@ -103,6 +104,7 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 								   if(optionalmeeting.isPresent())
 								   {
 									 meetingDoodle.setTags(optionalmeeting.get().getTags());
+									 meetingDoodle.setPictures(optionalmeeting.get().getPictures());
 								   };
 								   return meetingDoodle;
 						       }
@@ -113,7 +115,8 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 			
 		if(meeting != null)
 		{
-			meetingImportedFromDoodle.setTags(meeting.getTags());	
+			meetingImportedFromDoodle.setTags(meeting.getTags());
+			meetingImportedFromDoodle.setPictures(meeting.getPictures());
 		}
 
        return meetingRepository.save(meetingImportedFromDoodle);

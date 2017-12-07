@@ -20,6 +20,22 @@
     border-radius: 75%;
 }
 
+.p-img-tab-zomme {
+    height: 35px;
+    width: 35px;
+    border-radius: 75%;
+}
+.p-img-tab-zomme  p {
+text-align:center;
+}
+.p-img-tab-zomme  img {
+    height: 35px;
+    width: 35px;
+}
+.p-img-tab-zomme img:hover {
+  width:300px;
+  height:300px;
+}
 
 .btn_small {
     display: inline-block;

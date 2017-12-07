@@ -4,16 +4,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
 import fr.soat.soadle.model.EnumOrigine;
 import fr.soat.soadle.model.Location;
 import fr.soat.soadle.model.Option;
 import fr.soat.soadle.model.Participant;
+import fr.soat.soadle.model.Picture;
 import fr.soat.soadle.model.Meeting;
 import fr.soat.soadle.security.model.SoadleAuthentication;
 import fr.soat.soadle.web.api.dto.v1.SoadleLocation;
 import fr.soat.soadle.web.api.dto.v1.SoadleMeeting;
 import fr.soat.soadle.web.api.dto.v1.SoadleOption;
 import fr.soat.soadle.web.api.dto.v1.SoadleParticipant;
+import fr.soat.soadle.web.api.dto.v1.SoadlePicture;
 
 /**
  * Transformer meeting to Soadle web service
@@ -88,6 +92,7 @@ public class SoadleTransformer {
 		response.setTags(meeting.getTags());
 
 		response.setOptions(toOptions(meeting.getOptions()));
+		response.setPictures(toPictures(meeting.getPictures()));
 		
 		if(detail || EnumOrigine.DOODLE.toString().equals(meeting.getOrigine()))
 		{
@@ -224,6 +229,29 @@ public class SoadleTransformer {
 	}
 	
 	
+
+	private static List<SoadlePicture> toPictures(Set<Picture> pictures)
+	{
+		if (pictures != null)
+			return pictures.stream().map(p -> to(p)).collect(Collectors.toList());
+
+		return null;
+	}
+	
+	private static SoadlePicture to(Picture picture)
+	{
+		if(picture == null) return null;
+		
+		SoadlePicture soadlePicture = new SoadlePicture();
+		
+		soadlePicture.setId(picture.getId());
+		soadlePicture.setMettnigId(picture.getMettnigId());
+		soadlePicture.setUrl(picture.getUrl());
+		
+		return soadlePicture;
+
+	}
+	
 	/**
 	 **********************************
 	 * 	SoadleMeeting to Meeting      *
@@ -277,6 +305,7 @@ public class SoadleTransformer {
 
 		meeting.setParticipants(fromParticipants(soadleMeeting.getParticipants()));
 		meeting.setOptions(fromOptions(soadleMeeting.getOptions()));
+		meeting.setPictures(fromPictures(soadleMeeting.getPictures()));
 
 		return meeting;
 
@@ -363,5 +392,37 @@ public class SoadleTransformer {
 		return participant;
 	}
 	
+	
+
+
+	/**
+	 * @param soadlePictures
+	 * @return
+	 */
+	private static Set<Picture> fromPictures(List<SoadlePicture> soadlePictures)
+	{
+		if (soadlePictures != null)
+			return soadlePictures.stream().filter(p ->  (p !=null && StringUtils.isNoneBlank(p.getUrl()))).map(p -> from(p)).collect(Collectors.toSet());
+
+		return null;
+	}
+	
+	/**
+	 * @param soadlePicture
+	 * @return
+	 */
+	private static Picture from(SoadlePicture soadlePicture)
+	{
+		if(soadlePicture == null) return null;
+		
+		Picture picture = new Picture();
+		
+		picture.setId(soadlePicture.getId());
+		picture.setMettnigId(soadlePicture.getMettnigId());
+		picture.setUrl(soadlePicture.getUrl());
+		
+		return picture;
+
+	}
 
 }

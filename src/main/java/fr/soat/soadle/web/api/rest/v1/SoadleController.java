@@ -51,7 +51,7 @@ public class SoadleController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public List<SoadleMeeting> all() {
 
-		return SoadleTransformer.to(soadleService.findAll());
+		return SoadleTransformer.to(soadleService.findAll(null));
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class SoadleController {
 	@RequestMapping(value = "/tags/{tag}", method = RequestMethod.GET)
 	public List<SoadleMeeting> allTag(@PathVariable("tag") String tag) {
 
-		return SoadleTransformer.to(soadleService.findByTag(tag));
+		return SoadleTransformer.to(soadleService.findAll(tag));
 	}
 		
 

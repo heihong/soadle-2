@@ -19,12 +19,10 @@ public interface SoadleService {
 	
 	
 	/**
-	 * @return all sodale meetings 
+	 * @param tag
+	 * @return
 	 */
-	List<Meeting> findAll();
-	
-	
-	List<Meeting> findByTag(String tag);
+	List<Meeting> findAll(String tag);
 	
 	
     /**

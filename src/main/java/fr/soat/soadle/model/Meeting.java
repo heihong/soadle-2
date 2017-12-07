@@ -63,6 +63,10 @@ public class Meeting implements Serializable {
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name="MEETING_ID", referencedColumnName="MEETING_ID")
 	private Set<Participant> participants;
+	
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@JoinColumn(name="MEETING_ID", referencedColumnName="MEETING_ID")
+	private Set<Picture> pictures;
 
 	private String optionsHash;
 
@@ -242,4 +246,12 @@ public class Meeting implements Serializable {
 		this.optionsHash = optionsHash;
 	}
 
+	public Set<Picture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(Set<Picture> pictures) {
+		this.pictures = pictures;
+	}
+	
 }

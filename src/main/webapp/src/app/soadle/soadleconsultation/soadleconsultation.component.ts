@@ -16,10 +16,7 @@ import { Constants } from './../constants/constants';
     templateUrl: './soadleconsultation.component.html',
     styleUrls: ['../../app.component.css', '../../bootstrap.min.css']
 } )
-export class SoadleConsultationComponent {
-    
-    //@ViewChild("idAdress1")
-    //public idAdressMap: ElementRef;
+export class SoadleConsultationComponent {    
 
     @Input( "result" )
     result = null;
@@ -30,6 +27,7 @@ export class SoadleConsultationComponent {
     @Input( "indModif" )
     indModif = null;
 
+    
     @Output() eventgetSoadle = new EventEmitter();
     @Output() eventgetDoodle = new EventEmitter();
     @Output() eventmodificationMeeting = new EventEmitter();

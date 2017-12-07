@@ -48,9 +48,14 @@
 						<td><b>Tags :</b></td>
 						<td><input #idTags placeholder="" required value="" style="background-color: #b8dc6f; height: 30px; width: 400px;"></td>
 					</tr>		
+					<td><b>Images :</b></td>
+					  <td>
+							<input  #idUrl1 placeholder="" required value="" style="background-color: #b8dc6f; height: 25px; width: 300px;"><br>
+							<input  #idUrl2 placeholder="" required value="" style="background-color: #b8dc6f; height: 25px; width: 300px;">
+					   </td>
 					<tr>
 					    <td></td>
-					    <td align="left"><div *ngIf="indCreate==1 || indCreate==2"><button class="btn btn-default"  (click)="crateEvent(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value, idName.value, idAdress.value, idTags.value)" >{{indCreate==1 ? 'Enregistrer soadle' : 'Enregistrer doodle' }}</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div></td>
+					    <td align="left"><div *ngIf="indCreate==1 || indCreate==2"><button class="btn btn-default"  (click)="crateEvent(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value, idName.value, idAdress.value, idTags.value,idUrl1.value,idUrl2.value)" >{{indCreate==1 ? 'Enregistrer soadle' : 'Enregistrer doodle' }}</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div></td>
 					<td></td>
 					</tr>
 				</tbody>

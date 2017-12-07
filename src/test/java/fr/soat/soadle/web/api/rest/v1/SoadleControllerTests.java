@@ -88,7 +88,7 @@ public class SoadleControllerTests {
 
 		List<Meeting>  meetings = Arrays.asList(meeting1,meeting2,meeting3);
 		
-		given(soadleService.findAll()).willReturn(meetings);
+		given(soadleService.findAll(null)).willReturn(meetings);
 
 		mvc.perform(get("/api/v1/soadle/")
 		   .contentType(MediaType.APPLICATION_JSON))
@@ -100,7 +100,7 @@ public class SoadleControllerTests {
 		   .andExpect(jsonPath("$[1].id", is(meetings.get(1).getId())))
 		   .andExpect(jsonPath("$[1].title", is(meetings.get(1).getTitle())));
 		
-		verify(soadleService, VerificationModeFactory.times(1)).findAll();
+		verify(soadleService, VerificationModeFactory.times(1)).findAll(null);
 		
 		 reset(soadleService);
 

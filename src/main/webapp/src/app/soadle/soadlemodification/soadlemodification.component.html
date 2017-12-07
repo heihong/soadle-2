@@ -77,10 +77,19 @@
 						<tr>
 							<td><b>Tags :</b></td>
 							<td>
-							     <input  #idTags1 placeholder="" required value="{{result.tags}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"> 
+							     <input  #idTags1 placeholder="" required value="{{result.tags}}" style="background-color: #b8dc6f; height: 25px; width: 300px;">
+							</td>
+							<td>								 
+							</td>		
+						</tr>		
+						<tr>
+							<td><b>Images :</b></td>
+							<td>
+							     <input  #idUrl1 placeholder="" required value="{{(result.pictures && result.pictures.length > 0 ) ? result.pictures[0].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"><br>
+							     <input  #idUrl2 placeholder="" required value="{{(result.pictures && result.pictures.length > 1 ) ? result.pictures[1].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;">
 							</td>
 							<td align="right">
-								 <button class="btn_small btn-default"  (click)="saveMeeting(result.id, idTitle1.value, idDescription1.value, idDate1.value  + ' ' + idHeure1.value, idName1.value, idAdress1.value, idTags1.value, result.origine)" >Enregistrer</button>&nbsp;								
+								 <button class="btn_small btn-default"  (click)="saveMeeting(result.id, idTitle1.value, idDescription1.value, idDate1.value  + ' ' + idHeure1.value, idName1.value, idAdress1.value, idTags1.value, result.origine,idUrl1.value,idUrl2.value)" >Enregistrer</button>&nbsp;								
 							     <button class="btn_small btn-default"  (click)="annulModif()" >Annuler</button>
 							</td>		
 						</tr>						
@@ -102,11 +111,8 @@
 						<td class="col">{{idx}}</td>
 						<td class="col" align="right"><img class="p-img-tab" alt="" src="{{participant.smallAvatarUrl}}"></td>
 						<td class="col">{{participant.name}}</td>
-						<td class="col" *ngIf="result.origine == 'S' || participant.userId != null">
-						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" disabled>
-						</td>
-						<td class="col" *ngIf="result.origine == 'D' && participant.userId == null">
-						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" (click)="participe(participant, !participant.preference , result.id, result.origine, participant.name, participant.email, participant.smallAvatarUrl)" >
+						<td class="col">
+						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" [disabled]="result.origine == 'S' || participant.userId != null || result.state == 'CLOSED'" >
 						</td>
 					</tr>
 				</tbody>

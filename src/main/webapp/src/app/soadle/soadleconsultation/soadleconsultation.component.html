@@ -56,7 +56,16 @@
 						<tr>
 							<td><b>Tags :</b></td>
 							<td>
-							   {{result.tags}}							   		
+							   {{result.tags}}<br>
+							   <table>
+							     <tr>
+							      <td *ngFor="let picture of result.pictures" >
+							        <div class="p-img-tab-zomme">
+							          <img alt="" src="{{picture.url}}">
+							        </div>
+							      </td>
+							      </tr>
+							   </table>							   		
 							</td>
 					        <td align="right">					        
 					          <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null)" class="btn_small btn-default" (click)="modificationMeeting(result.id, result.origine)" >Modifier</button>
@@ -85,11 +94,8 @@
 						<td class="col">{{idx}}</td>
 						<td class="col" align="right"><img class="p-img-tab" alt="" src="{{participant.smallAvatarUrl}}"></td>
 						<td class="col">{{participant.name}}</td>
-						<td class="col" *ngIf="result.origine == 'S' || participant.userId != null">
-						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" disabled>
-						</td>
-						<td class="col" *ngIf="result.origine == 'D' && participant.userId == null">
-						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" (click)="participe(participant, !participant.preference , result.id, result.origine, participant.name, participant.email, participant.smallAvatarUrl)" >
+						<td class="col">
+						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" [disabled]="result.origine == 'S' || participant.userId != null || result.state == 'CLOSED'" >
 						</td>
 					</tr>
 				</tbody>
