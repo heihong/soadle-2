@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -17,12 +17,16 @@ import { DoodleService } from '../service/doodle.service';
 } )
 export class SoadleCreationComponent {
 
+    
+    @ViewChild("idAdress")
+    public idAdressMap: ElementRef;
+    
     @Input( "indCreate" )
     indCreate = null;
 
     @Input( "result" )
     result = null;
-
+   
 
     @Output() eventgetMeeting = new EventEmitter();
     @Output() eventList = new EventEmitter();

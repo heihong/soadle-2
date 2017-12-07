@@ -108,13 +108,29 @@
 							</TD>
 						</tr>
 						<tr>
-							<td><b>Nom et lieu de l'evenement :</b></td>
+							<td><b>Lieu de l'evenement :</b></td>
 							<td>
-							  <input #idName1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.location.name}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}"><BR>
+							  <input #idName1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.location.name}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}">							  
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><b>Adresse de lieu de l'evenement :</b></td>
+							<td>
 							  <input #idAdress1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.location.address}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}">
 							</td>
 							<td></td>
 						</tr>
+						<tr>
+						<TD></TD>
+						  <TD colspan=2>
+						     <!-- <div *ngIf="result.origine == 'S'">
+							 <app-map [idAdressMap]="idAdressMap">
+							    loading...
+							 </app-map>
+							</div>-->
+						  </TD>
+						</tr>		
 						<tr>
 							<td><b>Nombre de participant :</b></td>
 							<td>{{result.participantsCount}}</td>

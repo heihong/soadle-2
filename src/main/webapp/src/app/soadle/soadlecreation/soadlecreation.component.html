@@ -33,6 +33,16 @@
 						<td><b>Adresse de lieu de l'evenement :</b></td>
 						<td><input #idAdress placeholder="" required value="" style="background-color: #b8dc6f; height: 30px; width: 400px;"></td>
 					    <td></td>
+					</tr>	
+					<tr>
+					<TD></TD>
+					  <TD colspan=2>
+					     <div>
+						 <app-map [idAdressMap]="idAdressMap">
+						    loading...
+						 </app-map>
+						</div>
+					  </TD>
 					</tr>			
 					<tr>
 						<td><b>Tags :</b></td>

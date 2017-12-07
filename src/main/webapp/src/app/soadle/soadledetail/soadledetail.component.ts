@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter,ElementRef, ViewChild  } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -17,6 +17,9 @@ import { Constants } from './../constants/constants';
     styleUrls: ['../../app.component.css', '../../bootstrap.min.css']
 } )
 export class SoadleDetailComponent {
+    
+    //@ViewChild("idAdress1")
+    //public idAdressMap: ElementRef;
 
     @Input( "result" )
     result = null;

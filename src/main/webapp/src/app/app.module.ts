@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from '@angular/http';
 import {UserService} from './user/service/user.service';
 import {SoadleService} from './soadle/service/soadle.service';
 import {DoodleService} from './soadle/service/doodle.service';
-
+import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import {SoadleComponent} from './soadle/soadle.component';
 import {SoadleListComponent} from './soadle/soadlelist/soadlelist.component';
 import {SoadleDetailComponent} from './soadle/soadledetail/soadledetail.component';
 import {SoadleCreationComponent} from './soadle/soadlecreation/soadlecreation.component';
+import {GoogleMapComponent} from './soadle/google/googlemap.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +19,18 @@ import {SoadleCreationComponent} from './soadle/soadlecreation/soadlecreation.co
     SoadleComponent,
     SoadleListComponent,
     SoadleDetailComponent,
-    SoadleCreationComponent
+    SoadleCreationComponent,
+    GoogleMapComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    ReactiveFormsModule,
+    HttpModule,
+    AgmCoreModule.forRoot({
+        apiKey: "AIzaSyD5oPzCYfx_v_W7xmHawqtqeUukH1pVeA0",
+        libraries: ["places"]
+      })
   ],
   providers: [UserService , SoadleService , DoodleService],
   bootstrap: [AppComponent]
