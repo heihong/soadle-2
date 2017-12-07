@@ -126,6 +126,23 @@ export class SoadleComponent implements OnInit {
         this.indCreate = indicateur;
     }
 
+    
+
+    /**
+     * Affichage ecran de modification d'un évènement 
+     * @param indicateur  : indicateur d'évènement : 1 = spadle , 2 = doodle
+     */
+    private modificationMeeting(indicateur ): void {
+        this.indModif = indicateur;
+    }
+
+    /**
+     * Annulation modification  
+     */
+    private annulModif(): void {
+        this.indModif = null;
+    }
+    
     /**
      * Traitement des erreurs : affichage dans le console et génération d'exception 
      * @param error : erreur de traitement 

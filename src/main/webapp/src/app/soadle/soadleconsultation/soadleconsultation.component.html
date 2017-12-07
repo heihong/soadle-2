@@ -1,0 +1,97 @@
+<head>
+<meta charset="utf-8">
+</head>
+<div style="padding: 3px; margin-top: 3px; border: 2px solid #b8dc6f;" width="100%">
+			<table width="100%">
+				<tr>
+					<th width="20%"></th>
+					<th width="30%"></th>
+					<th width="50%"></th>
+				</tr>
+				<tbody>
+				    <tr>
+					   <td align="left" >						 
+							   <div *ngIf="result.origine == 'D'; then doodleUrl else soadleLabel"></div>
+							    <ng-template #doodleUrl><a href="{{pollsDoodleUrl}}{{result.id}}" target=_blank><b>{{result.state == 'CLOSED' ? 'Doodle fermé :' :'Doodle :'}}</b></a></ng-template>
+							    <ng-template #soadleLabel><b><font color="#6B8E23">{{result.state == 'CLOSED' ? 'Soadle fermé :' :'Soadle :'}}</font></b></ng-template>					  					
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>					
+						 <td><b>Titre de l'evenement :</b></td>
+							<td>
+							    {{result.title}}					    
+							</td>
+							<TD  align="right">
+							   <div *ngIf="result.participation != null && result.participation.preference == true" ><font color="#9acd32"><b>J'ai répondu présent à cet évènement</b></font></div>
+							   <div *ngIf="result.participation != null && result.participation.preference == false"><font color="#FF0000"><b>J'ai répondu non présent à cet évènement</b></font></div>					
+							</TD>
+						</tr>
+						<tr>
+							<td><b>Description de l'evenement :</b></td>
+							<td>{{result.description}}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><b>Date de l'evenement :</b></td>
+							<td>{{result.options[0].date  | date: 'dd/MM/yyyy hh:mm'}}</td>
+							<td></td>
+						</tr>
+						<tr *ngIf="result.initiator">
+							<td><b>Initiateur de l'evenement :</b></td>
+							<td>{{result.initiator.name}}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><b>Lieu de l'evenement :</b></td>
+							<td><a href="{{googleMapUrl}}{{result.location.address || result.location.name}}" target=_blank> {{result.location.name}} {{result.location.address}} </a></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><b>Nombre de participant :</b></td>
+							<td>{{result.participantsCount}}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><b>Tags :</b></td>
+							<td>
+							   {{result.tags}}							   		
+							</td>
+					        <td align="right">					        
+					          <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null)" class="btn_small btn-default" (click)="modificationMeeting(result.id, result.origine)" >Modifier</button>
+					          <button *ngIf="result.origine == 'D'" class="btn_small btn-default" (click)="importDoodle(result.id)">{{result.doodleReference? 'Re-Importer le doodle':'Importer le doodle'}}</button>
+						      <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) && (result.participation == null || (result.participation.userId == null && result.participation.preference == false))" class="btn_small btn-default"  (click)="participe(result.participation, true , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je participe</button>
+						      <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) &&  result.participation == null" class="btn_small btn-default"  (click)="participe(result.participation, false , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je ne participe pas</button>
+						      <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) &&  result.participation != null && result.participation.userId == null && result.participation.preference == true" class="btn_small btn-default"  (click)="participe(result.participation, false , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je ne participe plus</button>					      
+						      <a      *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) &&  result.participation != null && result.participation.userId != null" class="btn_small btn-default" href="{{pollsDoodleUrl}}{{result.id}}" target=_blank>Modifier ma réponse sur doodle</a>	
+						   </td>						   
+					</tr>								
+				</tbody>
+			</table>
+		</div>
+		<div style="height: 370px; overflow-y: auto; overflow-x: hidden;" >
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="col" style="width: 5%;">#</th>
+						<th class="col" style="width: 5%;"></th>
+						<th class="col" style="width: 75%;">Participant</th>
+						<th class="col" style="width: 15%;">Preference</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let participant of result.participants; let idx = index" [ngStyle]="{'backgroundColor': participant.preference == true ? '#b8dc6f' : '#ffc0cb' }">
+						<td class="col">{{idx}}</td>
+						<td class="col" align="right"><img class="p-img-tab" alt="" src="{{participant.smallAvatarUrl}}"></td>
+						<td class="col">{{participant.name}}</td>
+						<td class="col" *ngIf="result.origine == 'S' || participant.userId != null">
+						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" disabled>
+						</td>
+						<td class="col" *ngIf="result.origine == 'D' && participant.userId == null">
+						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" (click)="participe(participant, !participant.preference , result.id, result.origine, participant.name, participant.email, participant.smallAvatarUrl)" >
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>

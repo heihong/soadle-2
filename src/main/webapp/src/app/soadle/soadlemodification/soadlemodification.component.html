@@ -9,68 +9,6 @@
 					<th width="50%"></th>
 				</tr>
 				<tbody>
-				    <div *ngIf="indModif; then btnModification else btnConsultation"></div>
-				    <ng-template #btnConsultation>
-				    <tr>
-					   <td align="left" >						 
-							   <div *ngIf="result.origine == 'D'; then doodleUrl else soadleLabel"></div>
-							    <ng-template #doodleUrl><a href="{{pollsDoodleUrl}}{{result.id}}" target=_blank><b>{{result.state == 'CLOSED' ? 'Doodle fermé :' :'Doodle :'}}</b></a></ng-template>
-							    <ng-template #soadleLabel><b><font color="#6B8E23">{{result.state == 'CLOSED' ? 'Soadle fermé :' :'Soadle :'}}</font></b></ng-template>					  					
-						</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>					
-						 <td><b>Titre de l'evenement :</b></td>
-							<td>
-							    {{result.title}}					    
-							</td>
-							<TD  align="right">
-							   <div *ngIf="result.participation != null && result.participation.preference == true" ><font color="#9acd32"><b>J'ai répondu présent à cet évènement</b></font></div>
-							   <div *ngIf="result.participation != null && result.participation.preference == false"><font color="#FF0000"><b>J'ai répondu non présent à cet évènement</b></font></div>					
-							</TD>
-						</tr>
-						<tr>
-							<td><b>Description de l'evenement :</b></td>
-							<td>{{result.description}}</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><b>Date de l'evenement :</b></td>
-							<td>{{result.options[0].date  | date: 'dd/MM/yyyy hh:mm'}}</td>
-							<td></td>
-						</tr>
-						<tr *ngIf="result.initiator">
-							<td><b>Initiateur de l'evenement :</b></td>
-							<td>{{result.initiator.name}}</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><b>Lieu de l'evenement :</b></td>
-							<td><a href="{{googleMapUrl}}{{result.location.address || result.location.name}}" target=_blank> {{result.location.name}} {{result.location.address}} </a></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><b>Nombre de participant :</b></td>
-							<td>{{result.participantsCount}}</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><b>Tags :</b></td>
-							<td>
-							   {{result.tags}}							   		
-							</td>
-					        <td align="right">					        
-					          <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null)" class="btn_small btn-default" (click)="modificationMeeting(result.id, result.origine)" >Modifier</button>
-					          <button *ngIf="result.origine == 'D'" class="btn_small btn-default" (click)="importDoodle(result.id)">{{result.doodleReference? 'Re-Importer le doodle':'Importer le doodle'}}</button>
-						      <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) && (result.participation == null || (result.participation.userId == null && result.participation.preference == false))" class="btn_small btn-default"  (click)="participe(result.participation, true , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je participe</button>
-						      <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) &&  result.participation == null" class="btn_small btn-default"  (click)="participe(result.participation, false , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je ne participe pas</button>
-						      <button *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) &&  result.participation != null && result.participation.userId == null && result.participation.preference == true" class="btn_small btn-default"  (click)="participe(result.participation, false , result.id, result.origine, resulUser.name, resulUser.userAuthentication.details.email, resulUser.userAuthentication.details.picture)" >Je ne participe plus</button>					      
-						      <a      *ngIf="result.state != 'CLOSED' && (result.origine == 'S' || result.doodleReference != null) &&  result.participation != null && result.participation.userId != null" class="btn_small btn-default" href="{{pollsDoodleUrl}}{{result.id}}" target=_blank>Modifier ma réponse sur doodle</a>	
-						   </td>						   
-					</tr>
-					</ng-template>
-					<ng-template #btnModification>
 					<tr>
 					   <td align="left" >						 
 							   <div *ngIf="result.origine == 'D'; then doodleUrl else soadleLabel"></div>
@@ -124,11 +62,11 @@
 						<tr>
 						<TD></TD>
 						  <TD colspan=2>
-						     <!-- <div *ngIf="result.origine == 'S'">
+						     <div *ngIf="result.origine == 'S'">
 							 <app-map [idAdressMap]="idAdressMap">
 							    loading...
 							 </app-map>
-							</div>-->
+							</div>
 						  </TD>
 						</tr>		
 						<tr>
@@ -145,8 +83,7 @@
 								 <button class="btn_small btn-default"  (click)="saveMeeting(result.id, idTitle1.value, idDescription1.value, idDate1.value  + ' ' + idHeure1.value, idName1.value, idAdress1.value, idTags1.value, result.origine)" >Enregistrer</button>&nbsp;								
 							     <button class="btn_small btn-default"  (click)="annulModif()" >Annuler</button>
 							</td>		
-						</tr>	
-				</ng-template>						
+						</tr>						
 				</tbody>
 			</table>
 		</div>

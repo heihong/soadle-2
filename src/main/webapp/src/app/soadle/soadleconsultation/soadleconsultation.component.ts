@@ -12,11 +12,11 @@ import { Constants } from './../constants/constants';
  * composant  detail d'un soadle/doodle 
  */
 @Component( {
-    selector: 'app-soadledetail',
-    templateUrl: './soadledetail.component.html',
+    selector: 'app-soadleconsultation',
+    templateUrl: './soadleconsultation.component.html',
     styleUrls: ['../../app.component.css', '../../bootstrap.min.css']
 } )
-export class SoadleDetailComponent {
+export class SoadleConsultationComponent {
     
     //@ViewChild("idAdress1")
     //public idAdressMap: ElementRef;
@@ -32,6 +32,8 @@ export class SoadleDetailComponent {
 
     @Output() eventgetSoadle = new EventEmitter();
     @Output() eventgetDoodle = new EventEmitter();
+    @Output() eventmodificationMeeting = new EventEmitter();
+    @Output() eventannulModif          = new EventEmitter();
 
     googleMapUrl = Constants.CONST_GOOGLE_MAP_URL;
     pollsDoodleUrl = Constants.CONST_POLLS_DOODLE_URL;
@@ -44,39 +46,20 @@ export class SoadleDetailComponent {
     constructor( private soadleService: SoadleService, private doodleService: DoodleService ) {
     }
 
+
     /**
      * Affichage ecran de modification d'un évènement 
-     * @param id          : id évènement 
-     *        indicateur  : indicateur d'évènement : 1 = spadle , 2 = doodle
+     * @param indicateur  : indicateur d'évènement : 1 = spadle , 2 = doodle
      */
-    private modificationMeeting( id, indicateur ): void {
-        this.indModif = indicateur;
+    private modificationMeeting(indicateur ): void {
+        this.eventmodificationMeeting.emit(indicateur);
     }
 
     /**
      * Annulation modification  
      */
     private annulModif(): void {
-        this.indModif = null;
-    }
-
-    /**
-     * Enregestrement des tags d'un évènement 
-     * @param id          : identifiant soadle ou doodle
-     *        tags        : tags de l'éveènement 
-     *        Origine     : origine de l'évènement : S = soadle , D = doodle
-     * @return : Object SoadleMettenig d'origine doodle
-     */
-    private saveMeeting( id, title, description, date, name, address, tags, origine ): void {
-        if ( origine == 'S' )
-         {
-            this.soadleService.saveMeeting( id, title, description, date, name, address, tags )
-                .subscribe( response => this.eventgetSoadle.emit( id ), e => this.handleError( e ) );
-         } else
-         {        
-             this.doodleService.saveMeeting( id, title, description, date, name, address, tags )
-               .subscribe( response => this.eventgetDoodle.emit( id ), e => this.handleError( e ) );
-         }            
+        this.eventannulModif.emit();
     }
 
     /**

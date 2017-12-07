@@ -27,9 +27,14 @@
 			<app-soadlecreation [indCreate]="indCreate"  [result]="result" (eventgetMeeting)="getMeeting($event)" (eventList)="getList($event)"></app-soadlecreation>
 		</div>
 
-		<div *ngIf="result" width="100%">
-			  <app-soadledetail [result]="result" [resulUser]="resulUser" [indModif]="indModif" (eventgetSoadle)="getSoadle($event)"  (eventgetDoodle)="getDoodle($event)"></app-soadledetail>
+		<div *ngIf="result && indModif" width="100%">
+			  <app-soadlemodification [result]="result" [resulUser]="resulUser" [indModif]="indModif" (eventgetSoadle)="getSoadle($event)"  (eventgetDoodle)="getDoodle($event)" (eventmodificationMeeting)="modificationMeeting($event)" (eventannulModif)="annulModif($event)"></app-soadlemodification>
 		</div>
+		
+		<div *ngIf="result && !indModif" width="100%">
+			  <app-soadleconsultation [result]="result" [resulUser]="resulUser" [indModif]="indModif" (eventgetSoadle)="getSoadle($event)"  (eventgetDoodle)="getDoodle($event)" (eventmodificationMeeting)="modificationMeeting($event)" (eventannulModif)="annulModif($event)"></app-soadleconsultation>
+		</div>
+		
 
 		<div style="height: 370px; overflow-y: auto; overflow-x: hidden;" *ngIf="resultList">
 				<app-soadlelist [resultList]="resultList" (eventgetSoadle)="getSoadle($event)"  (eventgetDoodle)="getDoodle($event)" (eventList)="getList($event)"></app-soadlelist>

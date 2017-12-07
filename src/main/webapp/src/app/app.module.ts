@@ -9,7 +9,8 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import {SoadleComponent} from './soadle/soadle.component';
 import {SoadleListComponent} from './soadle/soadlelist/soadlelist.component';
-import {SoadleDetailComponent} from './soadle/soadledetail/soadledetail.component';
+import {SoadleConsultationComponent} from './soadle/soadleconsultation/soadleconsultation.component';
+import {SoadleModificationComponent} from './soadle/soadlemodification/soadlemodification.component';
 import {SoadleCreationComponent} from './soadle/soadlecreation/soadlecreation.component';
 import {GoogleMapComponent} from './soadle/google/googlemap.component';
 
@@ -18,7 +19,8 @@ import {GoogleMapComponent} from './soadle/google/googlemap.component';
     AppComponent,
     SoadleComponent,
     SoadleListComponent,
-    SoadleDetailComponent,
+    SoadleConsultationComponent,
+    SoadleModificationComponent,
     SoadleCreationComponent,
     GoogleMapComponent
   ],
