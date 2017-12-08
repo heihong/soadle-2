@@ -58,9 +58,9 @@ export class SoadleService {
      *        tags        : tags de l'évènement 
      * @return : Object SoadleMettenig d'origine soadle
      */
-    public crateEvent( title, description, date, name, address, tags,url1,url2 ) {
+    public crateEvent( title, description, date, name, address, tags, pictures) {
         return this.http
-            .post( this.soadleUrl, { title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags,pictures:[{url:url1}, {url:url2}] } )
+            .post( this.soadleUrl, { title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags,pictures:pictures} )
             .map( response => response.json() );
     }
 
@@ -76,8 +76,8 @@ export class SoadleService {
      *        url2        : url image 2  
      * @return : Object SoadleMettenig d'origine doodle
      */
-    public saveMeeting( id, title, description, date, name, address, tags, url1, url2) {
-        return this.http.put( this.soadleUrl + id, {id:id, title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags, pictures:[{url:url1}, {url:url2}]} );
+    public saveMeeting( id, title, description, date, name, address, tags, pictures) {
+        return this.http.put( this.soadleUrl + id, {id:id, title: title, description: description, options: [{ date: date }], location: { name: name, address: address }, tags: tags, pictures:pictures} );
     }
 
     /**

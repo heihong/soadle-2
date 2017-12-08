@@ -71,14 +71,14 @@ export class SoadleModificationComponent {
      *        url2        : url image 2        
      * @return : Object SoadleMettenig d'origine doodle
      */
-    private saveMeeting( id, title, description, date, name, address, tags, origine, url1, url2): void {
+    private saveMeeting( id, title, description, date, name, address, tags, origine, pictures): void {
         if ( origine == 'S' )
          {
-            this.soadleService.saveMeeting( id, title, description, date, name, address, tags, url1, url2)
+            this.soadleService.saveMeeting( id, title, description, date, name, address, tags, pictures)
                 .subscribe( response => this.eventgetSoadle.emit( id ), e => this.handleError( e ) );
          } else
          {        
-             this.doodleService.saveMeeting( id, title, description, date, name, address, tags, url1, url2)
+             this.doodleService.saveMeeting( id, title, description, date, name, address, tags, pictures)
                .subscribe( response => this.eventgetDoodle.emit( id ), e => this.handleError( e ) );
          }            
     }

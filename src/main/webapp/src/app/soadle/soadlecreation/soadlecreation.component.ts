@@ -48,12 +48,12 @@ export class SoadleCreationComponent {
      *        adress      : adress de lieu d'évènement
      *        tags        : tags de l'évenement 
      */
-    private crateEvent( title, description, date, name, address, tags,url1,url2 ): void {
+    private crateEvent( title, description, date, name, address, tags, pictures): void {
         if ( this.indCreate == 1 ) {
-            this.soadleService.crateEvent( title, description, date, name, address, tags,url1,url2 )
+            this.soadleService.crateEvent( title, description, date, name, address, tags, pictures)
                 .subscribe( response => this.eventgetMeeting.emit( response.id ), e => this.handleError( e ) );
         } else {
-            this.doodleService.crateEvent( title, description, date, name, address, tags,url1,url2)
+            this.doodleService.crateEvent( title, description, date, name, address, tags, pictures)
                 .subscribe( response => this.eventgetMeeting.emit( response.id ), e => this.handleError( e ) );
         }
 

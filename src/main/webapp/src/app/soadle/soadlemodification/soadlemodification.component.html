@@ -86,10 +86,11 @@
 							<td><b>Images :</b></td>
 							<td>
 							     <input  #idUrl1 placeholder="" required value="{{(result.pictures && result.pictures.length > 0 ) ? result.pictures[0].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"/><br>
-							     <input  #idUrl2 placeholder="" required value="{{(result.pictures && result.pictures.length > 1 ) ? result.pictures[1].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"/>
+							     <input  #idUrl2 placeholder="" required value="{{(result.pictures && result.pictures.length > 1 ) ? result.pictures[1].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"/><br>
+							     <input  #idUrl3 placeholder="" required value="{{(result.pictures && result.pictures.length > 2 ) ? result.pictures[2].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"/>
 							</td>
 							<td align="right">
-								 <button class="btn_small btn-default"  (click)="saveMeeting(result.id, idTitle1.value, idDescription1.value, idDate1.value  + ' ' + idHeure1.value, idName1.value, idAdress1.value, idTags1.value, result.origine,idUrl1.value,idUrl2.value)" >Enregistrer</button>&nbsp;								
+								 <button class="btn_small btn-default"  (click)="saveMeeting(result.id, idTitle1.value, idDescription1.value, idDate1.value  + ' ' + idHeure1.value, idName1.value, idAdress1.value, idTags1.value, result.origine,[{'url':idUrl1.value}, {'url':idUrl2.value}, {'url':idUrl3.value}])" >Enregistrer</button>&nbsp;								
 							     <button class="btn_small btn-default"  (click)="annulModif()" >Annuler</button>
 							</td>		
 						</tr>						

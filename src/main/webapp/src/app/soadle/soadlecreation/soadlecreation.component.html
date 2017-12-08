@@ -51,11 +51,12 @@
 					<td><b>Images :</b></td>
 					  <td>
 							<input  #idUrl1 placeholder="" required value="" style="background-color: #b8dc6f; height: 25px; width: 300px;"/><br>
-							<input  #idUrl2 placeholder="" required value="" style="background-color: #b8dc6f; height: 25px; width: 300px;"/>
+							<input  #idUrl2 placeholder="" required value="" style="background-color: #b8dc6f; height: 25px; width: 300px;"/><br>
+							<input  #idUrl3 placeholder="" required value="" style="background-color: #b8dc6f; height: 25px; width: 300px;"/>
 					   </td>
 					<tr>
 					    <td></td>
-					    <td align="left"><div *ngIf="indCreate==1 || indCreate==2"><button class="btn btn-default"  (click)="crateEvent(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value, idName.value, idAdress.value, idTags.value,idUrl1.value,idUrl2.value)" >{{indCreate==1 ? 'Enregistrer soadle' : 'Enregistrer doodle' }}</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div></td>
+					    <td align="left"><div *ngIf="indCreate==1 || indCreate==2"><button class="btn btn-default"  (click)="crateEvent(idTitle.value, idDescription.value, idDate.value + ' ' + idHeure.value, idName.value, idAdress.value, idTags.value,[{'url':idUrl1.value}, {'url':idUrl2.value}, {'url':idUrl3.value}])" >{{indCreate==1 ? 'Enregistrer soadle' : 'Enregistrer doodle' }}</button>&nbsp;<button class="btn btn-default" (click)="getList()">Annuler</button></div></td>
 					<td></td>
 					</tr>
 				</tbody>

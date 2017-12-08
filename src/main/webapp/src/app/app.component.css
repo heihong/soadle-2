@@ -33,8 +33,8 @@ text-align:center;
     width: 35px;
 }
 .p-img-tab-zomme img:hover {
-  width:300px;
-  height:300px;
+  width:500px;
+  height:auto;
 }
 
 .btn_small {
