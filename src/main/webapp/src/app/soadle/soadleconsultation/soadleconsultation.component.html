@@ -15,7 +15,7 @@
 							    <ng-template #doodleUrl><a href="{{pollsDoodleUrl}}{{result.id}}" target=_blank><b>{{result.state == 'CLOSED' ? 'Doodle fermé :' :'Doodle :'}}</b></a></ng-template>
 							    <ng-template #soadleLabel><b><font color="#6B8E23">{{result.state == 'CLOSED' ? 'Soadle fermé :' :'Soadle :'}}</font></b></ng-template>					  					
 						</td>
-						<td></td>
+						<td>{{result.id}}</td>
 						<td></td>
 					</tr>
 					<tr>					

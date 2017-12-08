@@ -33,6 +33,10 @@ export class SoadleComponent implements OnInit {
      */  
     resultList = null;
     
+    indFilter = null;
+    
+    indAfficheMeetin = null;
+    
    /**
     *  indicateur affichage detail de creation 
     */  
@@ -69,7 +73,12 @@ export class SoadleComponent implements OnInit {
         this.indCreate = null;
         this.indModif = null;
     }
-
+    
+    private initSousBar()
+    {
+        this.indFilter = null;
+        this.indAfficheMeetin = null;
+    }
     /**
      * recuperation d'un soadle a partir de son Id
      * @param id : identifiant soadle
@@ -113,6 +122,12 @@ export class SoadleComponent implements OnInit {
      */
     private getList( tags ): void {
         this.initIHM();
+        
+        if(tags == null || tags == '')
+        {
+            this.initSousBar();
+        }
+        
         this.soadleService.getList( tags )
             .subscribe( response => this.resultList = response, e => this.resultList = null );
     }
@@ -125,9 +140,7 @@ export class SoadleComponent implements OnInit {
         this.initIHM();
         this.indCreate = indicateur;
     }
-
-    
-
+   
     /**
      * Affichage ecran de modification d'un évènement 
      * @param indicateur  : indicateur d'évènement : 1 = spadle , 2 = doodle
@@ -141,6 +154,28 @@ export class SoadleComponent implements OnInit {
      */
     private annulModif(): void {
         this.indModif = null;
+    }
+    
+    private filter() : void {
+        if(this.indFilter == null)
+        {
+            this.initSousBar();
+            this.indFilter = 1;
+        } else
+        {
+            this.indFilter = null;
+        }
+    }
+    
+    private afficheMeeting() : void {
+        if(this.indAfficheMeetin== null)
+        {
+            this.initSousBar();
+            this.indAfficheMeetin = 1;
+        } else
+        {
+            this.indAfficheMeetin = null;
+        }
     }
     
     /**
