@@ -66,7 +66,7 @@ public class DoodleRepositorieServiceImpl implements DoodleRepositorieService  {
 								meeting.setTags(optional.get().getTags());
 								meeting.setDoodleReference(optional.get().getDoodleReference());
 								meeting.setImportationDate(optional.get().getImportationDate());
-								//meeting.setPictures(optional.get().getPictures().stream().collect(Collectors.toSet()));
+								meeting.setPictures(optional.get().getPictures());
 							};
 							return meeting;
     			       }

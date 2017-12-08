@@ -21,21 +21,21 @@
 					<tr>					
 						 <td><b>Titre de l'evenement :</b></td>
 							<td>
-							    <input #idTitle1 placeholder="" [disabled]="result.origine == 'D'" required value="{{result.title}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}">				    
+							    <input #idTitle1 placeholder="" [disabled]="result.origine == 'D'" required value="{{result.title}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}"/>				    
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td><b>Description de l'evenement :</b></td>
 							<td>
-							   <input #idDescription1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.description}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}">
+							   <input #idDescription1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.description}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}"/>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td><b>Date de l'evenement :</b></td>
 							<td>
-							  <input #idDate1 placeholder="" type="date" [disabled]="result.origine == 'D'"  required value="{{result.options[0].date  | date: 'yyyy-MM-dd'}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '120px'}"> Heure : <input #idHeure1 placeholder="" type="time" required value="{{result.options[0].date  | date: 'hh:mm'}}" [disabled]="result.origine == 'D'" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '60px'}">
+							  <input #idDate1 placeholder="" type="date" [disabled]="result.origine == 'D'"  required value="{{result.options[0].date  | date: 'yyyy-MM-dd'}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '120px'}"/> Heure : <input #idHeure1 placeholder="" type="time" required value="{{result.options[0].date  | date: 'hh:mm'}}" [disabled]="result.origine == 'D'" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '60px'}"/>
 							</td>
 							<td></td>
 						</tr>
@@ -48,14 +48,14 @@
 						<tr>
 							<td><b>Lieu de l'evenement :</b></td>
 							<td>
-							  <input #idName1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.location.name}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}">							  
+							  <input #idName1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.location.name}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}"/>							  
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td><b>Adresse de lieu de l'evenement :</b></td>
 							<td>
-							  <input #idAdress1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.location.address}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}">
+							  <input #idAdress1 placeholder="" [disabled]="result.origine == 'D'"  required value="{{result.location.address}}" [ngStyle]="{'backgroundColor': result.origine == 'S' ? '#b8dc6f' : '#DCDCDC', 'height': '25px', 'width': '300px'}"/>
 							</td>
 							<td></td>
 						</tr>
@@ -77,7 +77,7 @@
 						<tr>
 							<td><b>Tags :</b></td>
 							<td>
-							     <input  #idTags1 placeholder="" required value="{{result.tags}}" style="background-color: #b8dc6f; height: 25px; width: 300px;">
+							     <input  #idTags1 placeholder="" required value="{{result.tags}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"/>
 							</td>
 							<td>								 
 							</td>		
@@ -85,8 +85,8 @@
 						<tr>
 							<td><b>Images :</b></td>
 							<td>
-							     <input  #idUrl1 placeholder="" required value="{{(result.pictures && result.pictures.length > 0 ) ? result.pictures[0].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"><br>
-							     <input  #idUrl2 placeholder="" required value="{{(result.pictures && result.pictures.length > 1 ) ? result.pictures[1].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;">
+							     <input  #idUrl1 placeholder="" required value="{{(result.pictures && result.pictures.length > 0 ) ? result.pictures[0].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"/><br>
+							     <input  #idUrl2 placeholder="" required value="{{(result.pictures && result.pictures.length > 1 ) ? result.pictures[1].url : ''}}" style="background-color: #b8dc6f; height: 25px; width: 300px;"/>
 							</td>
 							<td align="right">
 								 <button class="btn_small btn-default"  (click)="saveMeeting(result.id, idTitle1.value, idDescription1.value, idDate1.value  + ' ' + idHeure1.value, idName1.value, idAdress1.value, idTags1.value, result.origine,idUrl1.value,idUrl2.value)" >Enregistrer</button>&nbsp;								
@@ -109,10 +109,10 @@
 				<tbody>
 					<tr *ngFor="let participant of result.participants; let idx = index" [ngStyle]="{'backgroundColor': participant.preference == true ? '#b8dc6f' : '#ffc0cb' }">
 						<td class="col">{{idx}}</td>
-						<td class="col" align="right"><img class="p-img-tab" alt="" src="{{participant.smallAvatarUrl}}"></td>
+						<td class="col" align="right"><img class="p-img-tab" alt="" src="{{participant.smallAvatarUrl}}"/></td>
 						<td class="col">{{participant.name}}</td>
 						<td class="col">
-						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" [disabled]="result.origine == 'S' || participant.userId != null || result.state == 'CLOSED'" >
+						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" [disabled]="result.origine == 'S' || participant.userId != null || result.state == 'CLOSED'" (click)="participe(participant, !participant.preference , result.id, result.origine, participant.name, participant.email, participant.smallAvatarUrl)" />
 						</td>
 					</tr>
 				</tbody>

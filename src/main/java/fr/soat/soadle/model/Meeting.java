@@ -6,6 +6,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
  * @author hakim
  */
@@ -66,6 +69,7 @@ public class Meeting implements Serializable {
 	
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name="MEETING_ID", referencedColumnName="MEETING_ID")
+	@Fetch(FetchMode.JOIN) 
 	private Set<Picture> pictures;
 
 	private String optionsHash;

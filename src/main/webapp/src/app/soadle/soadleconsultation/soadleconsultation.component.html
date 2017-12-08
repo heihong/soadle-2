@@ -61,7 +61,7 @@
 							     <tr>
 							      <td *ngFor="let picture of result.pictures" >
 							        <div class="p-img-tab-zomme">
-							          <img alt="" src="{{picture.url}}">
+							          <img alt="" src="{{picture.url}}"/>
 							        </div>
 							      </td>
 							      </tr>
@@ -92,10 +92,10 @@
 				<tbody>
 					<tr *ngFor="let participant of result.participants; let idx = index" [ngStyle]="{'backgroundColor': participant.preference == true ? '#b8dc6f' : '#ffc0cb' }">
 						<td class="col">{{idx}}</td>
-						<td class="col" align="right"><img class="p-img-tab" alt="" src="{{participant.smallAvatarUrl}}"></td>
+						<td class="col" align="right"><img class="p-img-tab" alt="" src="{{participant.smallAvatarUrl}}"/></td>
 						<td class="col">{{participant.name}}</td>
 						<td class="col">
-						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" [disabled]="result.origine == 'S' || participant.userId != null || result.state == 'CLOSED'" >
+						  <INPUT type="checkbox" name="choix{{idx}}" [checked]="participant.preference" [disabled]="result.origine == 'S' || participant.userId != null || result.state == 'CLOSED'" (click)="participe(participant, !participant.preference , result.id, result.origine, participant.name, participant.email, participant.smallAvatarUrl)" />
 						</td>
 					</tr>
 				</tbody>
