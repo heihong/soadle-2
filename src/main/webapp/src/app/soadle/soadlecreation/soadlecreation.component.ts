@@ -63,7 +63,7 @@ export class SoadleCreationComponent {
      * recuperation de la liste des évènements sans filtre
      */
     private getList(): void {
-        this.eventList.emit( '' );
+        this.eventList.emit();
     }
 
     /**

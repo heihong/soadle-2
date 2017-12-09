@@ -10,9 +10,8 @@
 				<tbody>
 					<tr>
 						<TD align="left">
-						    <button class="btn btn-default" (click)="getList('')">Liste des évènements</button>&nbsp;
-						    <button class="btn btn-default" (click)="filter()">Filtre</button>&nbsp;
-							<button class="btn btn-default" (click)="afficheMeeting()">Afficher un évènement</button>				
+						    <button class="btn btn-default" (click)="getList()">Liste des évènements</button>&nbsp;
+						    <button class="btn btn-default" (click)="filter()">Recherche avancée</button>				
 						</TD>
 						<TD align="right">
 							<button class="btn btn-default" (click)="create(1)" *ngIf="!indCreate" >Créer un soadle</button>&nbsp;	
@@ -24,31 +23,24 @@
 		</div>
 		
 		
-        <div style="border-bottom: 1px solid #b8dc6f; margin-top: 3px;" *ngIf="indFilter || indAfficheMeetin" with="100%">
+        <div style="border-bottom: 1px solid #b8dc6f; margin-top: 3px;" *ngIf="indFilter" with="100%">
             <table width="100%">
 				<tr>
-				    <th width="50%"></th>
-					<th width="50%"></th>
+				    <th width="100%"></th>
 				</tr>
 				<tbody>
 					<tr *ngIf="indFilter">
 						<td align="left">
-                           <button class="btn_small btn-default" (click)="getList(idListTags.value.trim())">Filtrer</button>&nbsp;<input #idListTags placeholder="filtre par tags" required value="" style="background-color: #cce698; height: 25px; width: 200px;"/>
+                           <button class="btn_small btn-default" (click)="recherche(idListTags.value.trim(), idMeetingAffiche.value.trim(),idDateDebut.value,idDateFin.value)">Rechercher</button>&nbsp;Titre/Tags:&nbsp;<input #idListTags placeholder="filtre par tags" required value="" style="background-color: #cce698; height: 25px; width: 150px;"/>&nbsp;Entre :&nbsp;<input #idDateDebut placeholder="" type="date" required value="" style="background-color: #cce698; height: 25px; width: 120px;"/>&nbsp;et&nbsp;<input #idDateFin placeholder="" type="date" required value="" style="background-color: #cce698; height: 25px; width: 120px;"/>&nbsp;Identifiant:&nbsp;<input #idMeetingAffiche placeholder="identifiant évènement" required value="" style="background-color: #cce698; height: 25px; width: 200px;"/>
                         </td>
                         <td></td>
-                     </tr>
-                     <tr *ngIf="indAfficheMeetin">
-						<td align="left">
-                           <button class="btn_small btn-default" (click)="getMeeting(idMeetingAffiche.value.trim())">Afficher l'évènement</button>&nbsp;<input #idMeetingAffiche placeholder="identifiant évènement" required value="" style="background-color: #cce698; height: 25px; width: 200px;"/>
-                        </td>
-                        <td></td>
-                     </tr>
+                     </tr>                     
                    </tbody>
              </table>					     
 	    </div>
 												
 		<div style="padding: 3px; margin-top: 3px; border: 2px solid #b8dc6f;" *ngIf="indCreate">
-			<app-soadlecreation [indCreate]="indCreate"  [result]="result" (eventgetMeeting)="getMeeting($event)" (eventList)="getList($event)"></app-soadlecreation>
+			<app-soadlecreation [indCreate]="indCreate"  [result]="result" (eventgetMeeting)="getMeeting($event)" (eventList)="getList()"></app-soadlecreation>
 		</div>
 
 		<div *ngIf="result && indModif" width="100%">
@@ -60,5 +52,5 @@
 		</div>		
      
 		<div style="height: 370px; overflow-y: auto; overflow-x: hidden;" *ngIf="resultList">
-				<app-soadlelist [resultList]="resultList" (eventgetSoadle)="getSoadle($event)"  (eventgetDoodle)="getDoodle($event)" (eventList)="getList($event)"></app-soadlelist>
+				<app-soadlelist [resultList]="resultList" (eventgetSoadle)="getSoadle($event)"  (eventgetDoodle)="getDoodle($event)" (eventList)="getList()"></app-soadlelist>
 		</div>

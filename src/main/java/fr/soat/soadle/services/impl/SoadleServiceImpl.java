@@ -1,5 +1,6 @@
 package fr.soat.soadle.services.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -59,18 +60,30 @@ public class SoadleServiceImpl implements SoadleService {
 
     
     /**
-     * @see fr.soat.soadle.services.SoadleService#findAll(java.lang.String)
+     * @see fr.soat.soadle.services.SoadleService#findAll()
      */
     @Override
-    public List<Meeting> findAll(String tag) {
-    	if(StringUtils.isBlank(tag))
-    	{
-    		return meetingRepository.findAll();
-    	} 
+    public List<Meeting> findAll() {
+       return meetingRepository.findAll();
+   } 
     	  
+    
+   
+    /**
+     * @see fr.soat.soadle.services.SoadleService#findAll(java.lang.String, java.util.Date, java.util.Date)
+     */
+    @Override
+    public List<Meeting> findAll(String tag,Date dateDebut, Date dateFin) {
+    	
+    	  
+    	if( StringUtils.isBlank(tag))
+    	{
+    		return meetingRepository.findByDate(dateDebut,dateFin);
+    	} 
+    	
     	String tags[] = tag.trim().split(" ");
     	  
-    	List<Meeting> meetings = meetingRepository.findByTag(tags[0]);
+    	List<Meeting> meetings = meetingRepository.findByTag(tags[0],dateDebut,dateFin);
     	
     	if(meetings !=null && tags.length > 1)
     	{

@@ -1,8 +1,10 @@
 package fr.soat.soadle.web.api.rest.v1;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import fr.soat.soadle.model.Meeting;
@@ -51,7 +53,7 @@ public class SoadleController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public List<SoadleMeeting> all() {
 
-		return SoadleTransformer.to(soadleService.findAll(null));
+		return SoadleTransformer.to(soadleService.findAll());
 	}
 	
 	/**
@@ -68,10 +70,12 @@ public class SoadleController {
 	 * @param tag
 	 * @return
 	 */
-	@RequestMapping(value = "/tags/{tag}", method = RequestMethod.GET)
-	public List<SoadleMeeting> allTag(@PathVariable("tag") String tag) {
+	@RequestMapping(value = "/filter", method = RequestMethod.GET)
+	public List<SoadleMeeting> allTag(@RequestParam("tag") String tag, 
+			                          @RequestParam("dateDebut") @DateTimeFormat(pattern="yyyy-MM-dd") Date dateDebut, 
+			                          @RequestParam("dateFin") @DateTimeFormat(pattern="yyyy-MM-dd") Date dateFin) {
 
-		return SoadleTransformer.to(soadleService.findAll(tag));
+		return SoadleTransformer.to(soadleService.findAll(tag,dateDebut, dateFin ));
 	}
 		
 

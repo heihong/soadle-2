@@ -14,7 +14,7 @@ export class SoadleService {
     private baseUrl = "";
 
     private soadleUrl = Constants.CONST_BASEURL + "/api/v1/soadle/";
-    private tagUrl = Constants.CONST_BASEURL + "/api/v1/soadle/tags/";
+    private filterUrl = Constants.CONST_BASEURL + "/api/v1/soadle/filter";
     private participeSoadleUrl = Constants.CONST_BASEURL + "/api/v1/soadle/participe/";
 
     /**
@@ -33,19 +33,23 @@ export class SoadleService {
         return this.http.get( this.soadleUrl + id ).map( response => response.json() );
     }
 
+    
+    
+    public getList()
+    {
+        return this.http.get( this.soadleUrl )
+        .map( response => response.json() );
+    }
+    
     /**
      * recuperation de la liste des évènements avec un filtre sur le tag
      * @param tags : tags (filtre)
      * @return : List SoadleMettenig d'origine soadle et doodle filtré par tags
      */
-    public getList( tags ) {
-        if ( tags ) {
-            return this.http.get( this.tagUrl + tags )
+    public getListFilter( tags , dateDebut, dateFin) {
+            return this.http.get( this.filterUrl + '?tag='+tags+'&dateDebut='+dateDebut+'&dateFin='+dateFin)
                 .map( response => response.json() );
-        } else {
-            return this.http.get( this.soadleUrl )
-                .map( response => response.json() );
-        }
+       
     }
 
     /**

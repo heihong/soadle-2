@@ -33,9 +33,7 @@ export class SoadleComponent implements OnInit {
      */  
     resultList = null;
     
-    indFilter = null;
-    
-    indAfficheMeetin = null;
+    indFilter = null;    
     
    /**
     *  indicateur affichage detail de creation 
@@ -60,7 +58,7 @@ export class SoadleComponent implements OnInit {
      */
     ngOnInit() {
         if ( this.resulUser != null ) {
-            this.getList( '' );
+            this.getList();
         }
     }
 
@@ -77,7 +75,6 @@ export class SoadleComponent implements OnInit {
     private initSousBar()
     {
         this.indFilter = null;
-        this.indAfficheMeetin = null;
     }
     /**
      * recuperation d'un soadle a partir de son Id
@@ -120,15 +117,11 @@ export class SoadleComponent implements OnInit {
      * recuperation de la liste des évènements avec un filtre sur le tag
      * @param tags : tags (filtre)
      */
-    private getList( tags ): void {
+    private getList(): void {
         this.initIHM();
-        
-        if(tags == null || tags == '')
-        {
-            this.initSousBar();
-        }
-        
-        this.soadleService.getList( tags )
+        this.initSousBar();
+
+        this.soadleService.getList()
             .subscribe( response => this.resultList = response, e => this.resultList = null );
     }
 
@@ -166,15 +159,17 @@ export class SoadleComponent implements OnInit {
             this.indFilter = null;
         }
     }
+   
     
-    private afficheMeeting() : void {
-        if(this.indAfficheMeetin== null)
+    recherche(tags, meetingAffiche, dateDebut, dateFin)
+    {
+        if(meetingAffiche != null && meetingAffiche != '' )
         {
-            this.initSousBar();
-            this.indAfficheMeetin = 1;
+            this.getMeeting(meetingAffiche);
         } else
         {
-            this.indAfficheMeetin = null;
+            this.soadleService.getListFilter(tags, dateDebut, dateFin)
+            .subscribe( response => this.resultList = response, e => this.resultList = null );
         }
     }
     

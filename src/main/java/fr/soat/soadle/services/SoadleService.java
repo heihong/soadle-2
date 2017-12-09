@@ -1,5 +1,6 @@
 package fr.soat.soadle.services;
 
+import java.util.Date;
 import java.util.List;
 
 import fr.soat.soadle.model.Meeting;
@@ -19,10 +20,18 @@ public interface SoadleService {
 	
 	
 	/**
-	 * @param tag
 	 * @return
 	 */
-	List<Meeting> findAll(String tag);
+	List<Meeting> findAll();
+	
+	
+	/**
+	 * @param tag
+	 * @param dateFin 
+	 * @param dateDebut 
+	 * @return
+	 */
+	List<Meeting> findAll(String tag, Date dateDebut, Date dateFin);
 	
 	
     /**

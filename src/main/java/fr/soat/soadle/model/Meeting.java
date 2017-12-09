@@ -54,13 +54,16 @@ public class Meeting implements Serializable {
 	private String tags;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@Fetch(FetchMode.JOIN) 
 	private Location location;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@Fetch(FetchMode.JOIN) 
 	private Participant initiator;
 
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name="MEETING_ID", referencedColumnName="MEETING_ID")
+	@Fetch(FetchMode.JOIN) 
 	private Set<Option> options;
 
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
