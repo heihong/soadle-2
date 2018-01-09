@@ -77,6 +77,16 @@ public class SoadleController {
 
 		return SoadleTransformer.to(soadleService.findAll(tag,dateDebut, dateFin ));
 	}
+	
+	
+	/**
+	 * @param tag
+	 * @return
+	 */
+	@RequestMapping(value = "/mymeeting", method = RequestMethod.GET)
+	public List<SoadleMeeting> myMeeting() {
+		return SoadleTransformer.to(soadleService.myMeeting());
+	}
 		
 
 	/**

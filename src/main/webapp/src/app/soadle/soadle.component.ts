@@ -124,6 +124,18 @@ export class SoadleComponent implements OnInit {
         this.soadleService.getList()
             .subscribe( response => this.resultList = response, e => this.resultList = null );
     }
+    
+    /**
+     * recuperation de la liste des évènements d'utilisateur 
+     */
+    private getMyList(): void {
+        this.initIHM();
+        this.initSousBar();
+
+        this.soadleService.getMyList()
+            .subscribe( response => this.resultList = response, e => this.resultList = null );
+    }
+
 
     /**
      * Affichage de bloc de cretaion d'un évènement 

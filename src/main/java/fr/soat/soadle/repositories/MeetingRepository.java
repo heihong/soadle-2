@@ -34,6 +34,16 @@ public interface MeetingRepository extends JpaRepository<Meeting, String> {
 	
 			
 	/**
+	 * @param tag
+	 * @return
+	 */
+	@Query("select m from Meeting m "+
+			"where exists(select p from Participant p where m.id = p.mettnigId " +
+			 " AND (p.email = :email OR p.name = :name ))"
+			)	
+	List<Meeting> findByEmailName(@Param("email") String email, @Param("name") String name);
+	
+	/**
 	 * @param id
 	 */
 	@Modifying(clearAutomatically = true)

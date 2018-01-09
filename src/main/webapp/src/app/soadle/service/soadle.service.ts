@@ -15,6 +15,7 @@ export class SoadleService {
 
     private soadleUrl = Constants.CONST_BASEURL + "/api/v1/soadle/";
     private filterUrl = Constants.CONST_BASEURL + "/api/v1/soadle/filter";
+    private myMeetingUrl = Constants.CONST_BASEURL + "/api/v1/soadle/mymeeting";
     private participeSoadleUrl = Constants.CONST_BASEURL + "/api/v1/soadle/participe/";
 
     /**
@@ -34,10 +35,24 @@ export class SoadleService {
     }
 
     
-    
+    /**
+     * recuperation de la liste des évènements     
+     * @return : List SoadleMettenig d'origine soadle et doodle 
+     */
     public getList()
     {
         return this.http.get( this.soadleUrl )
+        .map( response => response.json() );
+    }
+    
+    
+    /**
+     * recuperation de la liste des évènements d'utilisateur connecté     
+     * @return : List SoadleMettenig d'origine soadle et doodle 
+     */
+    public getMyList()
+    {
+        return this.http.get( this.myMeetingUrl )
         .map( response => response.json() );
     }
     

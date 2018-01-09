@@ -34,6 +34,12 @@ public interface SoadleService {
 	List<Meeting> findAll(String tag, Date dateDebut, Date dateFin);
 	
 	
+	/**
+	 * @return
+	 */
+	List<Meeting> myMeeting();
+	
+	
     /**
      * @param meeting
      * @return

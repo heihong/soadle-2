@@ -109,6 +109,16 @@ public class SoadleServiceImpl implements SoadleService {
     	return meetings;
     	  
     }
+    
+    /**
+     * @see fr.soat.soadle.services.SoadleService#myMeeting()
+     */
+    @Override
+    public List<Meeting> myMeeting()
+    {
+    	SoadleAuthentication authentication = authenticationService.getAuthentication();
+    	return meetingRepository.findByEmailName(authentication.getMail(),authentication.getName());
+    }
 
     /**
      * @see fr.soat.soadle.services.SoadleService#save(fr.soat.soadle.model.Meeting)
